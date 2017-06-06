@@ -12,10 +12,13 @@ static void OnConfigurationChagned(ANativeActivity* activity) {
 
 static void OnInputQueueCreated(ANativeActivity* activity, AInputQueue* queue) {
 	LOGD("OnInputQueueCreated");
+	NativeApp::app->inputQueue = queue;
+	write_cmd(CMD_INPUT_CREATED);
 }
 
 static void OnInputQueueDestroyed(ANativeActivity* activity, AInputQueue* queue) {
 	LOGD("OnInputQueueDestroyed");
+	write_cmd(CMD_INPUT_DESTROYED);
 }
 
 static void OnLowMemory(ANativeActivity* activity) {
@@ -24,6 +27,7 @@ static void OnLowMemory(ANativeActivity* activity) {
 
 static void OnWindowFocusChagned(ANativeActivity* activity, int focus) {
 	LOGD("OnWindowFocusChagned");
+	write_cmd(focus ? CMD_ON_FOCUS : CMD_ON_FOCUS_LOST);
 }
 
 static void OnDestroy(ANativeActivity* activity) {

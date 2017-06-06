@@ -44,6 +44,7 @@ NativeApp::NativeApp(ANativeActivity* activity) {
 
 	cmd = process_command;
 	input = process_input;
+	OnInput = nullptr;
 }
 
 NativeApp::~NativeApp() {
@@ -153,6 +154,7 @@ void DestroyDisplay() {
 
 void process_command() {
 	int cmd = read_cmd();
+	NativeApp* app = NativeApp::app;
 
 	switch (cmd) {
 	case CMD_WINDOW_CREATE:
@@ -163,17 +165,32 @@ void process_command() {
 		break;
 	case CMD_ON_START:
 	case CMD_ON_RESUME:
-		NativeApp::app->status = APP_STATUS_RUNNING;
+		app->status = APP_STATUS_RUNNING;
 		break;
 	case CMD_ON_PAUSE:
 	case CMD_ON_STOP:
-		NativeApp::app->status = APP_STATUS_PAUSE;
+		app->status = APP_STATUS_PAUSE;
+		break;
+	case CMD_INPUT_CREATED:
+		AInputQueue_attachLooper(app->inputQueue, app->looper, LOOPER_ID_INPUT, 0, (void*)app->input);
+		break;
+	case CMD_INPUT_DESTROYED:
+		AInputQueue_detachLooper(app->inputQueue);
+		app->inputQueue = nullptr;
 		break;
 	}
 }
 
 void process_input() {
+	NativeApp* app = NativeApp::app;
+	AInputEvent* event = nullptr;
+	while (AInputQueue_getEvent(app->inputQueue, &event) >= 0) {
+		if (AInputQueue_preDispatchEvent(app->inputQueue, event)) continue;
 
+		int h = 0;
+		if (app->OnInput) h = app->OnInput(event);
+		AInputQueue_finishEvent(app->inputQueue, event, h);
+	}
 }
 
 int read_cmd() {

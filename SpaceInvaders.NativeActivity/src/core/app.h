@@ -16,12 +16,15 @@
 
 #define CMD_WINDOW_CREATE	0x01
 #define CMD_WINDOW_DESTROY	0x02
-#define CMD_INPUT_CHANGED	0x03
-#define CMD_ON_START		0x04
-#define CMD_ON_STOP			0x05
-#define CMD_ON_PAUSE		0x06
-#define CMD_ON_RESUME		0x07
-#define CMD_ON_DESTROY		0x08
+#define CMD_INPUT_CREATED	0x03
+#define CMD_INPUT_DESTROYED	0x04
+#define CMD_ON_START		0x05
+#define CMD_ON_STOP			0x06
+#define CMD_ON_PAUSE		0x07
+#define CMD_ON_RESUME		0x08
+#define CMD_ON_DESTROY		0x09
+#define CMD_ON_FOCUS		0x0A
+#define CMD_ON_FOCUS_LOST	0x0B
 
 #define APP_STATUS_TERMINATE	0x0
 #define APP_STATUS_RUNNING		0x1
@@ -63,6 +66,7 @@ public:
 	INPUT_CALLBACK OnInput;
 
 	ALooper* looper;
+	AInputQueue* inputQueue;
 
 private:
 	NativeApp(ANativeActivity* activity);

@@ -1,6 +1,7 @@
 #include <core/app.h>
 #include <core/log.h>
 #include <core/def.h>
+#include <android/sensor.h>
 #include <unistd.h>
 
 int OnGameInput(AInputEvent*);
@@ -26,7 +27,12 @@ void* app_main(void*) {
 }
 
 int OnGameInput(AInputEvent* event) {
-
+	
+	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
+		float x = AMotionEvent_getX(event, 0);
+		float y = AMotionEvent_getY(event, 0);
+		LOGD("X: %f Y: %f", x, y);
+	} 
 }
 
 void game_main() {
@@ -34,7 +40,7 @@ void game_main() {
 
 	int ident;
 	int events;
-	CMD_CALLBACK process_cmd;
+	CMD_CALLBACK process_cmd = nullptr;
 
 	glDisable(GL_DEPTH_TEST);
 
@@ -42,7 +48,7 @@ void game_main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		while ((ident = ALooper_pollAll(app->status == 2 ? -1 : 0, nullptr, &events, (void**)&process_cmd)) >= 0) {
-			if (ident == LOOPER_ID_CMD) process_cmd();
+			if (process_cmd) process_cmd();
 		}
 
 
