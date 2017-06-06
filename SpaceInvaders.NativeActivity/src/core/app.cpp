@@ -90,6 +90,11 @@ void InitializeDisplay() {
 		EGL_NONE
 	};
 
+	int context_attrib[]{
+		EGL_CONTEXT_CLIENT_VERSION, 2,
+		EGL_NONE
+	};
+
 	app->display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 	
 	if (eglInitialize(app->display, 0, 0) == 0) {
@@ -108,7 +113,7 @@ void InitializeDisplay() {
 	ANativeWindow_setBuffersGeometry(app->window, 0, 0, format);
 
 	app->surface = eglCreateWindowSurface(app->display, config, app->window, nullptr);
-	app->context = eglCreateContext(app->display, config, nullptr, nullptr);
+	app->context = eglCreateContext(app->display, config, nullptr, context_attrib);
 
 	if (eglMakeCurrent(app->display, app->surface, app->surface, app->context) == 0) {
 		LOGE("Failed to make context current!");
@@ -118,15 +123,15 @@ void InitializeDisplay() {
 	eglQuerySurface(app->display, app->surface, EGL_WIDTH, &app->surface_width);
 	eglQuerySurface(app->display, app->surface, EGL_HEIGHT, &app->surface_height);
 
-	const char* version = eglQueryString(app->display, EGL_VERSION);
-	const char* vendor = eglQueryString(app->display, EGL_VENDOR);
-	const char* extensions = eglQueryString(app->display, EGL_EXTENSIONS);
-	const char* apis = eglQueryString(app->display, EGL_CLIENT_APIS);
-
-	LOGD("EGL Version: %s", version);
-	LOGD("EGL Vendor:  %s", vendor);
-	LOGD("EGL Extensions: %s", extensions);
-	LOGD("EGL Client APIs: %s", apis);
+	
+	LOGD("EGL Version: %s", eglQueryString(app->display, EGL_VERSION));
+	LOGD("EGL Vendor:  %s", eglQueryString(app->display, EGL_VENDOR));
+	LOGD("EGL Extensions: %s", eglQueryString(app->display, EGL_EXTENSIONS));
+	LOGD("EGL Client APIs: %s", eglQueryString(app->display, EGL_CLIENT_APIS));
+	LOGD("OpenGL Version: %s", glGetString(GL_VERSION));
+	LOGD("OpenGL Vendor: %s", glGetString(GL_VENDOR));
+	LOGD("OpenGL Renderer: %s", glGetString(GL_RENDERER));
+	LOGD("GLSL Version: %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
 	
 	LOGD("Surface: width=%d height=%d", app->surface_width, app->surface_height);
 }

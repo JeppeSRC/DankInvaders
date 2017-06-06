@@ -4,11 +4,23 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\core\app.cpp" />
     <ClCompile Include="src\game\game.cpp" />
+    <ClCompile Include="src\graphics\shader.cpp" />
+    <ClCompile Include="src\util\utils.cpp" />
+    <ClCompile Include="src\util\string.cpp" />
+    <ClCompile Include="src\graphics\vertexbuffer.cpp" />
+    <ClCompile Include="src\graphics\indexbuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\log.h" />
     <ClInclude Include="src\core\app.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\core\def.h" />
+    <ClInclude Include="src\graphics\shader.h" />
+    <ClInclude Include="src\util\utils.h" />
+    <ClInclude Include="src\util\list.h" />
+    <ClInclude Include="src\util\map.h" />
+    <ClInclude Include="src\util\string.h" />
+    <ClInclude Include="src\graphics\vertexbuffer.h" />
+    <ClInclude Include="src\graphics\indexbuffer.h" />
   </ItemGroup>
 </Project>
