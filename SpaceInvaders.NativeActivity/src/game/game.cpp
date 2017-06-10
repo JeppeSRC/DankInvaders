@@ -6,6 +6,7 @@
 #include <graphics/indexbuffer.h>
 #include <android/sensor.h>
 #include <unistd.h>
+#include <math/math.h>
 
 
 int OnGameInput(AInputEvent*);
@@ -26,7 +27,7 @@ void* app_main(void*) {
 	pthread_mutex_unlock(&app->mutex);
 
 	game_main();
-
+	
 	return nullptr;
 }
 
@@ -45,17 +46,23 @@ int OnGameInput(AInputEvent* event) {
 const char* vert =
 "#version 100\n"
 "attribute vec3 position;\n"
+"uniform mat4 model;\n"
+"uniform mat4 projection;\n"
 "void main() {\n"
-"gl_Position = vec4(position, 1);"
+"gl_Position = projection * model * vec4(position, 1);\n"
+" \n"
 "}\n"
 "\n";
 
 const char* frag =
 "#version 100\n"
+"precision highp float;\n"
 "void main() {\n"
-"gl_FragColor = vec4(1, 1, 1, 1);\n"
+"gl_FragColor = vec4(1, 0, 1, 1);\n"
 "}\n"
 "\n";
+
+
 
 void game_main() {
 	NativeApp* app = NativeApp::app;
@@ -74,36 +81,47 @@ void game_main() {
 	glDisable(GL_CULL_FACE);
 
 	Shader shader(vert, frag);
+
+
+	
+
 	shader.Bind();
 
+	shader.SetVec3("col", 1, 0, 1);
+
 	float vertices[]{
-		0, 1, 0,
-		1, -1, 0,
-		-1, -1, 0
+		 0,  1,  0,
+		 1, -1,  0,
+		 -1, -1,  0
 	};
+
+	
+	shader.SetMat4("projection", mat4::Perspective(70.0f, (float)app->surface_width / app->surface_height, 0.001f, 1000).GetData());
 
 	unsigned short indices[]{ 0, 1, 2 };
 
 	VertexBuffer vbo(vertices, sizeof(vertices));
 	IndexBuffer ibo(indices, 3);
+
+	float aa = 0;
 	
-	unsigned int position = shader.GetAttributeLocation("position");
-
-	vbo.Bind();
 	ibo.Bind();
-	glEnableVertexAttribArray(position);
-	glVertexAttribPointer(position, 3, GL_FLOAT, false, 0, 0);
-
+	glEnableVertexAttribArray(0);
+	
+	vbo.Bind();	
+	glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);	
 	while (app->status) {
-		
-		glClear(GL_COLOR_BUFFER_BIT);
+		aa++;
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		while ((ident = ALooper_pollAll(app->status == 2 ? -1 : 0, nullptr, &events, (void**)&process_cmd)) >= 0) {
 			if (process_cmd) process_cmd();
 		}
+
+		shader.SetMat4("model", (mat4::Translate(vec3(0, 0, 4)) * mat4::Rotate(vec3(0, 0, aa))).GetData());
+
+		glDrawElements(GL_TRIANGLES, ibo.GetCount(), ibo.GetFormat(), 0);		
 		
-	
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
 
 		eglSwapBuffers(app->display, app->surface);
 	}

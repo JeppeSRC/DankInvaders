@@ -25,6 +25,9 @@
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\vertexbuffer.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\math\mat4.cpp" />
+    <ClCompile Include="src\math\vec3.cpp" />
+    <ClCompile Include="src\math\vec4.cpp" />
     <ClCompile Include="src\util\string.cpp" />
     <ClCompile Include="src\util\utils.cpp" />
   </ItemGroup>
@@ -36,6 +39,11 @@
     <ClInclude Include="src\graphics\indexbuffer.h" />
     <ClInclude Include="src\graphics\shader.h" />
     <ClInclude Include="src\graphics\vertexbuffer.h" />
+    <ClInclude Include="src\math\mat4.h" />
+    <ClInclude Include="src\math\math.h" />
+    <ClInclude Include="src\math\mathcommon.h" />
+    <ClInclude Include="src\math\vec3.h" />
+    <ClInclude Include="src\math\vec4.h" />
     <ClInclude Include="src\util\list.h" />
     <ClInclude Include="src\util\map.h" />
     <ClInclude Include="src\util\string.h" />
@@ -117,7 +125,7 @@
       <EnableNeonCodegen>true</EnableNeonCodegen>
     </ClCompile>
     <Link>
-      <LibraryDependencies>%(LibraryDependencies);GLESv2;EGL</LibraryDependencies>
+      <LibraryDependencies>%(LibraryDependencies);GLESv2;EGL;GLESv1_CM;m;</LibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -132,7 +140,7 @@
       <EnableNeonCodegen>true</EnableNeonCodegen>
     </ClCompile>
     <Link>
-      <LibraryDependencies>%(LibraryDependencies);GLESv2;EGL</LibraryDependencies>
+      <LibraryDependencies>%(LibraryDependencies);GLESv2;EGL;GLESv1_CM;m;</LibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
@@ -145,7 +153,7 @@
       <EnableNeonCodegen>true</EnableNeonCodegen>
     </ClCompile>
     <Link>
-      <LibraryDependencies>%(LibraryDependencies);GLESv2;EGL</LibraryDependencies>
+      <LibraryDependencies>%(LibraryDependencies);GLESv2;EGL;GLESv1_CM;m;</LibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
@@ -160,7 +168,7 @@
       <EnableNeonCodegen>true</EnableNeonCodegen>
     </ClCompile>
     <Link>
-      <LibraryDependencies>%(LibraryDependencies);GLESv2;EGL</LibraryDependencies>
+      <LibraryDependencies>%(LibraryDependencies);GLESv2;EGL;GLESv1_CM;m;</LibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
