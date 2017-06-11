@@ -1,6 +1,6 @@
 #include "mat4.h"
 #include <memory>
-
+#ifndef __arm__
 void mat4::LoadRows(__m128* xmm) const {
 
 	xmm[0] = _mm_set_ps(m[0 + 3 * 4], m[0 + 2 * 4], m[0 + 1 * 4], m[0 + 0 * 4]);
@@ -16,6 +16,7 @@ void mat4::LoadColumns(__m128* xmm) const {
 	xmm[2] = _mm_set_ps(m[3 + 2 * 4], m[2 + 2 * 4], m[1 + 2 * 4], m[0 + 2 * 4]);
 	xmm[3] = _mm_set_ps(m[3 + 3 * 4], m[2 + 3 * 4], m[1 + 3 * 4], m[0 + 3 * 4]);
 }
+#endif
 
 mat4::mat4() { memset(m, 0, sizeof(m)); }
 
@@ -25,6 +26,10 @@ mat4::mat4(float diagonal) {
 	m[1 + 1 * 4] = diagonal;
 	m[2 + 2 * 4] = diagonal;
 	m[3 + 3 * 4] = diagonal;
+}
+
+mat4::mat4(const float* const data) {
+	memcpy(m, data, sizeof(m));
 }
 
 mat4 mat4::Translate(const vec3& v) {
@@ -231,6 +236,8 @@ mat4 mat4::Orthographic(float left, float right, float top, float bottom, float 
 	return r;
 }
 
+#ifndef __arm__
+
 mat4 mat4::operator*(const mat4& r) {
 	mat4 tmp;
 	__m128 col[4];
@@ -252,6 +259,25 @@ mat4 mat4::operator*(const mat4& r) {
 
 	return tmp;
 }
+
+#else
+
+mat4 mat4::operator*(const mat4& r) {
+	float tmp[16];
+
+	for (int y = 0; y < 4; y++) {
+		for (int x = 0; x < 4; x++) {
+			tmp[x + y * 4] = m[x + 0 * 4] * r.m[0 + y * 4] +
+							 m[x + 1 * 4] * r.m[1 + y * 4] +
+							 m[x + 2 * 4] * r.m[2 + y * 4] +
+							 m[x + 3 * 4] * r.m[3 + y * 4];
+		}
+	}
+
+	return mat4(tmp);
+}
+
+#endif
 /*
 vec4 mat4::operator*(const vec4& v) {
 	__m128 vec[4];

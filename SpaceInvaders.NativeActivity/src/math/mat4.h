@@ -13,12 +13,15 @@ private:
 		float m[16];
 	};
 
+#ifndef __arm__
 	void LoadRows(__m128* xmm) const;
 	void LoadColumns(__m128* xmm) const;
+#endif
 
 public:
 	mat4();
 	mat4(float diagonal);
+	mat4(const float* const data);
 
 	inline static mat4 Identity() { return mat4(1); }
 
