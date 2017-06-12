@@ -4,6 +4,7 @@
 #include <android/configuration.h>
 #include <core/app.h>
 #include <game/game.h>
+#include <util/asset/fileutils.h>
 
 
 static void OnConfigurationChagned(ANativeActivity* activity) {
@@ -84,6 +85,8 @@ void ANativeActivity_onCreate(ANativeActivity* activity, void* savedState, size_
 	activity->callbacks->onWindowFocusChanged = OnWindowFocusChagned;
 
 	NativeApp::Intialize(activity);
+
+	FileUtils::assetManager = activity->assetManager;
 
 	NativeApp::app->Start(app_main);
 }

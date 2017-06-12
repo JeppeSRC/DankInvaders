@@ -4,10 +4,11 @@
 #include <graphics/shader.h>
 #include <graphics/vertexbuffer.h>
 #include <graphics/indexbuffer.h>
+#include <graphics/texture2d.h>
 #include <android/sensor.h>
 #include <unistd.h>
 #include <math/math.h>
-
+#include <util/asset/fileutils.h>
 
 int OnGameInput(AInputEvent*);
 void game_main();
@@ -71,10 +72,47 @@ int OnGameInput(AInputEvent* event) {
 
 void game_main() {
 	NativeApp* app = NativeApp::app;
-
-
 	SetUPDisplay();
 
+	Shader shader("shaders/vertex.hlsl", "shaders/fragment.hlsl", false);
+
+	struct Vertex {
+		vec3 position;
+		vec2 texCoord;
+	};
+
+	Vertex vertices[]{
+		{vec3(0, 1, 0), vec2(0.5, 0)},
+		{vec3(1, -1, 0), vec2(1, 1)},
+		{vec3(-1, -1, 0), vec2(0, 1)}
+	};
+
+	unsigned short indices[]{ 0, 1, 2 };
+
+	VertexBuffer vbo(vertices, sizeof(vertices));
+	IndexBuffer ibo(indices, 3);
+
+	shader.Bind();
+	ibo.Bind();
+	vbo.Bind();
+
+	unsigned int pos = shader.GetAttributeLocation("position");
+	unsigned int tex = shader.GetAttributeLocation("texCoords");
+
+	glEnableVertexAttribArray(pos);
+	glVertexAttribPointer(pos, 3, GL_FLOAT, false, sizeof(Vertex), 0);
+
+	glEnableVertexAttribArray(tex);
+	glVertexAttribPointer(tex, 2, GL_FLOAT, false, sizeof(Vertex), (const void*)(sizeof(vec3)));
+
+	Texture2D texture("textures/dank.png");
+
+	shader.SetMat4("projection", mat4::Perspective(70.0f, 16.0f / 9.0f, 0.001f, 1000.0f).GetData());
+	shader.SetMat4("model", mat4::Translate(vec3(0, 0, 3)).GetData());
+
+	texture.Bind(0);
+
+	glUniform1i(shader.GetUniformLocation("sampler"), 0);
 
 	while (app->status) {
 		ProcessInput();
@@ -82,7 +120,7 @@ void game_main() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 	
-
+		glDrawElements(GL_TRIANGLES, ibo.GetCount(), ibo.GetFormat(), nullptr);
 
 
 		eglSwapBuffers(app->display, app->surface);

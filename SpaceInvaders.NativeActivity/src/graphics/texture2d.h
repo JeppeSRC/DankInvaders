@@ -8,9 +8,11 @@ protected:
 	unsigned int width;
 	unsigned int height;
 
+	void Load(const void* const data, unsigned int width, unsigned int height, unsigned int format, unsigned int type);
+
 public:
 	Texture2D(const char* const path);
-	Texture2D(const void* const data, unsigned int width, unsigned int height, unsigned int format);
+	Texture2D(const void* const data, unsigned int width, unsigned int height, unsigned int format, unsigned int type);
 	~Texture2D();
 
 	void Bind(unsigned int slot = 0) const;

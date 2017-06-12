@@ -1,6 +1,7 @@
 #include "shader.h"
 #include <core/log.h>
 #include <util/utils.h>
+#include <util/asset/fileutils.h>
 
 unsigned int Shader::activeShaderID = 0;
 Shader* Shader::activeShader = nullptr;
@@ -27,7 +28,7 @@ static bool check_error(unsigned int shader, unsigned int param, bool isProgram)
 	return false;
 }
 
-Shader::Shader(const char* vertex, const char* fragment) {
+Shader::Shader(const char* vertex, const char* fragment, bool src) {
 	LOGD("Compiling shader");
 	shader = glCreateProgram();
     
@@ -35,8 +36,16 @@ Shader::Shader(const char* vertex, const char* fragment) {
 	unsigned int f = glCreateShader(GL_FRAGMENT_SHADER);
 
 
-	glShaderSource(v, 1, &vertex, nullptr);
-	glShaderSource(f, 1, &fragment, nullptr);
+	if (src) {
+		glShaderSource(v, 1, &vertex, nullptr);
+		glShaderSource(f, 1, &fragment, nullptr);
+	} else {
+		String vs = FileUtils::ReadTextFile(vertex);
+		String fs = FileUtils::ReadTextFile(fragment);
+
+		glShaderSource(v, 1, (const char**)&vs.str, nullptr);
+		glShaderSource(f, 1, (const char**)&fs.str, nullptr);
+	}
 
 
 	glCompileShader(v);

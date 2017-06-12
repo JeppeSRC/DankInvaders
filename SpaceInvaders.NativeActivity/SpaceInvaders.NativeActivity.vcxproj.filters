@@ -13,6 +13,9 @@
     <ClCompile Include="src\math\vec4.cpp" />
     <ClCompile Include="src\math\mat4.cpp" />
     <ClCompile Include="src\graphics\texture2d.cpp" />
+    <ClCompile Include="src\util\asset\fileutils.cpp" />
+    <ClCompile Include="src\math\vec2.cpp" />
+    <ClCompile Include="src\util\stb_image.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\log.h" />
@@ -32,5 +35,8 @@
     <ClInclude Include="src\math\vec4.h" />
     <ClInclude Include="src\math\mat4.h" />
     <ClInclude Include="src\graphics\texture2d.h" />
+    <ClInclude Include="src\util\asset\fileutils.h" />
+    <ClInclude Include="src\math\vec2.h" />
+    <ClInclude Include="src\util\stb_image.h" />
   </ItemGroup>
 </Project>

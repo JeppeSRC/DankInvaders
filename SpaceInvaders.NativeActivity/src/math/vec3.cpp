@@ -223,13 +223,13 @@ vec3& vec3::Multiply(float v) {
 
 
 float vec3::Dot(const vec3& v) const {
-float vtmp[4]{ v.x, v.y, v.z, 0 };
-float tmp[4]{ x, y, z };
-float32x4_t vxmm = vld1q_f32(vtmp);
-float32x4_t xmm = vld1q_f32(tmp);
-xmm = vmulq_f32(xmm, vxmm);
-vst1q_f32(tmp, xmm);
-return tmp[0] + tmp[1] + tmp[2];
+	float vtmp[4]{ v.x, v.y, v.z, 0 };
+	float tmp[4]{ x, y, z };
+	float32x4_t vxmm = vld1q_f32(vtmp);
+	float32x4_t xmm = vld1q_f32(tmp);
+	xmm = vmulq_f32(xmm, vxmm);
+	vst1q_f32(tmp, xmm);
+	return tmp[0] + tmp[1] + tmp[2];
 }
 
 */

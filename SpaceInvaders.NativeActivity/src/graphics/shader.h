@@ -12,7 +12,7 @@ private:
 
 	Map<unsigned int, unsigned int> cache;
 public:
-	Shader(const char* vertex, const char* fragment);
+	Shader(const char* vertex, const char* fragment, bool src);
 	~Shader();
 
 	void Bind();
