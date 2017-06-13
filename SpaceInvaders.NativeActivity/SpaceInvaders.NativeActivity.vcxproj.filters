@@ -16,6 +16,7 @@
     <ClCompile Include="src\util\asset\fileutils.cpp" />
     <ClCompile Include="src\math\vec2.cpp" />
     <ClCompile Include="src\util\stb_image.c" />
+    <ClCompile Include="src\game\entity\entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\log.h" />
@@ -38,5 +39,7 @@
     <ClInclude Include="src\util\asset\fileutils.h" />
     <ClInclude Include="src\math\vec2.h" />
     <ClInclude Include="src\util\stb_image.h" />
+    <ClInclude Include="src\game\entity\entity.h" />
+    <ClInclude Include="src\graphics\renderer.h" />
   </ItemGroup>
 </Project>

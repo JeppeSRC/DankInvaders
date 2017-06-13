@@ -14,6 +14,8 @@
 
 #include <pthread.h>
 
+#include <core/log.h>
+
 #define CMD_WINDOW_CREATE	0x01
 #define CMD_WINDOW_DESTROY	0x02
 #define CMD_INPUT_CREATED	0x03
@@ -29,6 +31,15 @@
 #define APP_STATUS_TERMINATE	0x0
 #define APP_STATUS_RUNNING		0x1
 #define APP_STATUS_PAUSE		0x2
+
+
+#ifdef _DEBUG
+#define DBG(code) code
+#define ASSERT(x) if (!x) { LOGF("Assertion Failed: \"%s\" in \"%s:%u\"", #x, __FILE__, __LINE__); }
+#else
+#define ASSERT(x)
+#define DBG(code)
+#endif
 
 typedef void(*CMD_CALLBACK)();
 typedef int(*INPUT_CALLBACK)(AInputEvent*);

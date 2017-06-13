@@ -3,4 +3,8 @@
   <PropertyGroup>
     <ShowAllFiles>true</ShowAllFiles>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DebuggerFlavor>AndroidDebugger</DebuggerFlavor>
+    <AndroidDeviceID>169.254.138.177:5555;VS Emulator 5-inch KitKat (4.4) XXHDPI Phone</AndroidDeviceID>
+  </PropertyGroup>
 </Project>
