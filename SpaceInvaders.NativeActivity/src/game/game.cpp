@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <math/math.h>
 #include <util/asset/fileutils.h>
+#include <graphics/renderer.h>
 
 int OnGameInput(AInputEvent*);
 void game_main();
@@ -74,7 +75,7 @@ void game_main() {
 	NativeApp* app = NativeApp::app;
 	SetUPDisplay();
 
-	Shader shader("shaders/vertex.hlsl", "shaders/fragment.hlsl", false);
+	Renderer renderer(128);
 	
 	while (app->status) {
 		ProcessInput();

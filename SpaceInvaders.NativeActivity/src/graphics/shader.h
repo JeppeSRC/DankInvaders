@@ -20,6 +20,10 @@ public:
 	unsigned int GetUniformLocation(const char* name);
 	unsigned int GetAttributeLocation(const char* name);
 
+	void SetInt(const char* const name, int v);
+	void SetInt(unsigned int location, int v);
+	void SetIntArray(const char* const name, int count, int* values);
+	void SetIntArray(unsigned int location, int count, int* values);
 	void SetFloat(const char* const name, float v);
 	void SetFloat(unsigned int location, float v) const;
 	void SetVec2(const char* const name, float x, float y);

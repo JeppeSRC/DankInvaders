@@ -2,6 +2,11 @@
 
 #include <core/app.h>
 #include <math/math.h>
+#include <game/entity/entity.h>
+#include <graphics/vertexbuffer.h>
+#include <graphics/indexbuffer.h>
+#include <graphics/shader.h>
+#include <util/map.h>
 
 struct Vertex {
 	vec3 position;
@@ -12,9 +17,25 @@ struct Vertex {
 
 class Renderer {
 private:
-	unsigned int numVertices;
+	unsigned int numSprites;
+	unsigned short count;
 	Vertex* buffer;
 
+	VertexBuffer* vbo;
+	IndexBuffer* ibo;
+
+	List<Texture2D*> texIds;
+
+	Shader* shader;
+
+	float SubmitTexture(Texture2D* tex);
+
 public:
-	Renderer()
+	Renderer(unsigned int num_sprites);
+	~Renderer();
+
+	void Begin();
+	void Submit(Entity* e);
+	void End();
+	void Present();
 };

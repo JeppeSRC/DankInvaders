@@ -116,6 +116,22 @@ unsigned int Shader::GetUniformLocation(const char* name) {
 	return loc;
 }
 
+void Shader::SetInt(const char* const name, int v) {
+	SetInt(GetUniformLocation(name), v);
+}
+
+void Shader::SetInt(unsigned int location, int v) {
+	glUniform1i(location, v);
+}
+
+void Shader::SetIntArray(const char* const name, int count, int* values) {
+	SetIntArray(GetUniformLocation(name), count, values);
+}
+
+void Shader::SetIntArray(unsigned int location, int count, int* values) {
+	glUniform1iv(location, count, values);
+}
+
 void Shader::SetFloat(const char* const name, float v) {
 	SetFloat(GetUniformLocation(name), v);
 }

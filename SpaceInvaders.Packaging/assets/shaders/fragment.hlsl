@@ -1,16 +1,19 @@
 #version 100
 
-precision highp float;
-precision highp int;
+precision mediump float;
+precision mediump int;
 
 varying vec2 texCoord;
 varying vec4 color;
 varying float tid;
 
-uniform sampler2D sampler[32];
+uniform sampler2D samplers[32];
 
 void main() {
 
-	highp int t = int(tid);
-	gl_FragColor = texture2D(sampler[t], texCoord);
+	if (tid > -0.1) {
+		gl_FragColor = texture2D(samplers[int(tid)], texCoord) * color;
+	} else {
+		gl_FragColor = color;
+	}
 }

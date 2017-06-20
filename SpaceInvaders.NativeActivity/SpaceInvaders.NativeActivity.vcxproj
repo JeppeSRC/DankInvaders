@@ -23,6 +23,7 @@
     <ClCompile Include="src\game\entity\entity.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\graphics\indexbuffer.cpp" />
+    <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\texture2d.cpp" />
     <ClCompile Include="src\graphics\vertexbuffer.cpp" />
