@@ -35,7 +35,7 @@
 
 #ifdef _DEBUG
 #define DBG(code) code
-#define ASSERT(x) if (!x) { LOGF("Assertion Failed: \"%s\" in \"%s:%u\"", #x, __FILE__, __LINE__); }
+#define ASSERT(x) if (!(x)) { LOGF("Assertion Failed: \"%s\" in \"%s:%u\"", #x, __FILE__, __LINE__); }
 #else
 #define ASSERT(x)
 #define DBG(code)

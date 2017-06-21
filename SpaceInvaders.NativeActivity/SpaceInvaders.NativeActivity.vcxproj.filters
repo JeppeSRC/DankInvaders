@@ -25,7 +25,6 @@
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\core\def.h" />
     <ClInclude Include="src\graphics\shader.h" />
-    <ClInclude Include="src\util\utils.h" />
     <ClInclude Include="src\util\list.h" />
     <ClInclude Include="src\util\map.h" />
     <ClInclude Include="src\util\string.h" />
@@ -42,5 +41,6 @@
     <ClInclude Include="src\util\stb_image.h" />
     <ClInclude Include="src\game\entity\entity.h" />
     <ClInclude Include="src\graphics\renderer.h" />
+    <ClInclude Include="src\util\utils.h" />
   </ItemGroup>
 </Project>

@@ -88,6 +88,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Content Include="assets\shaders\fragment.hlsl" />
+    <Content Include="assets\shaders\renderer.fs" />
+    <Content Include="assets\shaders\renderer.vs" />
     <Content Include="assets\shaders\vertex.hlsl" />
     <Content Include="assets\textures\dank.png" />
     <Content Include="res\values\strings.xml" />

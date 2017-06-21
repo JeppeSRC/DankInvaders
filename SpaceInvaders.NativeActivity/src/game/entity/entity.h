@@ -11,8 +11,8 @@ protected:
 	vec4 color;
 	Texture2D* texture;
 
-	Entity(vec3 position, vec2 size);
 public:
+	Entity(vec3 position, vec2 size);
 	
 	inline vec3& GetPosition() { return position; }
 	inline vec2& GetSize() { return size; }
