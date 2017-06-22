@@ -5,7 +5,7 @@
 Renderer::Renderer(unsigned int num_sprites) {
 	numSprites = num_sprites;
 
-	buffer = new Vertex[numSprites * 4];
+	rawBuffer = new Vertex[numSprites * 4];
 
 	unsigned short offset = 0;
 	unsigned short* indices = new unsigned short[numSprites * 6];
@@ -33,11 +33,12 @@ Renderer::Renderer(unsigned int num_sprites) {
 	shader->SetIntArray("samplers", 32, ids);
 
 	shader->SetMat4("projection", mat4::Orthographic(0, 1280, 0, 720, -1, 1).GetData());
+	//shader->SetMat4("projection", mat4::Identity().GetData());
 
 }
 
 Renderer::~Renderer() {
-	delete[] buffer;
+	delete[] rawBuffer;
 	delete vbo;
 	delete ibo;
 	delete shader;
@@ -68,16 +69,15 @@ float Renderer::SubmitTexture(Texture2D* tex) {
 void Renderer::Begin() {
 	texIds.Clear();
 	count = 0;
+	buffer = rawBuffer;
 }
 
 void Renderer::Submit(Entity* e) {
 	float tid = SubmitTexture(e->GetTexture());
-	tid = -1.0f;
+	
 	vec4 color = e->GetColor();
 	vec3 position = e->GetPosition();
 	vec2 size = e->GetSize();
-
-	Vertex* buffer = this->buffer;
 
 	buffer->position = position;
 	buffer->texCoord = vec2(0, 0);
@@ -91,13 +91,13 @@ void Renderer::Submit(Entity* e) {
 	buffer->tid = tid;
 	buffer++;
 
-	buffer->position = position + vec3(size.x, -size.y, 0);
+	buffer->position = position + vec3(size.x, size.y, 0);
 	buffer->texCoord = vec2(1, 1);
 	buffer->color = color;
 	buffer->tid = tid;
 	buffer++;
 
-	buffer->position = position + vec3(0, -size.y, 0);
+	buffer->position = position + vec3(0, size.y, 0);
 	buffer->texCoord = vec2(0, 1);
 	buffer->color = color;
 	buffer->tid = tid;
@@ -107,7 +107,8 @@ void Renderer::Submit(Entity* e) {
 }
 
 void Renderer::End() {
-	vbo->SetData(buffer, (count / 6) * 4 * sizeof(Vertex));
+	vbo->SetData(rawBuffer, (count / 6) * 4 * sizeof(Vertex));
+	buffer = nullptr;
 }
 
 void Renderer::Present() {
@@ -117,21 +118,16 @@ void Renderer::Present() {
 	}
 
 	vbo->Bind();
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	glEnableVertexAttribArray(3);
+	GL(glEnableVertexAttribArray(0));
+	GL(glEnableVertexAttribArray(1));
+	GL(glEnableVertexAttribArray(2));
+	GL(glEnableVertexAttribArray(3));
 
-	unsigned int a = shader->GetAttributeLocation("positions");
-	a = shader->GetAttributeLocation("texCoords");
-	a = shader->GetAttributeLocation("colors");
-	a = shader->GetAttributeLocation("tids");
-
-	glVertexAttribPointer(shader->GetAttributeLocation("positions"), 3, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, position));
-	glVertexAttribPointer(shader->GetAttributeLocation("texCoords"), 2, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, texCoord));
-	glVertexAttribPointer(shader->GetAttributeLocation("colors"), 4, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, color));
-	glVertexAttribPointer(shader->GetAttributeLocation("tids"), 1, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, tid));
+	GL(glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, position)));
+	GL(glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, texCoord)));
+	GL(glVertexAttribPointer(2, 4, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, color)));
+	GL(glVertexAttribPointer(3, 1, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, tid)));
 
 	ibo->Bind();
-	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_SHORT, nullptr);
+	GL(glDrawElements(GL_TRIANGLES, count, ibo->GetFormat(), nullptr));
 }

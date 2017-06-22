@@ -1,5 +1,8 @@
 #version 100
 
+precision mediump float;
+precision mediump int;
+
 varying vec2 texCoord;
 varying vec4 color;
 varying float tid;

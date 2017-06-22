@@ -32,13 +32,22 @@
 #define APP_STATUS_RUNNING		0x1
 #define APP_STATUS_PAUSE		0x2
 
+inline void GLCallLog(const char* const func, const char* const file, int line) {
+	unsigned int error = glGetError();
+
+	if (error) {
+		LOGF("Error %u calling %s in %s:%u", error, func, file, line);
+	}
+}
 
 #ifdef _DEBUG
 #define DBG(code) code
 #define ASSERT(x) if (!(x)) { LOGF("Assertion Failed: \"%s\" in \"%s:%u\"", #x, __FILE__, __LINE__); }
+#define GL(func) func; GLCallLog(#func, __FILE__, __LINE__)
 #else
 #define ASSERT(x)
 #define DBG(code)
+#define GL(func) func
 #endif
 
 typedef void(*CMD_CALLBACK)();

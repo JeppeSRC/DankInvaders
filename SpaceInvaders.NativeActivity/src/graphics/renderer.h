@@ -19,6 +19,7 @@ class Renderer {
 private:
 	unsigned int numSprites;
 	unsigned short count;
+	Vertex* rawBuffer;
 	Vertex* buffer;
 
 	VertexBuffer* vbo;

@@ -9,6 +9,7 @@ protected:
 	vec2 size;
 
 	vec4 color;
+public:
 	Texture2D* texture;
 
 public:

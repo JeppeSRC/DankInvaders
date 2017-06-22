@@ -2,11 +2,11 @@
 
 VertexBuffer::VertexBuffer(const void* data, unsigned int size) {
 	ASSERT(size != 0);
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-
-	glBufferData(GL_ARRAY_BUFFER, size, data, data ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	GL(glGenBuffers(1, &vbo));
+	GL(glBindBuffer(GL_ARRAY_BUFFER, vbo));
+	
+	GL(glBufferData(GL_ARRAY_BUFFER, size, data, data ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW));
+	GL(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 	this->size = size;
 	
@@ -14,17 +14,17 @@ VertexBuffer::VertexBuffer(const void* data, unsigned int size) {
 }
 
 VertexBuffer::~VertexBuffer() {
-	glDeleteBuffers(1, &vbo);
+	GL(glDeleteBuffers(1, &vbo));
 }
 
 void VertexBuffer::Bind() const {
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	GL(glBindBuffer(GL_ARRAY_BUFFER, vbo));
 }
 
 void VertexBuffer::SetData(const void* const data, unsigned int size) const {
 	ASSERT(size <= this->size);
 	ASSERT(dynamic == true);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	GL(glBindBuffer(GL_ARRAY_BUFFER, vbo));
+	GL(glBufferSubData(GL_ARRAY_BUFFER, 0, size, data));
+	GL(glBindBuffer(GL_ARRAY_BUFFER, 0));
 }

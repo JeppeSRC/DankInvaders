@@ -58,13 +58,16 @@ void* app_main(void*) {
 	return nullptr;
 }
 
+float x;
+float y;
+
 int OnGameInput(AInputEvent* event) {
 	NativeApp* app = NativeApp::app;
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
-		float x = AMotionEvent_getX(event, 0);
-		float y = AMotionEvent_getY(event, 0);
+		x = AMotionEvent_getX(event, 0);
+		y = AMotionEvent_getY(event, 0);
 
-
+		
 		return 1;
 	} 
 
@@ -78,13 +81,17 @@ void game_main() {
 
 	Renderer renderer(128);
 
-	Entity e(vec3(0, 0, 0.5f), vec2(0.5f, 0.5f));
+	Entity e(vec3(200, 200, 0.0f), vec2(100.0f, 100.0f));
+	e.texture = new Texture2D("textures/dank.png");
 	
 	while (app->status) {
 		ProcessInput();
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
+		e.GetPosition().x = x;
+		e.GetPosition().y = y;
+
 		renderer.Begin();
 		renderer.Submit(&e);
 		renderer.End();
@@ -138,12 +145,12 @@ void game_main() {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-	ibo.Bind();
-		glDrawElements(GL_TRIANGLES, ibo.GetCount(), ibo.GetFormat(), nullptr);
+		
+		ibo.Bind();
+		GL(glDrawElements(GL_TRIANGLES, ibo.GetCount(), ibo.GetFormat(), nullptr));
 
 
 		eglSwapBuffers(app->display, app->surface);
-	}*/
-
+	}
+	*/
 }
