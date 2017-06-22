@@ -9,11 +9,10 @@ protected:
 	vec2 size;
 
 	vec4 color;
-public:
 	Texture2D* texture;
 
-public:
 	Entity(vec3 position, vec2 size);
+public:
 	
 	inline vec3& GetPosition() { return position; }
 	inline vec2& GetSize() { return size; }

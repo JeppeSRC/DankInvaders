@@ -58,14 +58,11 @@ void* app_main(void*) {
 	return nullptr;
 }
 
-float x;
-float y;
-
 int OnGameInput(AInputEvent* event) {
 	NativeApp* app = NativeApp::app;
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
-		x = AMotionEvent_getX(event, 0);
-		y = AMotionEvent_getY(event, 0);
+		float x = AMotionEvent_getX(event, 0);
+		float y = AMotionEvent_getY(event, 0);
 
 		
 		return 1;
@@ -81,76 +78,13 @@ void game_main() {
 
 	Renderer renderer(128);
 
-	Entity e(vec3(200, 200, 0.0f), vec2(100.0f, 100.0f));
-	e.texture = new Texture2D("textures/dank.png");
 	
 	while (app->status) {
 		ProcessInput();
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
-		e.GetPosition().x = x;
-		e.GetPosition().y = y;
-
-		renderer.Begin();
-		renderer.Submit(&e);
-		renderer.End();
-		renderer.Present();
 
 
 		eglSwapBuffers(app->display, app->surface);
 	}
-
-	/*Shader shader("shaders/vertex.hlsl", "shaders/fragment.hlsl", false);
-
-	struct Vertex {
-		vec3 position;
-		vec2 texCoord;
-	};
-
-	Vertex vertices[]{
-		{vec3(0, 1, 0), vec2(0.5, 0)},
-		{vec3(1, -1, 0), vec2(1, 1)},
-		{vec3(-1, -1, 0), vec2(0, 1)}
-	};
-
-	unsigned short indices[]{ 0, 1, 2 };
-
-	VertexBuffer vbo(vertices, sizeof(vertices));
-	IndexBuffer ibo(indices, 3);
-
-
-	unsigned int pos = shader.GetAttributeLocation("position");
-	unsigned int tex = shader.GetAttributeLocation("texCoords");
-
-	shader.Bind();
-	vbo.Bind();
-	glEnableVertexAttribArray(pos);
-	glEnableVertexAttribArray(tex);
-
-	glVertexAttribPointer(pos, 3, GL_FLOAT, false, sizeof(Vertex), 0);
-	glVertexAttribPointer(tex, 2, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, texCoord));
-
-	Texture2D texture("textures/dank.png");
-
-	shader.SetMat4("projection", mat4::Perspective(70.0f, 16.0f / 9.0f, 0.001f, 1000.0f).GetData());
-	shader.SetMat4("model", mat4::Translate(vec3(0, 0, 3)).GetData());
-
-	texture.Bind(0);
-
-	glUniform1i(shader.GetUniformLocation("sampler"), 0);
-
-	while (app->status) {
-		ProcessInput();
-
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		
-		ibo.Bind();
-		GL(glDrawElements(GL_TRIANGLES, ibo.GetCount(), ibo.GetFormat(), nullptr));
-
-
-		eglSwapBuffers(app->display, app->surface);
-	}
-	*/
 }

@@ -38,10 +38,12 @@
     <ClCompile Include="src\util\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gamemanager.h" />
     <ClInclude Include="src\core\app.h" />
     <ClInclude Include="src\core\log.h" />
     <ClInclude Include="src\core\def.h" />
     <ClInclude Include="src\game\entity\entity.h" />
+    <ClInclude Include="src\game\entity\npc.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\graphics\indexbuffer.h" />
     <ClInclude Include="src\graphics\renderer.h" />

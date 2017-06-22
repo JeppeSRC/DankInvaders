@@ -42,5 +42,7 @@
     <ClInclude Include="src\game\entity\entity.h" />
     <ClInclude Include="src\graphics\renderer.h" />
     <ClInclude Include="src\util\utils.h" />
+    <ClInclude Include="gamemanager.h" />
+    <ClInclude Include="src\game\entity\npc.h" />
   </ItemGroup>
 </Project>
