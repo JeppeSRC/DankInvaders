@@ -2,7 +2,7 @@
 
 #include "entity.h"
 
-class NPC : Entity {
+class NPC : public Entity {
 protected:
 
 public:

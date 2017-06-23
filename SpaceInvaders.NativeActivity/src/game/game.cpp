@@ -11,6 +11,8 @@
 #include <util/asset/fileutils.h>
 #include <graphics/renderer.h>
 #include <util/utils.h>
+#include <game/gamemanager.h>
+#include <ctime>
 
 int OnGameInput(AInputEvent*);
 void game_main();
@@ -58,15 +60,27 @@ void* app_main(void*) {
 	return nullptr;
 }
 
+float x = -1, y = -1;
+
 int OnGameInput(AInputEvent* event) {
 	NativeApp* app = NativeApp::app;
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
-		float x = AMotionEvent_getX(event, 0);
-		float y = AMotionEvent_getY(event, 0);
+		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_DOWN) {
+			LOGD("DOWN");
+			
+		}
 
-		
+		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_UP) {
+			x = -1;
+			y = -1;
+			LOGD("UP");
+		} else {
+			x = AMotionEvent_getX(event, 0);
+			y = AMotionEvent_getY(event, 0);
+		}
+
 		return 1;
-	} 
+	}
 
 	return 0;
 }
@@ -76,14 +90,22 @@ void game_main() {
 	NativeApp* app = NativeApp::app;
 	SetUPDisplay();
 
-	Renderer renderer(128);
-
+	GameManager manager;
 	
+	unsigned int lastTime = clock();
+
 	while (app->status) {
 		ProcessInput();
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		unsigned int now = clock();
+
+		float delta = ((float)(now - lastTime)) / 1000.0f;
+		lastTime = now;
+
+		manager.Update(delta, x, y);
+		manager.Render();
 
 		eglSwapBuffers(app->display, app->surface);
 	}

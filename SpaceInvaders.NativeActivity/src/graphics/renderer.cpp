@@ -1,6 +1,7 @@
 #include "renderer.h"
 #include <string>
 #include <util/utils.h>
+#include <game/gamemanager.h>
 
 Renderer::Renderer(unsigned int num_sprites) {
 	numSprites = num_sprites;
@@ -32,7 +33,7 @@ Renderer::Renderer(unsigned int num_sprites) {
 
 	shader->SetIntArray("samplers", 32, ids);
 
-	shader->SetMat4("projection", mat4::Orthographic(0, 1280, 0, 720, -1, 1).GetData());
+	shader->SetMat4("projection", mat4::Orthographic(0, GAME_AREA_WIDTH, 0, GAME_AREA_HEIGHT, -1, 1).GetData());
 	//shader->SetMat4("projection", mat4::Identity().GetData());
 
 }
@@ -74,11 +75,12 @@ void Renderer::Begin() {
 
 void Renderer::Submit(Entity* e) {
 	float tid = SubmitTexture(e->GetTexture());
-	
+
 	vec4 color = e->GetColor();
 	vec3 position = e->GetPosition();
 	vec2 size = e->GetSize();
 
+	LOGD("BUffer: 0x%08x", buffer);
 	buffer->position = position;
 	buffer->texCoord = vec2(0, 0);
 	buffer->color = color;

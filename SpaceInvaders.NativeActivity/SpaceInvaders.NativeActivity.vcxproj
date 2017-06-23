@@ -22,6 +22,7 @@
     <ClCompile Include="src\core\app.cpp" />
     <ClCompile Include="src\game\entity\entity.cpp" />
     <ClCompile Include="src\game\game.cpp" />
+    <ClCompile Include="src\game\gamemanager.cpp" />
     <ClCompile Include="src\graphics\indexbuffer.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
@@ -38,12 +39,13 @@
     <ClCompile Include="src\util\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gamemanager.h" />
+    <ClInclude Include="src\game\gamemanager.h" />
     <ClInclude Include="src\core\app.h" />
     <ClInclude Include="src\core\log.h" />
     <ClInclude Include="src\core\def.h" />
     <ClInclude Include="src\game\entity\entity.h" />
     <ClInclude Include="src\game\entity\npc.h" />
+    <ClInclude Include="src\game\entity\player.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\graphics\indexbuffer.h" />
     <ClInclude Include="src\graphics\renderer.h" />

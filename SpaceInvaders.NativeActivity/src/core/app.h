@@ -59,6 +59,8 @@ public:
 
 	static bool Intialize(ANativeActivity* activity);
 	static void Destroy();
+
+	static float GetAspectRatio() { return (float)app->surface_width / app->surface_height; }
 public:
 	ANativeActivity* activity;
 	ANativeWindow* window;

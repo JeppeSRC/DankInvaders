@@ -25,4 +25,6 @@
 #define FLOAT32_CMP(a, b) FLOAT_CMP(a, b, unsigned int)
 #define FLOAT64_CMP(a, b) FLOAT_CMP(a, b, unsigned long long)
 
+#define CLAMP(x, min, max) x = x < min ? min : x > max ? max : x;
+
 
