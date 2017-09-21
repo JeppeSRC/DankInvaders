@@ -13,6 +13,8 @@ protected:
 
 	Entity(vec3 position, vec2 size);
 public:
+
+	virtual void Update(float delta, vec2 input);
 	
 	inline vec3& GetPosition() { return position; }
 	inline vec2& GetSize() { return size; }

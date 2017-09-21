@@ -3,9 +3,10 @@
 #include "entity.h"
 
 class Player : public Entity {
+private:
 public:
-	Player(vec3 position) : Entity(position, vec2(100, 100)) {
-		texture = new Texture2D("textures/dank.png");
-		//texture = nullptr;
-	}
+	Player(vec3 position);
+
+	void Update(float delta, vec2 input) override;
+
 };

@@ -6,12 +6,12 @@
 #include <graphics/renderer.h>
 #include <game/entity/player.h>
 
-#define GAME_AREA_HEIGHT 100.0f 
+#define GAME_AREA_HEIGHT 1000.0f 
 #define GAME_AREA_WIDTH (GAME_AREA_HEIGHT * NativeApp::GetAspectRatio())
 
 
 class GameManager {
-private:
+public:
 	Player* player;
 
 	List<NPC*> aliens;

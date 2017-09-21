@@ -9,6 +9,8 @@
 #include <graphics/shader.h>
 #include <util/map.h>
 
+#define MAX_TEXTURES 0x10
+
 struct Vertex {
 	vec3 position;
 	vec2 texCoord;

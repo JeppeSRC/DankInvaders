@@ -68,19 +68,16 @@ int OnGameInput(AInputEvent* event) {
 		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_DOWN) {
 			x = AMotionEvent_getX(event, 0);
 			y = AMotionEvent_getY(event, 0);
-			LOGD("DOWN %f %f", x, y);
 		}
 
 		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_MOVE) {
 			x = AMotionEvent_getX(event, 0);
 			y = AMotionEvent_getY(event, 0);
-			LOGD("MOVE %f %f", x, y);
 		}
 
 		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_UP) {
 			x = -1.0f;
 			y = -1.0f;
-			LOGD("UP");
 		}
 
 		return 1;

@@ -39,14 +39,16 @@ Renderer::Renderer(unsigned int num_sprites) {
 	
 	int ids[32] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 };
 
-	shader->SetIntArray("samplers", 16, ids);
+	shader->SetIntArray("samplers", MAX_TEXTURES, ids);
 
-	shader->SetMat4("projection", mat4::Orthographic(0, NativeApp::app->surface_width, 0, NativeApp::app->surface_height, -1, 1).GetData());
+	shader->SetMat4("projection", mat4::Orthographic(0, GAME_AREA_WIDTH, 0, GAME_AREA_HEIGHT, -1, 1).GetData());
 	//shader->SetMat4("projection", mat4::Identity().GetData());
 
 }
 
 Renderer::~Renderer() {
+	delete vbo;
+	delete vao;
 	delete ibo;
 	delete shader;
 }
@@ -60,7 +62,7 @@ float Renderer::SubmitTexture(Texture2D* tex) {
 		return (float)index + 0.5f;
 	} else {
 		index = texIds.GetSize();
-		if (index >= 31) {
+		if (index >= MAX_TEXTURES-1) {
 			End();
 			Present();
 			Begin();
