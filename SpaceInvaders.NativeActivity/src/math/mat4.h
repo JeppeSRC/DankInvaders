@@ -13,7 +13,7 @@ private:
 		float m[16];
 	};
 
-#ifndef __arm__
+#if !(defined(__arm__) || defined(__aarch64__))
 	void LoadRows(__m128* xmm) const;
 	void LoadColumns(__m128* xmm) const;
 #endif

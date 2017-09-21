@@ -1,13 +1,13 @@
-#version 100
+#version 300 es
 
-attribute vec3 positions;
-attribute vec2 texCoords;
-attribute vec4 colors;
-attribute float tids;
+layout(location = 0) in vec3 positions;
+layout(location = 1) in vec2 texCoords;
+layout(location = 2) in vec4 colors;
+layout(location = 3) in float tids;
 
-varying vec2 texCoord;
-varying vec4 color;
-varying float tid;
+out vec2 texCoord;
+out vec4 color;
+out float tid;
 
 uniform mat4 projection;
 

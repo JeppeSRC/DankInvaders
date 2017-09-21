@@ -16,4 +16,6 @@ public:
 
 	void Bind() const;
 	void SetData(const void* const data, unsigned int size) const;
+	void* Map(unsigned int mode) const;
+	void Unmap() const;
 };

@@ -83,7 +83,8 @@ void ANativeActivity_onCreate(ANativeActivity* activity, void* savedState, size_
 	activity->callbacks->onStart = OnStart;
 	activity->callbacks->onStop = OnStop;
 	activity->callbacks->onWindowFocusChanged = OnWindowFocusChagned;
-
+	LOGD("Internal Path: %s", activity->internalDataPath);
+	LOGD("External Path: %s", activity->externalDataPath);
 	NativeApp::Intialize(activity);
 
 	FileUtils::assetManager = activity->assetManager;

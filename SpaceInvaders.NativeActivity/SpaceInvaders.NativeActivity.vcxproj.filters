@@ -19,6 +19,7 @@
     <ClCompile Include="src\game\entity\entity.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\game\gamemanager.cpp" />
+    <ClCompile Include="src\graphics\vertexarray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\log.h" />
@@ -46,5 +47,6 @@
     <ClInclude Include="src\game\entity\npc.h" />
     <ClInclude Include="src\game\entity\player.h" />
     <ClInclude Include="src\game\gamemanager.h" />
+    <ClInclude Include="src\graphics\vertexarray.h" />
   </ItemGroup>
 </Project>

@@ -6,8 +6,6 @@
 Renderer::Renderer(unsigned int num_sprites) {
 	numSprites = num_sprites;
 
-	rawBuffer = new Vertex[numSprites * 4];
-
 	unsigned short offset = 0;
 	unsigned short* indices = new unsigned short[numSprites * 6];
 
@@ -22,25 +20,33 @@ Renderer::Renderer(unsigned int num_sprites) {
 		offset += 4;
 	}
 
-	ibo = new IndexBuffer(indices, numSprites * 6);
 	vbo = new VertexBuffer(nullptr, numSprites * 4 * sizeof(Vertex));
+
+	vao = new VertexArray(sizeof(Vertex));
+
+	vbo->Bind();
+	vao->Bind();
+	vao->AddAttribute(0, 3, GL_FLOAT, false, (unsigned int)MOFFSET(Vertex, position));
+	vao->AddAttribute(1, 2, GL_FLOAT, false, (unsigned int)MOFFSET(Vertex, texCoord));
+	vao->AddAttribute(2, 4, GL_UNSIGNED_BYTE, true, (unsigned int)MOFFSET(Vertex, color));
+	vao->AddAttribute(3, 1, GL_FLOAT, false, (unsigned int)MOFFSET(Vertex, tid));
+
+	ibo = new IndexBuffer(indices, numSprites * 6);
 
 	shader = new Shader("shaders/renderer.vs", "shaders/renderer.fs", false);
 
 	shader->Bind();
-
+	
 	int ids[32] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 };
 
-	shader->SetIntArray("samplers", 32, ids);
+	shader->SetIntArray("samplers", 16, ids);
 
-	shader->SetMat4("projection", mat4::Orthographic(0, GAME_AREA_WIDTH, 0, GAME_AREA_HEIGHT, -1, 1).GetData());
+	shader->SetMat4("projection", mat4::Orthographic(0, NativeApp::app->surface_width, 0, NativeApp::app->surface_height, -1, 1).GetData());
 	//shader->SetMat4("projection", mat4::Identity().GetData());
 
 }
 
 Renderer::~Renderer() {
-	delete[] rawBuffer;
-	delete vbo;
 	delete ibo;
 	delete shader;
 }
@@ -70,7 +76,7 @@ float Renderer::SubmitTexture(Texture2D* tex) {
 void Renderer::Begin() {
 	texIds.Clear();
 	count = 0;
-	buffer = rawBuffer;
+	buffer = (Vertex*)vbo->Map(GL_MAP_WRITE_BIT);
 }
 
 void Renderer::Submit(Entity* e) {
@@ -80,36 +86,42 @@ void Renderer::Submit(Entity* e) {
 	vec3 position = e->GetPosition();
 	vec2 size = e->GetSize();
 
-	LOGD("BUffer: 0x%08x", buffer);
+	unsigned int r = (unsigned int)(color.x * 255) & 0xFF;
+	unsigned int g = (unsigned int)(color.y * 255) & 0xFF;
+	unsigned int b = (unsigned int)(color.z * 255) & 0xFF;
+	unsigned int a = (unsigned int)(color.w * 255) & 0xFF;
+
+	unsigned int col = a << 24 | b << 16 | g << 8 | r;
+
 	buffer->position = position;
 	buffer->texCoord = vec2(0, 0);
-	buffer->color = color;
+	buffer->color = col;
 	buffer->tid = tid;
 	buffer++;
 
 	buffer->position = position + vec3(size.x, 0, 0);
 	buffer->texCoord = vec2(1, 0);
-	buffer->color = color;
+	buffer->color = col;
 	buffer->tid = tid;
 	buffer++;
 
 	buffer->position = position + vec3(size.x, size.y, 0);
 	buffer->texCoord = vec2(1, 1);
-	buffer->color = color;
+	buffer->color = col;
 	buffer->tid = tid;
 	buffer++;
 
 	buffer->position = position + vec3(0, size.y, 0);
 	buffer->texCoord = vec2(0, 1);
-	buffer->color = color;
+	buffer->color = col;
 	buffer->tid = tid;
 	buffer++;
-
+	
 	count += 6;
 }
 
 void Renderer::End() {
-	vbo->SetData(rawBuffer, (count / 6) * 4 * sizeof(Vertex));
+	vbo->Unmap();
 	buffer = nullptr;
 }
 
@@ -119,17 +131,8 @@ void Renderer::Present() {
 		texIds[i]->Bind(i);
 	}
 
+	vao->Bind();
 	vbo->Bind();
-	GL(glEnableVertexAttribArray(0));
-	GL(glEnableVertexAttribArray(1));
-	GL(glEnableVertexAttribArray(2));
-	GL(glEnableVertexAttribArray(3));
-
-	GL(glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, position)));
-	GL(glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, texCoord)));
-	GL(glVertexAttribPointer(2, 4, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, color)));
-	GL(glVertexAttribPointer(3, 1, GL_FLOAT, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, tid)));
-
 	ibo->Bind();
-	GL(glDrawElements(GL_TRIANGLES, count, ibo->GetFormat(), nullptr));
+	glDrawElements(GL_TRIANGLES, count, ibo->GetFormat(), nullptr);
 }

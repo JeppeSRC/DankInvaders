@@ -80,7 +80,7 @@ void InitializeDisplay() {
 	NativeApp* app = NativeApp::app;
 
 	int attrib[]{
-		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
+		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT_KHR,
 		EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
 		EGL_RED_SIZE, 8,
 		EGL_GREEN_SIZE, 8,
@@ -123,6 +123,7 @@ void InitializeDisplay() {
 	eglQuerySurface(app->display, app->surface, EGL_WIDTH, &app->surface_width);
 	eglQuerySurface(app->display, app->surface, EGL_HEIGHT, &app->surface_height);
 
+	glViewport(0, 0, app->surface_width, app->surface_height);
 	
 	LOGD("EGL Version: %s", eglQueryString(app->display, EGL_VERSION));
 	LOGD("EGL Vendor:  %s", eglQueryString(app->display, EGL_VENDOR));

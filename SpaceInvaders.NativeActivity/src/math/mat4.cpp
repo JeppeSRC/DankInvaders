@@ -1,6 +1,7 @@
 #include "mat4.h"
 #include <memory>
-#ifndef __arm__
+
+#if !(defined(__arm__) || defined(__aarch64__))
 void mat4::LoadRows(__m128* xmm) const {
 
 	xmm[0] = _mm_set_ps(m[0 + 3 * 4], m[0 + 2 * 4], m[0 + 1 * 4], m[0 + 0 * 4]);
@@ -224,19 +225,23 @@ mat4 mat4::Orthographic(float left, float right, float top, float bottom, float 
 
 	float* m = r.m;
 
-	m[0 + 0 * 4] = 2.0f / (right - left);
-	m[1 + 1 * 4] = 2.0f / (top - bottom);
-	m[2 + 2 * 4] = -2.0f / (zFar - zNear);
+	float w = 2.0f / (right - left);
+	float h = 2.0f / (top - bottom);
+	float z = -2.0f / (zFar - zNear);
 
-	m[0 + 3 * 4] = -((right + left) / (right - left));
-	m[1 + 3 * 4] = -((top + bottom) / (top - bottom));
-	m[2 + 3 * 4] = -((zFar + zNear) / (zNear - zFar));
-	m[3 + 3 * 4] = 1;
+	m[0 + 0 * 4] = w;
+	m[1 + 1 * 4] = h;
+	m[2 + 2 * 4] = z;
+
+	m[0 + 3 * 4] = -(right + left) / (right - left);
+	m[1 + 3 * 4] = -(top + bottom) / (top - bottom);
+	m[2 + 3 * 4] = -(zFar + zNear) / (zFar - zNear);
+	m[3 + 3 * 4] = 1.0f;
 
 	return r;
 }
 
-#ifndef __arm__
+#if !(defined(__arm__) || defined(__aarch64__))
 
 mat4 mat4::operator*(const mat4& r) {
 	mat4 tmp;

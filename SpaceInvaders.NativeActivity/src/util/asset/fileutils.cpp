@@ -14,7 +14,7 @@ void FileUtils::ReadFile(const char* const path, void** data, unsigned int* size
 		*size = 0;
 		return;
 	}
-
+	
 	*size = AAsset_getLength(asset);
 
 	*data = new unsigned char[*size];

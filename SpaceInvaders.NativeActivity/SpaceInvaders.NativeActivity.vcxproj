@@ -5,6 +5,10 @@
       <Configuration>Debug</Configuration>
       <Platform>ARM</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|ARM">
       <Configuration>Release</Configuration>
       <Platform>ARM</Platform>
@@ -12,6 +16,10 @@
     <ProjectConfiguration Include="Debug|x86">
       <Configuration>Debug</Configuration>
       <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x86">
       <Configuration>Release</Configuration>
@@ -27,6 +35,7 @@
     <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\texture2d.cpp" />
+    <ClCompile Include="src\graphics\vertexarray.cpp" />
     <ClCompile Include="src\graphics\vertexbuffer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\math\mat4.cpp" />
@@ -51,6 +60,7 @@
     <ClInclude Include="src\graphics\renderer.h" />
     <ClInclude Include="src\graphics\shader.h" />
     <ClInclude Include="src\graphics\texture2d.h" />
+    <ClInclude Include="src\graphics\vertexarray.h" />
     <ClInclude Include="src\graphics\vertexbuffer.h" />
     <ClInclude Include="src\math\mat4.h" />
     <ClInclude Include="src\math\math.h" />
@@ -79,23 +89,41 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>Gcc_4_9</PlatformToolset>
-    <ThumbMode>ARM</ThumbMode>
+    <ThumbMode>Disabled</ThumbMode>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <ThumbMode>Disabled</ThumbMode>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>Gcc_4_9</PlatformToolset>
     <ThumbMode>ARM</ThumbMode>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <ThumbMode>Disabled</ThumbMode>
+    <AndroidAPILevel>android-24</AndroidAPILevel>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -111,7 +139,13 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -119,7 +153,15 @@
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\inter\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\inter\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\inter\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\inter\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -139,13 +181,31 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
-      <EnableNeonCodegen>true</EnableNeonCodegen>
+      <EnableNeonCodegen>false</EnableNeonCodegen>
       <FloatABI>softfp</FloatABI>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>-march=armv7-a %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-march=armv7-a %(AdditionalOptions) -fpermissive</AdditionalOptions>
     </ClCompile>
     <Link>
-      <LibraryDependencies>%(LibraryDependencies);GLESv2;EGL;GLESv1_CM;m;gcc;gcov</LibraryDependencies>
+      <LibraryDependencies>%(LibraryDependencies);GLESv3;GLESv2;EGL;GLESv1_CM;m;gcc;gcov</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <EnableNeonCodegen>true</EnableNeonCodegen>
+      <FloatABI>
+      </FloatABI>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>-march=armv8-a  %(AdditionalOptions) -fpermissive</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>%(LibraryDependencies);GLESv3;GLESv2;EGL;GLESv1_CM;m;gcc;gcov</LibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -160,6 +220,26 @@
       <CppLanguageStandard>c++1y</CppLanguageStandard>
       <EnableNeonCodegen>true</EnableNeonCodegen>
       <FloatABI>softfp</FloatABI>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions);__ANDROID__</PreprocessorDefinitions>
+      <AdditionalOptions>-march=armv7-a %(AdditionalOptions) -fpermissive</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>%(LibraryDependencies);GLESv3;GLESv2;EGL;GLESv1_CM;m;gcc;gcov</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <Optimization>MaxSpeed</Optimization>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <EnableNeonCodegen>true</EnableNeonCodegen>
+      <FloatABI>
+      </FloatABI>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions);;__ANDROID__
 ;__ARM_EABI__
 ;__ARM_ARCH_5__
@@ -168,10 +248,10 @@
 ;__ARM_ARCH_5TE__
 ;__ARM_ARCH_7__
 ;__ARM_ARCH_7A__</PreprocessorDefinitions>
-      <AdditionalOptions>-march=armv7-a %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-march=armv8-a %(AdditionalOptions) -fpermissive</AdditionalOptions>
     </ClCompile>
     <Link>
-      <LibraryDependencies>%(LibraryDependencies);GLESv2;EGL;GLESv1_CM;m;gcc;gcov</LibraryDependencies>
+      <LibraryDependencies>%(LibraryDependencies);GLESv3;GLESv2;EGL;GLESv1_CM;m;gcc;gcov</LibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
@@ -182,11 +262,12 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
-      <EnableNeonCodegen>true</EnableNeonCodegen>
+      <EnableNeonCodegen>false</EnableNeonCodegen>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions> -fpermissive</AdditionalOptions>
     </ClCompile>
     <Link>
-      <LibraryDependencies>%(LibraryDependencies);GLESv2;EGL;GLESv1_CM;m;</LibraryDependencies>
+      <LibraryDependencies>%(LibraryDependencies);GLESv3;GLESv2;EGL;GLESv1_CM;m;</LibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
@@ -200,9 +281,10 @@
       <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
       <EnableNeonCodegen>true</EnableNeonCodegen>
+      <AdditionalOptions> -fpermissive</AdditionalOptions>
     </ClCompile>
     <Link>
-      <LibraryDependencies>%(LibraryDependencies);GLESv2;EGL;GLESv1_CM;m;</LibraryDependencies>
+      <LibraryDependencies>%(LibraryDependencies);GLESv3;GLESv2;EGL;GLESv1_CM;m;</LibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

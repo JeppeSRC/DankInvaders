@@ -3,7 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#ifndef __arm__
+#if !(defined(__arm__) ||  defined(__aarch64__))
 #include <arm_neon.h>
 #endif
 

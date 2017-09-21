@@ -3,6 +3,7 @@
 #include <core/app.h>
 #include <math/math.h>
 #include <game/entity/entity.h>
+#include <graphics/vertexarray.h>
 #include <graphics/vertexbuffer.h>
 #include <graphics/indexbuffer.h>
 #include <graphics/shader.h>
@@ -11,7 +12,7 @@
 struct Vertex {
 	vec3 position;
 	vec2 texCoord;
-	vec4 color;
+	unsigned int color;
 	float tid;
 };
 
@@ -19,9 +20,10 @@ class Renderer {
 private:
 	unsigned int numSprites;
 	unsigned short count;
-	Vertex* rawBuffer;
+
 	Vertex* buffer;
 
+	VertexArray* vao;
 	VertexBuffer* vbo;
 	IndexBuffer* ibo;
 

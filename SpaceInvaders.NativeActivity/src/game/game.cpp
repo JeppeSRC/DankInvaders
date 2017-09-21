@@ -66,17 +66,21 @@ int OnGameInput(AInputEvent* event) {
 	NativeApp* app = NativeApp::app;
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
 		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_DOWN) {
-			LOGD("DOWN");
-			
+			x = AMotionEvent_getX(event, 0);
+			y = AMotionEvent_getY(event, 0);
+			LOGD("DOWN %f %f", x, y);
+		}
+
+		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_MOVE) {
+			x = AMotionEvent_getX(event, 0);
+			y = AMotionEvent_getY(event, 0);
+			LOGD("MOVE %f %f", x, y);
 		}
 
 		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_UP) {
-			x = -1;
-			y = -1;
+			x = -1.0f;
+			y = -1.0f;
 			LOGD("UP");
-		} else {
-			x = AMotionEvent_getX(event, 0);
-			y = AMotionEvent_getY(event, 0);
 		}
 
 		return 1;
@@ -93,10 +97,10 @@ void game_main() {
 	GameManager manager;
 	
 	unsigned int lastTime = clock();
-
+	glEnable(GL_DEPTH_TEST);
 	while (app->status) {
 		ProcessInput();
-
+		//glClearColor(1, 1, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		unsigned int now = clock();

@@ -11,7 +11,7 @@ vec3::vec3() { x = 0; y = 0; z = 0; }
 
 vec3::vec3(float x, float y, float z) { this->x = x; this->y = y; this->z = z; }
 
-#ifndef __arm__
+#if !(defined(__arm__) || defined(__aarch64__))
 
 vec3& vec3::Add(const vec3& v) {
 	__m128 vxmm = _mm_set_ps(0, v.z, v.y, v.x);
@@ -161,7 +161,7 @@ float vec3::Dot(const vec3& v) const {
 
 
 /*
-vec3& vec3::Add(const vec3& v) {
+vec3& vec3::AddAttribute(const vec3& v) {
 	float vtmp[4]{ v.x, v.y, v.z, 0 };
 	float tmp[4]{ x, y, z, 0 };
 	float32x4_t vxmm = vld1q_f32(vtmp);
@@ -171,7 +171,7 @@ vec3& vec3::Add(const vec3& v) {
 	return *this;
 }
 
-vec3& vec3::Add(float v) {
+vec3& vec3::AddAttribute(float v) {
 	float vtmp[4]{ v, v, v, 0 };
 	float tmp[4]{ x, y, z, 0 };
 	float32x4_t vxmm = vld1q_f32(vtmp);

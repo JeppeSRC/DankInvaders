@@ -1,5 +1,5 @@
 #include "vertexbuffer.h"
-
+#include <sys/socket.h>
 VertexBuffer::VertexBuffer(const void* data, unsigned int size) {
 	ASSERT(size != 0);
 	GL(glGenBuffers(1, &vbo));
@@ -27,4 +27,13 @@ void VertexBuffer::SetData(const void* const data, unsigned int size) const {
 	GL(glBindBuffer(GL_ARRAY_BUFFER, vbo));
 	GL(glBufferSubData(GL_ARRAY_BUFFER, 0, size, data));
 	GL(glBindBuffer(GL_ARRAY_BUFFER, 0));
+}
+
+void* VertexBuffer::Map(unsigned int mode) const {
+	Bind();
+	return glMapBufferRange(GL_ARRAY_BUFFER, 0, size, mode);
+}
+
+void VertexBuffer::Unmap() const {
+	glUnmapBuffer(GL_ARRAY_BUFFER);
 }

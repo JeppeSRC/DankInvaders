@@ -15,15 +15,19 @@ void GameManager::Update(float delta, float input_x, float input_y) {
 	vec3& pPos = player->GetPosition();
 	vec2& pSize = player->GetSize();
 
-	if (input_x != -1) {
+	/*if (input_x != -1) {
 		if (input_x > NativeApp::app->surface_width >> 1) {
-			pPos.x += 0.1f * delta;
+			pPos.x += 0.5f * delta;
 		} else {
-			pPos.x -= 0.1f * delta;
+			pPos.x -= 0.5f * delta;
 		}
-	}
+	}*/
 
-	CLAMP(pPos.x, 0, GAME_AREA_WIDTH - pSize.x);
+	if (input_x >= 0.0f) pPos.x = input_x;
+	if (input_y >= 0.0f) pPos.y = input_y;
+
+	CLAMP(pPos.x, 0, 1920);
+	CLAMP(pPos.y, 0, 1080);
 }
 
 void GameManager::Render() {

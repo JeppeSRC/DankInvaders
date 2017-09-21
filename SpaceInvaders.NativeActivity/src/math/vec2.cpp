@@ -6,7 +6,7 @@
 vec2::vec2() { x = 0; y = 0; }
 vec2::vec2(float x, float y) { this->x = x; this->y = y; }
 
-#ifndef __arm__
+#if !(defined(__arm__) || defined(__aarch64__))
 
 vec2& vec2::Add(const vec2& v) {
 	__m128 vxmm = _mm_set_ps(0, 0, v.y, v.x);

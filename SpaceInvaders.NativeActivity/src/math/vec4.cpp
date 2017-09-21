@@ -6,7 +6,7 @@ vec4::vec4() : vec4(0, 0, 0, 0) {}
 
 vec4::vec4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
 
-#ifndef __arm__
+#if !(defined(__arm__) || defined(__aarch64__))
 
 vec4& vec4::Add(const vec4& v) {
 	__m128 vxmm = _mm_set_ps(v.w, v.z, v.y, v.x);
