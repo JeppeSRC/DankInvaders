@@ -20,6 +20,8 @@
     <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\game\gamemanager.cpp" />
     <ClCompile Include="src\graphics\vertexarray.cpp" />
+    <ClCompile Include="src\game\entity\player.cpp" />
+    <ClCompile Include="src\game\entity\npc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\log.h" />

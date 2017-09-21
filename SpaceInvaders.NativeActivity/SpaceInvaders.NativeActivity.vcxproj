@@ -29,6 +29,8 @@
   <ItemGroup>
     <ClCompile Include="src\core\app.cpp" />
     <ClCompile Include="src\game\entity\entity.cpp" />
+    <ClCompile Include="src\game\entity\npc.cpp" />
+    <ClCompile Include="src\game\entity\player.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\game\gamemanager.cpp" />
     <ClCompile Include="src\graphics\indexbuffer.cpp" />
