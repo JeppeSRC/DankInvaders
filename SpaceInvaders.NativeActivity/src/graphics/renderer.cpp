@@ -22,18 +22,14 @@ Renderer::Renderer(unsigned int num_sprites) {
 
 	vbo = new VertexBuffer(nullptr, numSprites * 4 * sizeof(Vertex));
 
-	vao = new VertexArray(sizeof(Vertex));
-
-	vbo->Bind();
-	vao->Bind();
-	vao->AddAttribute(0, 3, GL_FLOAT, false, (unsigned int)MOFFSET(Vertex, position));
-	vao->AddAttribute(1, 2, GL_FLOAT, false, (unsigned int)MOFFSET(Vertex, texCoord));
-	vao->AddAttribute(2, 4, GL_UNSIGNED_BYTE, true, (unsigned int)MOFFSET(Vertex, color));
-	vao->AddAttribute(3, 1, GL_FLOAT, false, (unsigned int)MOFFSET(Vertex, tid));
-
 	ibo = new IndexBuffer(indices, numSprites * 6);
 
-	shader = new Shader("shaders/renderer.vs", "shaders/renderer.fs", false);
+	if (NativeApp::app->glesVersion == GLES_VERSION_2) {
+		shader = new Shader("shaders/renderer_2.vs", "shaders/renderer_2.fs", false);
+	}
+	else {
+		shader = new Shader("shaders/renderer_3.vs", "shaders/renderer_3.fs", false);
+	}
 
 	shader->Bind();
 	
@@ -48,7 +44,6 @@ Renderer::Renderer(unsigned int num_sprites) {
 
 Renderer::~Renderer() {
 	delete vbo;
-	delete vao;
 	delete ibo;
 	delete shader;
 }
@@ -73,12 +68,6 @@ float Renderer::SubmitTexture(Texture2D* tex) {
 	}
 
 	return -0.0f;
-}
-
-void Renderer::Begin() {
-	texIds.Clear();
-	count = 0;
-	buffer = (Vertex*)vbo->Map(GL_MAP_WRITE_BIT);
 }
 
 void Renderer::Submit(Entity* e) {
@@ -122,19 +111,14 @@ void Renderer::Submit(Entity* e) {
 	count += 6;
 }
 
-void Renderer::End() {
-	vbo->Unmap();
-	buffer = nullptr;
-}
 
-void Renderer::Present() {
-	shader->Bind();
-	for (size_t i = 0; i < texIds.GetSize(); i++) {
-		texIds[i]->Bind(i);
+Renderer* Renderer::CreateRenderer(unsigned int num_sprites) {
+	if (NativeApp::app->glesVersion == GLES_VERSION_2) {
+		return new Renderer2(num_sprites);
+	}
+	else {
+		return new Renderer3(num_sprites);
 	}
 
-	vao->Bind();
-	vbo->Bind();
-	ibo->Bind();
-	glDrawElements(GL_TRIANGLES, count, ibo->GetFormat(), nullptr);
+	return nullptr;
 }

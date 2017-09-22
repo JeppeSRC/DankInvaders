@@ -19,13 +19,12 @@ struct Vertex {
 };
 
 class Renderer {
-private:
+protected:
 	unsigned int numSprites;
 	unsigned short count;
 
 	Vertex* buffer;
 
-	VertexArray* vao;
 	VertexBuffer* vbo;
 	IndexBuffer* ibo;
 
@@ -35,12 +34,41 @@ private:
 
 	float SubmitTexture(Texture2D* tex);
 
-public:
 	Renderer(unsigned int num_sprites);
-	~Renderer();
+public:
+	virtual ~Renderer();
 
-	void Begin();
-	void Submit(Entity* e);
-	void End();
-	void Present();
+	virtual void Begin() = 0;
+	void		 Submit(Entity* e);
+	virtual void End() = 0;
+	virtual void Present() = 0;
+
+public:
+	static Renderer* CreateRenderer(unsigned int num_sprites);
+};
+
+class Renderer2 : public Renderer {
+private:
+	Vertex* rawBuffer;
+
+public:
+	Renderer2(unsigned int num_sprites);
+	~Renderer2();
+
+	void Begin() override;
+	void End() override;
+	void Present() override;
+};
+
+class Renderer3 : public Renderer {
+private:
+	VertexArray* vao;
+
+public:
+	Renderer3(unsigned int num_sprites);
+	~Renderer3();
+
+	void Begin() override;
+	void End() override;
+	void Present() override;
 };

@@ -35,6 +35,8 @@
     <ClCompile Include="src\game\gamemanager.cpp" />
     <ClCompile Include="src\graphics\indexbuffer.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
+    <ClCompile Include="src\graphics\renderer2.cpp" />
+    <ClCompile Include="src\graphics\renderer3.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\texture2d.cpp" />
     <ClCompile Include="src\graphics\vertexarray.cpp" />

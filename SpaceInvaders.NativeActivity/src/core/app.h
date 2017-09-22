@@ -45,7 +45,7 @@ inline void GLCallLog(const char* const func, const char* const file, int line) 
 
 #ifdef _DEBUG
 #define DBG(code) code
-#define ASSERT(x) if (!(x)) { LOGF("Assertion Failed: \"%s\" in \"%s:%u\"", #x, __FILE__, __LINE__); }
+#define ASSERT(x) if (x) { LOGF("Assertion Failed: \"%s\" in \"%s:%u\"", #x, __FILE__, __LINE__); }
 #define GL(func) func; GLCallLog(#func, __FILE__, __LINE__)
 #else
 #define ASSERT(x)
@@ -56,6 +56,11 @@ inline void GLCallLog(const char* const func, const char* const file, int line) 
 typedef void(*CMD_CALLBACK)();
 typedef int(*INPUT_CALLBACK)(AInputEvent*);
 
+enum GLES_VERSION {
+	GLES_VERSION_2,
+	GLES_VERSION_3
+};
+
 class NativeApp {
 public:
 	static NativeApp* app;
@@ -64,6 +69,7 @@ public:
 	static void Destroy();
 
 	static float GetAspectRatio() { return (float)app->surface_width / app->surface_height; }
+
 public:
 	ANativeActivity* activity;
 	ANativeWindow* window;
@@ -92,6 +98,8 @@ public:
 
 	ALooper* looper;
 	AInputQueue* inputQueue;
+
+	GLES_VERSION glesVersion;
 
 private:
 	NativeApp(ANativeActivity* activity);

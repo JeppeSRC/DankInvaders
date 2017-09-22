@@ -80,18 +80,13 @@ void InitializeDisplay() {
 	NativeApp* app = NativeApp::app;
 
 	int attrib[]{
-		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT_KHR,
+		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES_BIT,
 		EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
 		EGL_RED_SIZE, 8,
 		EGL_GREEN_SIZE, 8,
 		EGL_BLUE_SIZE, 8,
 		EGL_ALPHA_SIZE, 8,
 		EGL_DEPTH_SIZE, 24,
-		EGL_NONE
-	};
-
-	int context_attrib[]{
-		EGL_CONTEXT_CLIENT_VERSION, 2,
 		EGL_NONE
 	};
 
@@ -112,8 +107,31 @@ void InitializeDisplay() {
 
 	ANativeWindow_setBuffersGeometry(app->window, 0, 0, format);
 
+	int context_attrib[]{
+		EGL_CONTEXT_CLIENT_VERSION, 3,
+		EGL_NONE
+	};
+
 	app->surface = eglCreateWindowSurface(app->display, config, app->window, nullptr);
 	app->context = eglCreateContext(app->display, config, nullptr, context_attrib);
+
+	if (!app->context) {
+		LOGW("Failed to create OpenGL ES 3.x context! Falling back to 2.x.");
+
+		context_attrib[1] = 2;
+
+		app->context = eglCreateContext(app->display, config, nullptr, context_attrib);
+
+		if (!app->context) {
+			LOGE("Failed to create OpenGL ES 2.x context! Exiting....");
+			_exit(2);
+		}
+
+		app->glesVersion = GLES_VERSION_2;
+	}
+	else {
+		app->glesVersion = GLES_VERSION_3;
+	}
 
 	if (eglMakeCurrent(app->display, app->surface, app->surface, app->context) == 0) {
 		LOGE("Failed to make context current!");
@@ -135,6 +153,8 @@ void InitializeDisplay() {
 	LOGD("GLSL Version: %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
 	
 	LOGD("Surface: width=%d height=%d", app->surface_width, app->surface_height);
+
+	
 }
 
 void DestroyDisplay() {

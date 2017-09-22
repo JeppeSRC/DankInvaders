@@ -17,11 +17,13 @@
     <ClCompile Include="src\math\vec2.cpp" />
     <ClCompile Include="src\util\stb_image.c" />
     <ClCompile Include="src\game\entity\entity.cpp" />
-    <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\game\gamemanager.cpp" />
     <ClCompile Include="src\graphics\vertexarray.cpp" />
     <ClCompile Include="src\game\entity\player.cpp" />
     <ClCompile Include="src\game\entity\npc.cpp" />
+    <ClCompile Include="src\graphics\renderer.cpp" />
+    <ClCompile Include="src\graphics\renderer2.cpp" />
+    <ClCompile Include="src\graphics\renderer3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\log.h" />
