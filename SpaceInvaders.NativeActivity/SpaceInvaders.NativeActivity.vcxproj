@@ -29,18 +29,20 @@
   <ItemGroup>
     <ClCompile Include="src\core\app.cpp" />
     <ClCompile Include="src\game\entity\entity.cpp" />
-    <ClCompile Include="src\game\entity\npc.cpp" />
+    <ClCompile Include="src\game\entity\npc\aiship.cpp" />
     <ClCompile Include="src\game\entity\player.cpp" />
+    <ClCompile Include="src\game\entity\ship.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\game\gamemanager.cpp" />
-    <ClCompile Include="src\graphics\indexbuffer.cpp" />
-    <ClCompile Include="src\graphics\renderer.cpp" />
-    <ClCompile Include="src\graphics\renderer2.cpp" />
-    <ClCompile Include="src\graphics\renderer3.cpp" />
+    <ClCompile Include="src\graphics\animatedtexture.cpp" />
+    <ClCompile Include="src\graphics\buffer\indexbuffer.cpp" />
+    <ClCompile Include="src\graphics\render\renderer.cpp" />
+    <ClCompile Include="src\graphics\render\renderer2.cpp" />
+    <ClCompile Include="src\graphics\render\renderer3.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\texture2d.cpp" />
-    <ClCompile Include="src\graphics\vertexarray.cpp" />
-    <ClCompile Include="src\graphics\vertexbuffer.cpp" />
+    <ClCompile Include="src\graphics\buffer\vertexarray.cpp" />
+    <ClCompile Include="src\graphics\buffer\vertexbuffer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\math\mat4.cpp" />
     <ClCompile Include="src\math\vec2.cpp" />
@@ -52,20 +54,22 @@
     <ClCompile Include="src\util\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\entity\ship.h" />
     <ClInclude Include="src\game\gamemanager.h" />
     <ClInclude Include="src\core\app.h" />
     <ClInclude Include="src\core\log.h" />
     <ClInclude Include="src\core\def.h" />
     <ClInclude Include="src\game\entity\entity.h" />
-    <ClInclude Include="src\game\entity\npc.h" />
+    <ClInclude Include="src\game\entity\npc\aiship.h" />
     <ClInclude Include="src\game\entity\player.h" />
     <ClInclude Include="src\game\game.h" />
-    <ClInclude Include="src\graphics\indexbuffer.h" />
-    <ClInclude Include="src\graphics\renderer.h" />
+    <ClInclude Include="src\graphics\animatedtexture.h" />
+    <ClInclude Include="src\graphics\buffer\indexbuffer.h" />
+    <ClInclude Include="src\graphics\render\renderer.h" />
     <ClInclude Include="src\graphics\shader.h" />
     <ClInclude Include="src\graphics\texture2d.h" />
-    <ClInclude Include="src\graphics\vertexarray.h" />
-    <ClInclude Include="src\graphics\vertexbuffer.h" />
+    <ClInclude Include="src\graphics\buffer\vertexarray.h" />
+    <ClInclude Include="src\graphics\buffer\vertexbuffer.h" />
     <ClInclude Include="src\math\mat4.h" />
     <ClInclude Include="src\math\math.h" />
     <ClInclude Include="src\math\mathcommon.h" />
@@ -105,7 +109,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>Gcc_4_9</PlatformToolset>
-    <ThumbMode>Disabled</ThumbMode>
+    <ThumbMode>ARM</ThumbMode>
     <AndroidAPILevel>android-24</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
@@ -185,7 +189,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
-      <EnableNeonCodegen>false</EnableNeonCodegen>
+      <EnableNeonCodegen>true</EnableNeonCodegen>
       <FloatABI>softfp</FloatABI>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>-march=armv7-a %(AdditionalOptions) -fpermissive</AdditionalOptions>

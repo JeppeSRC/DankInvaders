@@ -2,14 +2,14 @@
 #include <core/log.h>
 #include <core/def.h>
 #include <graphics/shader.h>
-#include <graphics/vertexbuffer.h>
-#include <graphics/indexbuffer.h>
+#include <graphics/buffer/vertexbuffer.h>
+#include <graphics/buffer/indexbuffer.h>
 #include <graphics/texture2d.h>
 #include <android/sensor.h>
 #include <unistd.h>
 #include <math/math.h>
 #include <util/asset/fileutils.h>
-#include <graphics/renderer.h>
+#include <graphics/render/renderer.h>
 #include <util/utils.h>
 #include <game/gamemanager.h>
 #include <ctime>
@@ -91,16 +91,20 @@ void game_main() {
 	NativeApp* app = NativeApp::app;
 	SetUPDisplay();
 
-	GameManager manager;
 	
-	unsigned int lastTime = clock();
+
+	GameManager manager;
+	unsigned long long fps = 0;
+	unsigned int lastTime = mikrotime();
+	unsigned int lastTime2 = mikrotime();
+	eglSwapInterval(app->display, 1);
 	while (app->status) {
 		ProcessInput();
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		unsigned int now = clock();
+		unsigned int now = mikrotime();
 
-		float delta = ((float)(now - lastTime)) / 1000.0f;
+		float delta = ((float)(now - lastTime)) / (float)1000000;
 		lastTime = now;
 
 		manager.Update(delta, x, y);

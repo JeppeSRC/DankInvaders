@@ -48,6 +48,14 @@ public:
 		return data[index];
 	}
 
+	inline T& operator[](size_t index) const {
+		return data[index];
+	}
+
+	inline T Get(size_t index) {
+		return data[index];
+	}
+
 	inline T Get(size_t index) const {
 		return data[index];
 	}

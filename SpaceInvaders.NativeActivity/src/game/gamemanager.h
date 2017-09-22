@@ -2,8 +2,7 @@
 
 #include <core/app.h>
 #include <util/list.h>
-#include <game/entity/npc.h>
-#include <graphics/renderer.h>
+#include <graphics/render/renderer.h>
 #include <game/entity/player.h>
 
 #define GAME_AREA_HEIGHT 1000.0f 
@@ -13,8 +12,6 @@
 class GameManager {
 public:
 	Player* player;
-
-	List<NPC*> aliens;
 
 	Renderer* renderer;
 

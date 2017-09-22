@@ -3,9 +3,9 @@
 #include <core/app.h>
 #include <math/math.h>
 #include <game/entity/entity.h>
-#include <graphics/vertexarray.h>
-#include <graphics/vertexbuffer.h>
-#include <graphics/indexbuffer.h>
+#include <graphics/buffer/vertexarray.h>
+#include <graphics/buffer/vertexbuffer.h>
+#include <graphics/buffer/indexbuffer.h>
 #include <graphics/shader.h>
 #include <util/map.h>
 

@@ -80,13 +80,13 @@ void InitializeDisplay() {
 	NativeApp* app = NativeApp::app;
 
 	int attrib[]{
-		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES_BIT,
+		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
 		EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
 		EGL_RED_SIZE, 8,
 		EGL_GREEN_SIZE, 8,
 		EGL_BLUE_SIZE, 8,
 		EGL_ALPHA_SIZE, 8,
-		EGL_DEPTH_SIZE, 24,
+		EGL_DEPTH_SIZE, 0,
 		EGL_NONE
 	};
 
@@ -96,6 +96,11 @@ void InitializeDisplay() {
 		LOGE("Failed to initialize egl display");
 	}
 
+	LOGD("EGL Version: %s", eglQueryString(app->display, EGL_VERSION));
+	LOGD("EGL Vendor:  %s", eglQueryString(app->display, EGL_VENDOR));
+	LOGD("EGL Extensions: %s", eglQueryString(app->display, EGL_EXTENSIONS));
+	LOGD("EGL Client APIs: %s", eglQueryString(app->display, EGL_CLIENT_APIS));
+
 	int num_configs;
 	EGLConfig config;
 
@@ -103,7 +108,9 @@ void InitializeDisplay() {
 
 	int format;
 
-	eglGetConfigAttrib(app->display, config, EGL_NATIVE_VISUAL_ID, &format);
+	if (!eglGetConfigAttrib(app->display, config, EGL_NATIVE_VISUAL_ID, &format)) {
+		LOGF("Failed to get config");
+	}
 
 	ANativeWindow_setBuffersGeometry(app->window, 0, 0, format);
 
@@ -133,6 +140,8 @@ void InitializeDisplay() {
 		app->glesVersion = GLES_VERSION_3;
 	}
 
+
+
 	if (eglMakeCurrent(app->display, app->surface, app->surface, app->context) == 0) {
 		LOGE("Failed to make context current!");
 		_exit(2);
@@ -143,10 +152,6 @@ void InitializeDisplay() {
 
 	glViewport(0, 0, app->surface_width, app->surface_height);
 	
-	LOGD("EGL Version: %s", eglQueryString(app->display, EGL_VERSION));
-	LOGD("EGL Vendor:  %s", eglQueryString(app->display, EGL_VENDOR));
-	LOGD("EGL Extensions: %s", eglQueryString(app->display, EGL_EXTENSIONS));
-	LOGD("EGL Client APIs: %s", eglQueryString(app->display, EGL_CLIENT_APIS));
 	LOGD("OpenGL Version: %s", glGetString(GL_VERSION));
 	LOGD("OpenGL Vendor: %s", glGetString(GL_VENDOR));
 	LOGD("OpenGL Renderer: %s", glGetString(GL_RENDERER));
