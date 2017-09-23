@@ -26,6 +26,9 @@
     <ClCompile Include="src\graphics\animatedtexture.cpp" />
     <ClCompile Include="src\game\entity\npc\aiship.cpp" />
     <ClCompile Include="src\game\entity\ship.cpp" />
+    <ClCompile Include="src\game\entity\weapon\weapon.cpp" />
+    <ClCompile Include="src\game\entity\weapon\projectile.cpp" />
+    <ClCompile Include="src\game\entity\weapon\projectile_default.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\log.h" />
@@ -56,5 +59,9 @@
     <ClInclude Include="src\graphics\animatedtexture.h" />
     <ClInclude Include="src\game\entity\ship.h" />
     <ClInclude Include="src\game\entity\npc\aiship.h" />
+    <ClInclude Include="src\game\entity\weapon\projectile.h" />
+    <ClInclude Include="src\game\entity\weapon\weapon.h" />
+    <ClInclude Include="src\game\entity\pickup.h" />
+    <ClInclude Include="src\game\entity\weapon\projectile_default.h" />
   </ItemGroup>
 </Project>

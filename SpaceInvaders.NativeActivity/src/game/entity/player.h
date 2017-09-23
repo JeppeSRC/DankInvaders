@@ -1,9 +1,10 @@
 #pragma once
 
-#include "entity.h"
+#include "ship.h"
 
-class Player : public Entity {
+class Player : public Ship {
 private:
+	
 public:
 	Player(vec3 position);
 
