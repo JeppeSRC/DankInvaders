@@ -11,6 +11,8 @@ enum ENTITY_TYPE {
 	ENTITY_TYPE_PROJECTILE
 };
 
+class GameManager;
+
 class Entity {
 private:
 	ENTITY_TYPE type;
@@ -23,8 +25,9 @@ protected:
 
 	Entity(vec3 position, vec2 size, ENTITY_TYPE type);
 public:
+	virtual ~Entity() {}
 
-	virtual void Update(float delta, vec2 input);
+	virtual void Update(float delta, GameManager* manager);
 	
 	inline vec3& GetPosition() { return position; }
 	inline vec2& GetSize() { return size; }

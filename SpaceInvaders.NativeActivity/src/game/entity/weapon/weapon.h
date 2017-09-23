@@ -1,6 +1,6 @@
 #pragma once
 
-#include "projectile.h"
+#include <game/entity/projectiles/projectile.h>
 
 enum WEAPON_TYPE {
 	WEAPON_TYPE_UNKNOWN,
@@ -13,11 +13,13 @@ private:
 protected:
 	float rateOfFire;
 
-	Weapon(float rateOfFire);
+	Projectile* projectile;
+
+	Weapon(Projectile* projectil, float rateOfFire, WEAPON_TYPE type);
 public:
 	virtual ~Weapon();
 
-	virtual void Update(float delta, vec2 input) override = 0;
+	virtual void Update(float delta, GameManager* manager) override = 0;
 
 	inline float GetRateOfFire() const { return rateOfFire; }
 

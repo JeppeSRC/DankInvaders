@@ -22,7 +22,7 @@ protected:
 public:
 	virtual ~Ship() {}
 
-	virtual void Update(float delta, vec2 input) override = 0;
+	virtual void Update(float delta, GameManager* manager) override = 0;
 
 	inline float GetHealth() const { return health; }
 	inline float GetSpeed() const { return speed; }

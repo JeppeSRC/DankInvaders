@@ -26,7 +26,9 @@ protected:
 public:
 	virtual ~Projectile() {}
 
-	virtual void Update(float delta, vec2 input) override = 0;
+	virtual void Update(float delta, GameManager* manager) override = 0;
+
+	virtual Projectile* CreateCopy() const = 0;
 
 	inline float GetDamage() const { return damage; }
 	inline float GetSpeed() const { return speed; }

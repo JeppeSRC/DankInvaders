@@ -8,6 +8,6 @@ private:
 public:
 	Player(vec3 position);
 
-	void Update(float delta, vec2 input) override;
+	void Update(float delta, GameManager* manager) override;
 
 };

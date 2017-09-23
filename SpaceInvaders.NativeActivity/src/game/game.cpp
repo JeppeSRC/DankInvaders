@@ -60,25 +60,24 @@ void* app_main(void*) {
 	return nullptr;
 }
 
-float x = -1, y = -1;
+GameManager* man;
 
 int OnGameInput(AInputEvent* event) {
 	NativeApp* app = NativeApp::app;
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
+		vec2 v(-1.0f, -1.0f);
 		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_DOWN) {
-			x = AMotionEvent_getX(event, 0);
-			y = AMotionEvent_getY(event, 0);
+			v.x = AMotionEvent_getX(event, 0);
+			v.y = AMotionEvent_getY(event, 0);
+		} else if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_MOVE) {
+			v.x = AMotionEvent_getX(event, 0);
+			v.y = AMotionEvent_getY(event, 0);
+		} else if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_UP) {
+			v.x = -1.0f;
+			v.y = -1.0f;
 		}
 
-		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_MOVE) {
-			x = AMotionEvent_getX(event, 0);
-			y = AMotionEvent_getY(event, 0);
-		}
-
-		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_UP) {
-			x = -1.0f;
-			y = -1.0f;
-		}
+		man->inputCoord = v;
 
 		return 1;
 	}
@@ -91,9 +90,10 @@ void game_main() {
 	NativeApp* app = NativeApp::app;
 	SetUPDisplay();
 
-	
-
 	GameManager manager;
+	
+	man = &manager;
+
 	unsigned long long fps = 0;
 	unsigned int lastTime = mikrotime();
 	unsigned int lastTime2 = mikrotime();
@@ -107,7 +107,7 @@ void game_main() {
 		float delta = ((float)(now - lastTime)) / (float)1000000;
 		lastTime = now;
 
-		manager.Update(delta, x, y);
+		manager.Update(delta);
 		manager.Render();
 
 		eglSwapBuffers(app->display, app->surface);

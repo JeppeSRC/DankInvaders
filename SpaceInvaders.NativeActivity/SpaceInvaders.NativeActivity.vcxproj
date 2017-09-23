@@ -32,9 +32,10 @@
     <ClCompile Include="src\game\entity\npc\aiship.cpp" />
     <ClCompile Include="src\game\entity\player.cpp" />
     <ClCompile Include="src\game\entity\ship.cpp" />
-    <ClCompile Include="src\game\entity\weapon\projectile.cpp" />
-    <ClCompile Include="src\game\entity\weapon\projectile_default.cpp" />
+    <ClCompile Include="src\game\entity\projectiles\projectile.cpp" />
+    <ClCompile Include="src\game\entity\projectiles\projectile_default.cpp" />
     <ClCompile Include="src\game\entity\weapon\weapon.cpp" />
+    <ClCompile Include="src\game\entity\weapon\weapon_default.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\game\gamemanager.cpp" />
     <ClCompile Include="src\graphics\animatedtexture.cpp" />
@@ -58,10 +59,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\entity\pickup.h" />
-    <ClInclude Include="src\game\entity\weapon\projectile.h" />
+    <ClInclude Include="src\game\entity\projectiles\projectile.h" />
     <ClInclude Include="src\game\entity\ship.h" />
-    <ClInclude Include="src\game\entity\weapon\projectile_default.h" />
+    <ClInclude Include="src\game\entity\projectiles\projectile_default.h" />
     <ClInclude Include="src\game\entity\weapon\weapon.h" />
+    <ClInclude Include="src\game\entity\weapon\weapon_default.h" />
     <ClInclude Include="src\game\gamemanager.h" />
     <ClInclude Include="src\core\app.h" />
     <ClInclude Include="src\core\log.h" />

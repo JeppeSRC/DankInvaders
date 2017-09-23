@@ -160,13 +160,17 @@ public:
 	}
 
 	inline void Free(bool isArray = false) {
-		if (isArray)
+		if (isArray) {
 			for (size_t i = 0; i < size; i++) {
 				delete[] data[i];
-			} else
+			}
+			} else {
 				for (size_t i = 0; i < size; i++) {
 					delete data[i];
-				}
+			}
+		}
+
+		size = 0;
 	}
 
 	inline void SetExtraReserve(size_t extra) { this->extraReserve = extra; }
