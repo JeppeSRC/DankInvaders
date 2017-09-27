@@ -1,9 +1,9 @@
 #pragma once
 #include "mathcommon.h"
 
+class vec2;
+
 class vec3 {
-private:
-	friend class vec2;
 public:
 	float x;
 	float y;
@@ -12,6 +12,7 @@ public:
 
 public:
 	vec3();
+	vec3(const vec2& v);
 	vec3(float x, float y, float z);
 
 	vec3& Add(const vec3& v);

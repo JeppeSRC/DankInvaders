@@ -95,21 +95,29 @@ void game_main() {
 	man = &manager;
 
 	unsigned long long fps = 0;
-	unsigned int lastTime = mikrotime();
-	unsigned int lastTime2 = mikrotime();
+	unsigned long long lastTime = mikrotime();
+	unsigned long long lastTime2 = mikrotime();
 	eglSwapInterval(app->display, 1);
 	while (app->status) {
 		ProcessInput();
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		unsigned int now = mikrotime();
+		unsigned long long now = mikrotime();
 
 		float delta = ((float)(now - lastTime)) / (float)1000000;
 		lastTime = now;
-
+		 
 		manager.Update(delta);
 		manager.Render();
 
 		eglSwapBuffers(app->display, app->surface);
+
+	/*	fps++;
+
+		if (mikrotime() - lastTime2 >= 1000000) {
+			LOGI("FPS: %llu", fps);
+			lastTime2 = mikrotime();
+			fps = 0;
+		}*/
 	}
 }

@@ -2,23 +2,15 @@
 #include <game/entity/ship.h>
 #include <game/gamemanager.h>
 
-ProjectileDefault::ProjectileDefault(Ship* shooter) : Projectile(shooter->GetPosition(), vec2(20, 20), shooter, PROJECTILE_TYPE_DEFAULT) {
+ProjectileDefault::ProjectileDefault(Ship* shooter, GameManager* manager) : Projectile(shooter->GetPosition() - shooter->GetSize().y + size.y / 2.0f, vec2(20, 20), shooter, PROJECTILE_TYPE_DEFAULT, manager) {
 	damage = 1.0f;
-	speed = 300.0f;
+	speed = 500.0f;
 
 	direction = vec2(0, -1);
 }
 
 ProjectileDefault::ProjectileDefault(const ProjectileDefault* other) : Projectile(other) {
 
-}
-
-void ProjectileDefault::Update(float delta, GameManager* manager) {
-	position.y += delta * direction.y * speed;
-
-	if (position.y < 0.0f) {
-		manager->Remove(this);
-	}
 }
 
 

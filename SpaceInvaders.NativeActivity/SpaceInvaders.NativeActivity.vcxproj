@@ -30,6 +30,7 @@
     <ClCompile Include="src\core\app.cpp" />
     <ClCompile Include="src\game\entity\entity.cpp" />
     <ClCompile Include="src\game\entity\npc\aiship.cpp" />
+    <ClCompile Include="src\game\entity\npc\aiship_default.cpp" />
     <ClCompile Include="src\game\entity\player.cpp" />
     <ClCompile Include="src\game\entity\ship.cpp" />
     <ClCompile Include="src\game\entity\projectiles\projectile.cpp" />
@@ -58,6 +59,7 @@
     <ClCompile Include="src\util\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\entity\npc\aiship_default.h" />
     <ClInclude Include="src\game\entity\pickup.h" />
     <ClInclude Include="src\game\entity\projectiles\projectile.h" />
     <ClInclude Include="src\game\entity\ship.h" />
@@ -279,9 +281,10 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
-      <EnableNeonCodegen>false</EnableNeonCodegen>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <EnableNeonCodegen>true</EnableNeonCodegen>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <AdditionalOptions> -fpermissive</AdditionalOptions>
+      <Optimization>MinSize</Optimization>
     </ClCompile>
     <Link>
       <LibraryDependencies>%(LibraryDependencies);GLESv3;GLESv2;EGL;GLESv1_CM;m;</LibraryDependencies>

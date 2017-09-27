@@ -1,4 +1,5 @@
 #include "vec3.h"
+#include "vec2.h"
 #include <core/log.h>
 #include <memory>
 
@@ -8,6 +9,8 @@
 //vec3::vec3(__m128 xmm) : _xmm(xmm) { }
 
 vec3::vec3() { x = 0; y = 0; z = 0; }
+
+vec3::vec3(const vec2& v) { x = v.x; y = v.y; z = 0; }
 
 vec3::vec3(float x, float y, float z) { this->x = x; this->y = y; this->z = z; }
 

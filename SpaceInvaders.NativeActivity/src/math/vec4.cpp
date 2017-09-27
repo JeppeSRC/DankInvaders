@@ -1,9 +1,10 @@
 #include "vec4.h"
+#include "vec3.h"
 #include <memory>
 
 
 vec4::vec4() : vec4(0, 0, 0, 0) {}
-
+vec4::vec4(const vec3& v) { x = v.x; y = v.y; z = v.z; w = 0; }
 vec4::vec4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
 
 #if !(defined(__arm__) || defined(__aarch64__))

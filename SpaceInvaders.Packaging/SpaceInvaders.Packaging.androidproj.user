@@ -5,14 +5,14 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <DebuggerFlavor>AndroidDebugger</DebuggerFlavor>
-    <AndroidDeviceID>emulator-5554;sdk_phone_x86</AndroidDeviceID>
+    <AndroidDeviceID>emulator-5554;H9</AndroidDeviceID>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <DebuggerFlavor>AndroidDebugger</DebuggerFlavor>
-    <AndroidDeviceID>emulator-5554;sdk_phone_x86</AndroidDeviceID>
+    <AndroidDeviceID>emulator-5556;H9</AndroidDeviceID>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <DebuggerFlavor>AndroidDebugger</DebuggerFlavor>
-    <AndroidDeviceID>4df1558b39df9f49;m0xx</AndroidDeviceID>
+    <AndroidDeviceID>emulator-5554;S3_ARM</AndroidDeviceID>
   </PropertyGroup>
 </Project>

@@ -23,12 +23,21 @@ protected:
 	vec4 color;
 	Texture2D* texture;
 
-	Entity(vec3 position, vec2 size, ENTITY_TYPE type);
+	GameManager* manager;
+
+	Entity(vec3 position, vec2 size, ENTITY_TYPE type, GameManager* manager);
 public:
 	virtual ~Entity() {}
 
-	virtual void Update(float delta, GameManager* manager);
+	virtual void Update(float delta);
+
+	vec2 GetTopLeft() const;
+	vec2 GetTopRight() const;
+	vec2 GetBottomRight() const;
+	vec2 GetBottomLeft() const;
 	
+	virtual bool Intersects(Entity* other);
+
 	inline vec3& GetPosition() { return position; }
 	inline vec2& GetSize() { return size; }
 	inline vec4& GetColor() { return color; }

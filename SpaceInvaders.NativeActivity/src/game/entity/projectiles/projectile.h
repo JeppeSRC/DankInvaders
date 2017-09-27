@@ -21,12 +21,12 @@ protected:
 
 	Ship* shooter;
 
-	Projectile(vec3 position, vec2 size, Ship* shooter, PROJECTILE_TYPE type);
+	Projectile(vec3 position, vec2 size, Ship* shooter, PROJECTILE_TYPE type, GameManager* manager);
 	Projectile(const Projectile* other);
 public:
 	virtual ~Projectile() {}
 
-	virtual void Update(float delta, GameManager* manager) override = 0;
+	virtual void Update(float delta) override;
 
 	virtual Projectile* CreateCopy() const = 0;
 

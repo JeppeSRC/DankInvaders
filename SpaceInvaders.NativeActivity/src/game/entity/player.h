@@ -6,8 +6,8 @@ class Player : public Ship {
 private:
 	
 public:
-	Player(vec3 position);
+	Player(vec3 position, GameManager* manager);
 
-	void Update(float delta, GameManager* manager) override;
+	void Update(float delta) override;
 
 };

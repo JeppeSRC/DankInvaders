@@ -18,11 +18,12 @@ protected:
 
 	Weapon* weapon;
 
-	Ship(vec3 position, vec2 size, SHIP_TYPE type);
+	Ship(vec3 position, vec2 size, SHIP_TYPE type, GameManager* manager);
 public:
 	virtual ~Ship() {}
 
-	virtual void Update(float delta, GameManager* manager) override = 0;
+	virtual void Update(float delta) override = 0;
+	virtual void OnHit(Projectile* projectil);
 
 	inline float GetHealth() const { return health; }
 	inline float GetSpeed() const { return speed; }

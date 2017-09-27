@@ -84,25 +84,25 @@ void Renderer::Submit(Entity* e) {
 
 	unsigned int col = a << 24 | b << 16 | g << 8 | r;
 
-	buffer->position = position;
+	buffer->position = position + vec2(-0.5f, -0.5f) * size;
 	buffer->texCoord = vec2(0, 0);
 	buffer->color = col;
 	buffer->tid = tid;
 	buffer++;
 
-	buffer->position = position + vec3(size.x, 0, 0);
+	buffer->position = position + vec2(0.5f, -0.5f) * size;
 	buffer->texCoord = vec2(1, 0);
 	buffer->color = col;
 	buffer->tid = tid;
 	buffer++;
 
-	buffer->position = position + vec3(size.x, size.y, 0);
+	buffer->position = position + vec2(0.5f, 0.5f) * size;
 	buffer->texCoord = vec2(1, 1);
 	buffer->color = col;
 	buffer->tid = tid;
 	buffer++;
 
-	buffer->position = position + vec3(0, size.y, 0);
+	buffer->position = position + vec2(-0.5f, 0.5f) * size;
 	buffer->texCoord = vec2(0, 1);
 	buffer->color = col;
 	buffer->tid = tid;

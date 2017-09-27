@@ -15,11 +15,11 @@ protected:
 
 	Projectile* projectile;
 
-	Weapon(Projectile* projectil, float rateOfFire, WEAPON_TYPE type);
+	Weapon(Projectile* projectil, float rateOfFire, WEAPON_TYPE type, GameManager* manager);
 public:
 	virtual ~Weapon();
 
-	virtual void Update(float delta, GameManager* manager) override = 0;
+	virtual void Update(float delta) override = 0;
 
 	inline float GetRateOfFire() const { return rateOfFire; }
 

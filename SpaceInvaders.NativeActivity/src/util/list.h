@@ -149,6 +149,7 @@ public:
 		T tmp = data[index];
 
 		size--;
+
 		memcpy(data + index, data + index + 1, (size - index) * sizeof(T));
 		return tmp;
 	}

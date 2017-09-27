@@ -6,7 +6,7 @@ class WeaponDefault : public Weapon {
 private:
 	float timer;
 public:
-	WeaponDefault(Projectile* projectile);
+	WeaponDefault(Projectile* projectile, GameManager* manager);
 
-	void Update(float delta, GameManager* manager) override;
+	void Update(float delta) override;
 };
