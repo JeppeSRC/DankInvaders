@@ -161,26 +161,24 @@ vec3& vec3::Divide(float v) {
 float vec3::Dot(const vec3& v) const {
 	return x * v.x + y * v.y * z * v.z;
 }
-
-
 /*
-vec3& vec3::AddAttribute(const vec3& v) {
+vec3& vec3::Add(const vec3& v) {
 	float vtmp[4]{ v.x, v.y, v.z, 0 };
 	float tmp[4]{ x, y, z, 0 };
 	float32x4_t vxmm = vld1q_f32(vtmp);
 	float32x4_t xmm = vld1q_f32(tmp);
 	xmm = vmulq_f32(xmm, vxmm);
-	memcpy(this, xmm, sizeof(float) * 3);
+	memcpy(this, &xmm, sizeof(float) * 3);
 	return *this;
 }
 
-vec3& vec3::AddAttribute(float v) {
+vec3& vec3::Add(float v) {
 	float vtmp[4]{ v, v, v, 0 };
 	float tmp[4]{ x, y, z, 0 };
 	float32x4_t vxmm = vld1q_f32(vtmp);
 	float32x4_t xmm = vld1q_f32(tmp);
 	xmm = vmulq_f32(xmm, vxmm);
-	memcpy(this, xmm, sizeof(float) * 3);
+	memcpy(this, &xmm, sizeof(float) * 3);
 	return *this;
 }
 
@@ -190,7 +188,7 @@ vec3& vec3::Subtract(const vec3& v) {
 	float32x4_t vxmm = vld1q_f32(vtmp);
 	float32x4_t xmm = vld1q_f32(tmp);
 	xmm = vsubq_f32(xmm, vxmm);
-	memcpy(this, xmm, sizeof(float) * 3);
+	memcpy(this, &xmm, sizeof(float) * 3);
 	return *this;
 }
 
@@ -200,7 +198,7 @@ vec3& vec3::Subtract(float v) {
 	float32x4_t vxmm = vld1q_f32(vtmp);
 	float32x4_t xmm = vld1q_f32(tmp);
 	xmm = vsubq_f32(xmm, vxmm);
-	memcpy(this, xmm, sizeof(float) * 3);
+	memcpy(this, &xmm, sizeof(float) * 3);
 	return *this;
 }
 
@@ -210,7 +208,7 @@ vec3& vec3::Multiply(const vec3& v) {
 	float32x4_t vxmm = vld1q_f32(vtmp);
 	float32x4_t xmm = vld1q_f32(tmp);
 	xmm = vmulq_f32(xmm, vxmm);
-	memcpy(this, xmm, sizeof(float) * 3);
+	memcpy(this, &xmm, sizeof(float) * 3);
 	return *this;
 }
 
@@ -220,7 +218,7 @@ vec3& vec3::Multiply(float v) {
 	float32x4_t vxmm = vld1q_f32(vtmp);
 	float32x4_t xmm = vld1q_f32(tmp);
 	xmm = vmulq_f32(xmm, vxmm);
-	memcpy(this, xmm, sizeof(float) * 3);
+	memcpy(this, &xmm, sizeof(float) * 3);
 	return *this;
 }
 

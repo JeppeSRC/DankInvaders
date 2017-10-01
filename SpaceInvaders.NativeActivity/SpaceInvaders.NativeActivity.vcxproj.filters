@@ -31,6 +31,7 @@
     <ClCompile Include="src\game\entity\projectiles\projectile_default.cpp" />
     <ClCompile Include="src\game\entity\weapon\weapon_default.cpp" />
     <ClCompile Include="src\game\entity\npc\aiship_default.cpp" />
+    <ClCompile Include="src\graphics\font\font.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\log.h" />
@@ -67,5 +68,6 @@
     <ClInclude Include="src\game\entity\projectiles\projectile.h" />
     <ClInclude Include="src\game\entity\weapon\weapon_default.h" />
     <ClInclude Include="src\game\entity\npc\aiship_default.h" />
+    <ClInclude Include="src\graphics\font\font.h" />
   </ItemGroup>
 </Project>

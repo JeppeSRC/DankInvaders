@@ -108,7 +108,7 @@ public:
 	}
 
 	template<typename K = T>
-	inline size_t Find(bool(*CMP_FUNC)(T item, K other), K other) const {
+	inline size_t Find(bool(*CMP_FUNC)(const T& item, K other), K other) const {
 		for (size_t i = 0; i < size; i++) {
 			if (CMP_FUNC(data[i], other)) return i;
 		}
