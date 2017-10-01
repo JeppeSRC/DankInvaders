@@ -31,8 +31,6 @@ void GameManager::Update(float delta) {
 		entities[i]->Update(delta);
 	}
 
-	//LOGD("Entities: %u", size);
-
 	size = removedEntities.GetSize();
 
 	for (size_t i = 0; i < size; i++) {
@@ -44,7 +42,6 @@ void GameManager::Update(float delta) {
 
 void GameManager::Render() {
 	renderer->Begin();
-	renderer->Submit(player);
 
 	size_t size = entities.GetSize();
 

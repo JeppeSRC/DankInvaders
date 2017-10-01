@@ -6,6 +6,7 @@
 class mat4 {
 private:
 	friend class mat3;
+	friend class vec2;
 	friend class vec3;
 	friend class vec4;
 private:
@@ -34,9 +35,10 @@ public:
 	static mat4 Perspective(float fov, float aspect, float zNear, float zFar);
 	static mat4 Orthographic(float left, float right, float top, float bottom, float zNear, float zFar);
 
-	mat4 operator*(const mat4& m);
-	//vec4 operator*(const vec4& v);
-	//vec3 operator*(const vec3& v);
+	mat4 operator*(const mat4& m) const;
+	vec4 operator*(const vec4& v) const;
+	vec3 operator*(const vec3& v) const;
+	vec2 operator*(const vec2& v) const;
 
 	inline const float* GetData() const { return m; }
 };

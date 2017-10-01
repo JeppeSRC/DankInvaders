@@ -1,4 +1,7 @@
 #include "mat4.h"
+#include "vec4.h"
+#include "vec3.h"
+#include "vec2.h"
 #include <memory>
 
 #if !(defined(__arm__) || defined(__aarch64__))
@@ -243,7 +246,7 @@ mat4 mat4::Orthographic(float left, float right, float top, float bottom, float 
 
 #if !(defined(__arm__) || defined(__aarch64__))
 
-mat4 mat4::operator*(const mat4& r) {
+mat4 mat4::operator*(const mat4& r) const {
 	mat4 tmp;
 	__m128 col[4];
 	__m128 rows[4];
@@ -267,7 +270,7 @@ mat4 mat4::operator*(const mat4& r) {
 
 #else
 
-mat4 mat4::operator*(const mat4& r) {
+mat4 mat4::operator*(const mat4& r) const {
 	float tmp[16];
 
 	for (int y = 0; y < 4; y++) {
@@ -283,41 +286,28 @@ mat4 mat4::operator*(const mat4& r) {
 }
 
 #endif
-/*
-vec4 mat4::operator*(const vec4& v) {
-	__m128 vec[4];
-	__m128 col[4];
 
-	vec[0] = _mm_set_ps(v.x, v.x, v.x, v.x);
-	vec[1] = _mm_set_ps(v.y, v.y, v.y, v.y);
-	vec[2] = _mm_set_ps(v.z, v.z, v.z, v.z);
-	vec[3] = _mm_set_ps(v.w, v.w, v.w, v.w);
+vec4 mat4::operator*(const vec4& v) const {
+	
+	float x = m[0 + 0 * 4] * v.x + m[1 + 0 * 4] * v.x + m[2 + 0 * 4] * v.x + m[3 + 0 * 4] * v.x;
+	float y = m[0 + 1 * 4] * v.y + m[1 + 1 * 4] * v.y + m[2 + 1 * 4] * v.y + m[3 + 1 * 4] * v.y;
+	float z = m[0 + 2 * 4] * v.z + m[1 + 2 * 4] * v.z + m[2 + 2 * 4] * v.z + m[3 + 2 * 4] * v.z;
+	float w = m[0 + 3 * 4] * v.w + m[1 + 3 * 4] * v.w + m[2 + 3 * 4] * v.w + m[3 + 3 * 4] * v.w;
 
-	LoadColumns(col);
-
-	__m128 res = _mm_mul_ps(vec[0], col[0]);
-
-	for (int i = 1; i < 4; i++)
-		res = _mm_fmadd_ps(vec[i], col[i], res);
-
-	return vec4(res.m128_f32[0], res.m128_f32[1], res.m128_f32[2], res.m128_f32[3]);
+	return vec4(x, y, z, w);
 }
 
-vec3 mat4::operator*(const vec3& v) {
-	__m128 vec[4];
-	__m128 col[4];
+vec3 mat4::operator*(const vec3& v) const {
+	float x = m[0 + 0 * 4] * v.x + m[1 + 0 * 4] * v.x + m[2 + 0 * 4] * v.x + m[3 + 0 * 4] * v.x;
+	float y = m[0 + 1 * 4] * v.y + m[1 + 1 * 4] * v.y + m[2 + 1 * 4] * v.y + m[3 + 1 * 4] * v.y;
+	float z = m[0 + 2 * 4] * v.z + m[1 + 2 * 4] * v.z + m[2 + 2 * 4] * v.z + m[3 + 2 * 4] * v.z;
 
-	vec[0] = _mm_set_ps(v.x, v.x, v.x, v.x);
-	vec[1] = _mm_set_ps(v.y, v.y, v.y, v.y);
-	vec[2] = _mm_set_ps(v.z, v.z, v.z, v.z);
-	vec[3] = _mm_set_ps(1, 1, 1, 1);
+	return vec3(x, y, z);
+}
 
-	LoadColumns(col);
+vec2 mat4::operator*(const vec2& v) const {
+	float x = m[0 + 0 * 4] * v.x + m[1 + 0 * 4] * v.x + m[2 + 0 * 4] * v.x + m[3 + 0 * 4] * v.x;
+	float y = m[0 + 1 * 4] * v.y + m[1 + 1 * 4] * v.y + m[2 + 1 * 4] * v.y + m[3 + 1 * 4] * v.y;
 
-	__m128 res = _mm_mul_ps(vec[0], col[0]);
-
-	for (int i = 1; i < 4; i++)
-		res = _mm_fmadd_ps(vec[i], col[i], res);
-
-	return vec3(res.m128_f32[0], res.m128_f32[1], res.m128_f32[2]);
-}*/
+	return vec2(x, y);
+}

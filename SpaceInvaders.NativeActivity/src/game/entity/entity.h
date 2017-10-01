@@ -19,8 +19,10 @@ private:
 protected:
 	vec3 position;
 	vec2 size;
+	float rotation;
 
 	vec4 color;
+	vec2 scaleTexture;
 	Texture2D* texture;
 
 	GameManager* manager;
@@ -40,8 +42,13 @@ public:
 
 	inline vec3& GetPosition() { return position; }
 	inline vec2& GetSize() { return size; }
+	inline float& GetRotation() { return rotation; }
 	inline vec4& GetColor() { return color; }
+	inline vec2 GetTextureScale() const { return scaleTexture; }
 	inline Texture2D* GetTexture() const { return texture; }
 
 	inline ENTITY_TYPE GetType() const { return type; }
+
+	inline void SetTextureScale(const vec2& scale) { scaleTexture = scale; }
+	inline void SetRotation(float angle) { this->rotation = angle; }
 };

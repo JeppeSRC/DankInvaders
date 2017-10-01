@@ -24,6 +24,8 @@ public:
 	float Length() const;
 	float LengthSqrt() const;
 
+	vec2& RotateZ(float angle);
+
 	inline friend vec2 operator+(const vec2& l, const vec2& r) { return vec2(l).Add(r); }
 	inline friend vec2 operator-(const vec2& l, const vec2& r) { return vec2(l).Subtract(r); }
 	inline friend vec2 operator*(const vec2& l, const vec2& r) { return vec2(l).Multiply(r); }

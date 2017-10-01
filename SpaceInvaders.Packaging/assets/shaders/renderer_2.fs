@@ -49,5 +49,5 @@ void main() {
 		tex *= texture2D(samplers[15], texCoord);
 	}
 
-	gl_FragColor = color;
+	gl_FragColor = tex;
 }

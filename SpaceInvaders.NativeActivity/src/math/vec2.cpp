@@ -148,6 +148,18 @@ float vec2::LengthSqrt() const {
 	return sqrtf(Length());
 }
 
+vec2& vec2::RotateZ(float angle) {
+	float a = FD_TO_RADIANS_F(angle);
+
+	float _x = x * cosf(a) - y * sinf(a);
+	float _y = y * cosf(a) + x * sinf(a);
+
+	x = _x;
+	y = _y;
+
+	return *this;
+}
+
 bool vec2::operator==(const vec2& v) const {
 	return x == v.x && y == v.y;
 }

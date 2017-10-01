@@ -2,7 +2,7 @@
 #include <game/gamemanager.h>
 #include <game/entity/projectiles/projectile.h>
 
-Ship::Ship(vec3 position, vec2 size, SHIP_TYPE type, GameManager* manager) : Entity(position, size, ENTITY_TYPE_SHIP, manager), type(type) { }
+Ship::Ship(vec3 position, vec2 size, SHIP_TYPE type, GameManager* manager) : Entity(position, size, ENTITY_TYPE_SHIP, manager), health(0.0f), speed(0.0f), type(type) { }
 
 void Ship::OnHit(Projectile* projectile) {
 	health -= projectile->GetDamage();

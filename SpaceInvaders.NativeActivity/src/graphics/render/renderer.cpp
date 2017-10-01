@@ -73,9 +73,11 @@ float Renderer::SubmitTexture(Texture2D* tex) {
 void Renderer::Submit(Entity* e) {
 	float tid = SubmitTexture(e->GetTexture());
 
-	vec4 color = e->GetColor();
-	vec3 position = e->GetPosition();
-	vec2 size = e->GetSize();
+	const vec4& color = e->GetColor();
+	const vec3& position = e->GetPosition();
+	const vec2& size = e->GetSize();
+	const vec2& scale = e->GetTextureScale();
+	const float& rotation = e->GetRotation();
 
 	unsigned int r = (unsigned int)(color.x * 255) & 0xFF;
 	unsigned int g = (unsigned int)(color.y * 255) & 0xFF;
@@ -84,26 +86,26 @@ void Renderer::Submit(Entity* e) {
 
 	unsigned int col = a << 24 | b << 16 | g << 8 | r;
 
-	buffer->position = position + vec2(-0.5f, -0.5f) * size;
-	buffer->texCoord = vec2(0, 0);
+	buffer->position = position + vec2(-0.5f, -0.5f).RotateZ(rotation) * size;
+	buffer->texCoord = scale;
 	buffer->color = col;
 	buffer->tid = tid;
 	buffer++;
 
-	buffer->position = position + vec2(0.5f, -0.5f) * size;
-	buffer->texCoord = vec2(1, 0);
+	buffer->position = position + vec2(0.5f, -0.5f).RotateZ(rotation) * size;
+	buffer->texCoord = vec2(1.0f - scale.x, scale.y);
 	buffer->color = col;
 	buffer->tid = tid;
 	buffer++;
 
-	buffer->position = position + vec2(0.5f, 0.5f) * size;
-	buffer->texCoord = vec2(1, 1);
+	buffer->position = position + vec2(0.5f, 0.5f).RotateZ(rotation) * size;
+	buffer->texCoord = vec2(1.0f - scale.x, 1.0f - scale.y);
 	buffer->color = col;
 	buffer->tid = tid;
 	buffer++;
 
-	buffer->position = position + vec2(-0.5f, 0.5f) * size;
-	buffer->texCoord = vec2(0, 1);
+	buffer->position = position + vec2(-0.5f, 0.5f).RotateZ(rotation) * size;
+	buffer->texCoord = vec2(scale.x, 1.0f - scale.y);
 	buffer->color = col;
 	buffer->tid = tid;
 	buffer++;

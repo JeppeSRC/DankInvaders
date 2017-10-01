@@ -47,22 +47,23 @@ Texture2D::Texture2D(const char* const path) {
 
 	FileUtils::ReadFile(path, &data, &size);
 
-	int x = 0;
-	int y = 0;
+	int width = 0;
+	int height = 0;
 	int comp = 0;
 
-	unsigned char* image = stbi_load_from_memory((const unsigned char*)data, size, &x, &y, &comp, 4);
+	unsigned char* image = stbi_load_from_memory((const unsigned char*)data, size, &width, &height, &comp, 4);
 
 	if (!image) {
 		LOGD("You suck!!! Failed to load texture");
 		return;
 	}
+
 	
-	Load(image, x, y, GL_RGBA, GL_UNSIGNED_BYTE);
+	Load(image, width, height, GL_RGBA, GL_UNSIGNED_BYTE);
 
 	stbi_image_free(image);
-	delete[] data;
 
+	delete[] data;
 }
 
 Texture2D::Texture2D(const void* const data, unsigned int width, unsigned int height, unsigned int format, unsigned int type) {

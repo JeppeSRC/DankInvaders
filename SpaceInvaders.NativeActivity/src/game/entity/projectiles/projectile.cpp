@@ -7,7 +7,7 @@ Projectile::Projectile(vec3 position, vec2 size, Ship* shooter, PROJECTILE_TYPE 
 }
 
 Projectile::Projectile(const Projectile* other) : Entity(other->shooter->GetPosition(), other->size, ENTITY_TYPE_PROJECTILE, other->manager), type(other->type), damage(other->damage), speed(other->speed), direction(other->direction), shooter(other->shooter) {
-
+	position.y -= shooter->GetSize().y / 2.0f - size.y;
 }
 
 void Projectile::Update(float delta) {
@@ -27,10 +27,14 @@ void Projectile::Update(float delta) {
 
 		if (e->GetType() != ENTITY_TYPE_SHIP) continue;
 
+		Ship* ship = (Ship*)e;
+
+		if (shooter == ship) continue;
+
 		if (Intersects(e)) {
-			Ship* ship = (Ship*)e;
-			
 			ship->OnHit(this);
+
+			manager->Remove(this);
 		}
 	}
 }
