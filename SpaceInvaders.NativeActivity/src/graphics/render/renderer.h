@@ -7,7 +7,10 @@
 #include <graphics/buffer/vertexbuffer.h>
 #include <graphics/buffer/indexbuffer.h>
 #include <graphics/shader.h>
+#include <graphics/font/font.h>
 #include <util/map.h>
+#include <util/string.h>
+
 
 #define MAX_TEXTURES 0x10
 
@@ -19,6 +22,9 @@ struct Vertex {
 };
 
 class Renderer {
+private:
+	float xUnitsPerPixel;
+	float yUnitsPerPixel;
 protected:
 	unsigned int numSprites;
 	unsigned short count;
@@ -40,6 +46,7 @@ public:
 
 	virtual void Begin() = 0;
 	void		 Submit(Entity* e);
+	void		 Submit(const String& text, Font* font, const vec2& position);
 	virtual void End() = 0;
 	virtual void Present() = 0;
 

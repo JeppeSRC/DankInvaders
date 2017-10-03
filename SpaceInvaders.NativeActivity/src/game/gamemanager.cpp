@@ -2,6 +2,8 @@
 
 #include <game/entity/npc/aiship_default.h>
 
+Font* font;
+
 GameManager::GameManager() : inputCoord(-1.0f, -1.0f){
 	player = new Player(vec3(GAME_AREA_WIDTH / 2.0f, GAME_AREA_HEIGHT - 35 - 50, 0), this);
 
@@ -9,6 +11,8 @@ GameManager::GameManager() : inputCoord(-1.0f, -1.0f){
 
 	entities.Push_back(player);
 	entities.Push_back(new AIShipDefault(vec3(100, 50, 0), vec2(100, 100), this));
+
+	font = new Font("fonts/AndroidClock.ttf", 10);
 }
 
 GameManager::~GameManager() {
@@ -48,6 +52,8 @@ void GameManager::Render() {
 	for (size_t i = 0; i < size; i++) {
 		renderer->Submit(entities[i]);
 	}
+
+	renderer->Submit("0123456789", font, vec2(50, 100));
 
 	renderer->End();
 	renderer->Present();

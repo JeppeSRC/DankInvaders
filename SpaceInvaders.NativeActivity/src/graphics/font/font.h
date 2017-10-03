@@ -45,4 +45,5 @@ public:
 	~Font();
 
 	const GLYPH& GetGlyph(unsigned int unicodeCharacter) const;
+	Texture2D* GetAtlas() const { return atlas; }
 };

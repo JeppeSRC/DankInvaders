@@ -225,7 +225,8 @@
       <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include</AdditionalIncludeDirectories>
       <CppLanguageStandard>gnu++1y</CppLanguageStandard>
       <EnableNeonCodegen>true</EnableNeonCodegen>
-      <FloatABI>softfp</FloatABI>
+      <FloatABI>
+      </FloatABI>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>-march=armv8-a  %(AdditionalOptions) -fpermissive</AdditionalOptions>
     </ClCompile>
@@ -263,7 +264,8 @@
       <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include</AdditionalIncludeDirectories>
       <CppLanguageStandard>gnu++1y</CppLanguageStandard>
       <EnableNeonCodegen>true</EnableNeonCodegen>
-      <FloatABI>softfp</FloatABI>
+      <FloatABI>
+      </FloatABI>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions);;__ANDROID__
 ;__ARM_EABI__
 ;__ARM_ARCH_5__

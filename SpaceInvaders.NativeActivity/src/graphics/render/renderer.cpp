@@ -40,6 +40,8 @@ Renderer::Renderer(unsigned int num_sprites) {
 	shader->SetMat4("projection", mat4::Orthographic(0, GAME_AREA_WIDTH, 0, GAME_AREA_HEIGHT, -1, 1).GetData());
 	//shader->SetMat4("projection", mat4::Identity().GetData());
 
+	xUnitsPerPixel = GAME_AREA_WIDTH / NativeApp::app->surface_width;
+	yUnitsPerPixel = GAME_AREA_HEIGHT / NativeApp::app->surface_height;
 }
 
 Renderer::~Renderer() {
@@ -113,6 +115,61 @@ void Renderer::Submit(Entity* e) {
 	count += 6;
 }
 
+void Renderer::Submit(const String& text, Font* font, const vec2& position) {
+	float tid = SubmitTexture(font->GetAtlas());
+
+	float xPos = position.x;
+	float yPos = position.y;
+
+	for (size_t i = 0; i < text.length; i++) {
+		unsigned int c = (unsigned int)text[i];
+
+		const Font::GLYPH& glyph = font->GetGlyph(c);
+
+		float bitmapWidth = (float)glyph.bitmapWidth * xUnitsPerPixel;
+		float bitmapHeight = (float)glyph.bitmapHeight * yUnitsPerPixel;
+
+		xPos -= glyph.xOffset * xUnitsPerPixel;
+	//	yPos -= glyph.yOffset * yUnitsPerPixel;
+
+		buffer->position.x = xPos;
+		buffer->position.y = yPos;
+		buffer->texCoord.x = glyph.u0;
+		buffer->texCoord.y = glyph.v0;
+		buffer->color = 0xFFFFFFFF;
+		buffer->tid = tid;
+		buffer++;
+
+		buffer->position.x = xPos + bitmapWidth;
+		buffer->position.y = yPos;
+		buffer->texCoord.x = glyph.u1;
+		buffer->texCoord.y = glyph.v0;
+		buffer->color = 0xFFFFFFFF;
+		buffer->tid = tid;
+		buffer++;
+
+		buffer->position.x = xPos + bitmapWidth;
+		buffer->position.y = yPos + bitmapHeight;
+		buffer->texCoord.x = glyph.u1;
+		buffer->texCoord.y = glyph.v1;
+		buffer->color = 0xFFFFFFFF;
+		buffer->tid = tid;
+		buffer++;
+
+		buffer->position.x = xPos;
+		buffer->position.y = yPos + bitmapHeight;
+		buffer->texCoord.x = glyph.u0;
+		buffer->texCoord.y = glyph.v1;
+		buffer->color = 0xFFFFFFFF;
+		buffer->tid = tid;
+		buffer++;
+
+		count += 6;
+
+		xPos += glyph.advance * xUnitsPerPixel;
+	}
+
+}
 
 Renderer* Renderer::CreateRenderer(unsigned int num_sprites) {
 	if (NativeApp::app->glesVersion == GLES_VERSION_2) {

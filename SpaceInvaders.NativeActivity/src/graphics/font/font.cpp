@@ -42,9 +42,8 @@ void Font::LoadFont(void* data, size_t size, int font_size) {
 	unsigned int numSymbols = sizeof(symbols) / sizeof(unsigned int);
 
 	for (unsigned int i = 0; i < numSymbols; i++) {
-		unsigned int index = symbols[i];
 
-		if (index == 0) continue;
+		unsigned int index = FT_Get_Char_Index(face, symbols[i]);
 
 		FT_Load_Glyph(face, index, FT_LOAD_DEFAULT);
 
@@ -57,7 +56,7 @@ void Font::LoadFont(void* data, size_t size, int font_size) {
 
 		GLYPH glyph;
 
-		glyph.unicode = i;
+		glyph.unicode = symbols[i];
 		glyph.advance = (float)glyphSlot->advance.x / 64.0f;
 		glyph.xOffset = (float)metrics.horiBearingX / 64.0f;
 		glyph.yOffset = (float)(metrics.height - metrics.horiBearingY) / 64.0f;
@@ -95,9 +94,9 @@ void Font::LoadFont(void* data, size_t size, int font_size) {
 		unsigned int yStart = i / bitmapSquareSize;
 
 		glyph.u0 = (float)xStart * xStep;
-		glyph.u1 = (float)yStart * yStep;
-		glyph.v0 = glyph.u0 + xStep;
-		glyph.v1 = glyph.u1 + yStep;
+		glyph.v0 = (float)yStart * yStep;
+		glyph.u1 = glyph.u0 + xStep;
+		glyph.v1 = glyph.v0 + yStep;
 
 		unsigned int yOffset = segmentHeight - glyph.bitmapHeight;
 
@@ -114,7 +113,7 @@ void Font::LoadFont(void* data, size_t size, int font_size) {
 		glyph.bitmap = nullptr;
 	}
 
-	atlas = new Texture2D(bitmap, bitmapWidth, bitmapHeight, GL_R8, GL_UNSIGNED_BYTE);
+	atlas = new Texture2D(bitmap, bitmapWidth, bitmapHeight, GL_RED, GL_UNSIGNED_BYTE);
 }
 
 const Font::GLYPH& Font::GetGlyph(unsigned int unicodeCharacter) const {
