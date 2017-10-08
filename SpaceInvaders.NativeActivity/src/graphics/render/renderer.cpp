@@ -2,6 +2,7 @@
 #include <string>
 #include <util/utils.h>
 #include <game/gamemanager.h>
+#include <freetype-gl.h>
 
 Renderer::Renderer(unsigned int num_sprites) {
 	numSprites = num_sprites;
@@ -116,57 +117,74 @@ void Renderer::Submit(Entity* e) {
 }
 
 void Renderer::Submit(const String& text, Font* font, const vec2& position) {
-	float tid = SubmitTexture(font->GetAtlas());
+	float tid = SubmitTexture(font->GetTexture());
 
 	float xPos = position.x;
 	float yPos = position.y;
 
+	ftgl::texture_font_t* f = font->GetFont();
+
 	for (size_t i = 0; i < text.length; i++) {
-		unsigned int c = (unsigned int)text[i];
+		char c = text[i];
 
-		const Font::GLYPH& glyph = font->GetGlyph(c);
+		if (c == ' ') {
+			xPos += font->GetSize() * xUnitsPerPixel * 0.25f;
+			continue;
+		}
 
-		float bitmapWidth = (float)glyph.bitmapWidth * xUnitsPerPixel;
-		float bitmapHeight = (float)glyph.bitmapHeight * yUnitsPerPixel;
+		ftgl::texture_glyph_t* glyph = texture_font_get_glyph(f, c);
 
-		xPos -= glyph.xOffset * xUnitsPerPixel;
-	//	yPos -= glyph.yOffset * yUnitsPerPixel;
+		float x = xPos - glyph->offset_x * xUnitsPerPixel;
+		float y = yPos - glyph->offset_y * yUnitsPerPixel;
 
-		buffer->position.x = xPos;
-		buffer->position.y = yPos;
-		buffer->texCoord.x = glyph.u0;
-		buffer->texCoord.y = glyph.v0;
+		if (i != 0) {
+			float kerning = texture_glyph_get_kerning(glyph, text[i - 1]);
+		//	x += kerning * xUnitsPerPixel;
+		}
+
+		float bitmapWidth = (float)glyph->width * xUnitsPerPixel;
+		float bitmapHeight = (float)glyph->height * yUnitsPerPixel;
+
+		float u0 = glyph->s0;
+		float v0 = glyph->t0;
+		float u1 = glyph->s1;
+		float v1 = glyph->t1;
+
+		buffer->position.x = x;
+		buffer->position.y = y;
+		buffer->texCoord.x = u0;
+		buffer->texCoord.y = v0;
 		buffer->color = 0xFFFFFFFF;
 		buffer->tid = tid;
 		buffer++;
 
-		buffer->position.x = xPos + bitmapWidth;
-		buffer->position.y = yPos;
-		buffer->texCoord.x = glyph.u1;
-		buffer->texCoord.y = glyph.v0;
+		buffer->position.x = x + bitmapWidth;
+		buffer->position.y = y;
+		buffer->texCoord.x = u1;
+		buffer->texCoord.y = v0;
 		buffer->color = 0xFFFFFFFF;
 		buffer->tid = tid;
 		buffer++;
 
-		buffer->position.x = xPos + bitmapWidth;
-		buffer->position.y = yPos + bitmapHeight;
-		buffer->texCoord.x = glyph.u1;
-		buffer->texCoord.y = glyph.v1;
+		buffer->position.x = x + bitmapWidth;
+		buffer->position.y = y + bitmapHeight;
+		buffer->texCoord.x = u1;
+		buffer->texCoord.y = v1;
 		buffer->color = 0xFFFFFFFF;
 		buffer->tid = tid;
 		buffer++;
 
-		buffer->position.x = xPos;
-		buffer->position.y = yPos + bitmapHeight;
-		buffer->texCoord.x = glyph.u0;
-		buffer->texCoord.y = glyph.v1;
+		buffer->position.x = x;
+		buffer->position.y = y + bitmapHeight;
+		buffer->texCoord.x = u0;
+		buffer->texCoord.y = v1;
 		buffer->color = 0xFFFFFFFF;
 		buffer->tid = tid;
 		buffer++;
 
 		count += 6;
 
-		xPos += glyph.advance * xUnitsPerPixel;
+		xPos += glyph->advance_x * xUnitsPerPixel;
 	}
 
 }

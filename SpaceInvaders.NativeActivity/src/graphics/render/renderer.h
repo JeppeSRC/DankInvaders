@@ -10,6 +10,8 @@
 #include <graphics/font/font.h>
 #include <util/map.h>
 #include <util/string.h>
+#include <math/vec3.h>
+#include <math/vec2.h>
 
 
 #define MAX_TEXTURES 0x10

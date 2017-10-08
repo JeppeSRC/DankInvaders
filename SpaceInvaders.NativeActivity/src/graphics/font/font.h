@@ -6,44 +6,25 @@
 #include <util/string.h>
 #include <graphics/texture2d.h>
 #include <util/map.h>
+#include <freetype-gl.h>
 
 class Font {
-public:
-	struct GLYPH {
-		unsigned int unicode;
-
-		float advance;
-
-		float xOffset;
-		float yOffset;
-
-		float u0;
-		float u1;
-		float v0;
-		float v1;
-
-		unsigned int bitmapWidth;
-		unsigned int bitmapHeight;
-
-		unsigned char* bitmap;
-
-		bool operator==(unsigned int unicode) const { return this->unicode == unicode; }
-	};
-	
 private:
-	FT_Library library;
-	FT_Face face;
+	ftgl::texture_atlas_t* atlas;
+	ftgl::texture_font_t* font;
 
-	Texture2D* atlas;
+	Texture2D* texture;
 
-	List<GLYPH> glyphs;
+	float size;
 
-	void LoadFont(void* data, size_t size, int font_size);
+	void LoadFont(void* data, size_t size, float font_size);
 public:
-	Font(const String& filename, int font_size);
-	Font(void* data, size_t size, int font_size);
+	Font(const String& filename, float font_size);
+	Font(void* data, size_t size, float font_size);
 	~Font();
 
-	const GLYPH& GetGlyph(unsigned int unicodeCharacter) const;
-	Texture2D* GetAtlas() const { return atlas; }
+	inline ftgl::texture_atlas_t* GetAtlas() const { return atlas; }
+	inline ftgl::texture_font_t* GetFont() const { return font; }
+	inline Texture2D* GetTexture() const { return texture; }
+	inline float GetSize() const { return size; }
 };

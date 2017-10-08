@@ -97,6 +97,9 @@
     <ClInclude Include="src\util\utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dependencies\FreeType-GL\FreeType-GL.vcxproj">
+      <Project>{e0172772-c67d-4e7c-b9bd-17141b03f28d}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Dependencies\FreeType\FreeType.vcxproj">
       <Project>{1290ca4c-6e1d-4c2f-b094-d2a20f8fe7fa}</Project>
     </ProjectReference>
@@ -205,8 +208,8 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <CompileAs>CompileAsCpp</CompileAs>
-      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include</AdditionalIncludeDirectories>
-      <CppLanguageStandard>gnu++1y</CppLanguageStandard>
+      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
       <EnableNeonCodegen>true</EnableNeonCodegen>
       <FloatABI>softfp</FloatABI>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -222,8 +225,8 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <CompileAs>CompileAsCpp</CompileAs>
-      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include</AdditionalIncludeDirectories>
-      <CppLanguageStandard>gnu++1y</CppLanguageStandard>
+      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
       <EnableNeonCodegen>true</EnableNeonCodegen>
       <FloatABI>
       </FloatABI>
@@ -242,8 +245,8 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <Optimization>MaxSpeed</Optimization>
       <BufferSecurityCheck>false</BufferSecurityCheck>
-      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include</AdditionalIncludeDirectories>
-      <CppLanguageStandard>gnu++1y</CppLanguageStandard>
+      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
       <EnableNeonCodegen>true</EnableNeonCodegen>
       <FloatABI>softfp</FloatABI>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions);__ANDROID__</PreprocessorDefinitions>
@@ -261,8 +264,8 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <Optimization>MaxSpeed</Optimization>
       <BufferSecurityCheck>false</BufferSecurityCheck>
-      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include</AdditionalIncludeDirectories>
-      <CppLanguageStandard>gnu++1y</CppLanguageStandard>
+      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
       <EnableNeonCodegen>true</EnableNeonCodegen>
       <FloatABI>
       </FloatABI>
@@ -286,12 +289,12 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <CompileAs>CompileAsCpp</CompileAs>
-      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
       <EnableNeonCodegen>true</EnableNeonCodegen>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <AdditionalOptions> -fpermissive</AdditionalOptions>
-      <Optimization>MinSize</Optimization>
+      <Optimization>Disabled</Optimization>
       <FloatABI>
       </FloatABI>
     </ClCompile>
@@ -307,7 +310,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <Optimization>MaxSpeed</Optimization>
       <BufferSecurityCheck>false</BufferSecurityCheck>
-      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
       <EnableNeonCodegen>true</EnableNeonCodegen>
       <AdditionalOptions> -fpermissive</AdditionalOptions>

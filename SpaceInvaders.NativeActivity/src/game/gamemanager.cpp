@@ -12,7 +12,7 @@ GameManager::GameManager() : inputCoord(-1.0f, -1.0f){
 	entities.Push_back(player);
 	entities.Push_back(new AIShipDefault(vec3(100, 50, 0), vec2(100, 100), this));
 
-	font = new Font("fonts/AndroidClock.ttf", 10);
+	font = new Font("fonts/arial.ttf", 64);
 }
 
 GameManager::~GameManager() {
@@ -53,7 +53,7 @@ void GameManager::Render() {
 		renderer->Submit(entities[i]);
 	}
 
-	renderer->Submit("0123456789", font, vec2(50, 100));
+	renderer->Submit("You'd think this is dank, just wait till it crashes", font, vec2(50, 300));
 
 	renderer->End();
 	renderer->Present();

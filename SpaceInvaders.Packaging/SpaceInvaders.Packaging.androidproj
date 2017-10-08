@@ -129,7 +129,7 @@
     </AntPackage>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Content Include="assets\fonts\AndroidClock.ttf" />
+    <Content Include="assets\fonts\arial.ttf" />
     <Content Include="assets\shaders\renderer_2.fs" />
     <Content Include="assets\shaders\renderer_2.vs" />
     <Content Include="assets\shaders\renderer_3.fs" />
