@@ -35,12 +35,19 @@ void Renderer2::Present() {
 	GL(glEnableVertexAttribArray(1));
 	GL(glEnableVertexAttribArray(2));
 	GL(glEnableVertexAttribArray(3));
+	GL(glEnableVertexAttribArray(4));
 
 	GL(glVertexAttribPointer(0, 3, GL_FLOAT,		 false, sizeof(Vertex), (const void*)MOFFSET(Vertex, position)));
 	GL(glVertexAttribPointer(1, 2, GL_FLOAT,		 false, sizeof(Vertex), (const void*)MOFFSET(Vertex, texCoord)));
 	GL(glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, false, sizeof(Vertex), (const void*)MOFFSET(Vertex, color)));
 	GL(glVertexAttribPointer(3, 1, GL_FLOAT,		 false, sizeof(Vertex), (const void*)MOFFSET(Vertex, tid)));
+	GL(glVertexAttribPointer(4, 1, GL_FLOAT,		 false, sizeof(Vertex), (const void*)MOFFSET(Vertex, text)));
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	ibo->Bind();
 	glDrawElements(GL_TRIANGLES, count, ibo->GetFormat(), nullptr);
+
+	glDisable(GL_BLEND);
 }

@@ -294,7 +294,7 @@
       <EnableNeonCodegen>true</EnableNeonCodegen>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <AdditionalOptions> -fpermissive</AdditionalOptions>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MinSize</Optimization>
       <FloatABI>
       </FloatABI>
     </ClCompile>

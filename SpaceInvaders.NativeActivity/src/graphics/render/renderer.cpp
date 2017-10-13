@@ -93,36 +93,42 @@ void Renderer::Submit(Entity* e) {
 	buffer->texCoord = scale;
 	buffer->color = col;
 	buffer->tid = tid;
+	buffer->text = 0.0f;
 	buffer++;
 
 	buffer->position = position + vec2(0.5f, -0.5f).RotateZ(rotation) * size;
 	buffer->texCoord = vec2(1.0f - scale.x, scale.y);
 	buffer->color = col;
 	buffer->tid = tid;
+	buffer->text = 0.0f;
 	buffer++;
 
 	buffer->position = position + vec2(0.5f, 0.5f).RotateZ(rotation) * size;
 	buffer->texCoord = vec2(1.0f - scale.x, 1.0f - scale.y);
 	buffer->color = col;
 	buffer->tid = tid;
+	buffer->text = 0.0f;
 	buffer++;
 
 	buffer->position = position + vec2(-0.5f, 0.5f).RotateZ(rotation) * size;
 	buffer->texCoord = vec2(scale.x, 1.0f - scale.y);
 	buffer->color = col;
 	buffer->tid = tid;
+	buffer->text = 0.0f;
 	buffer++;
 	
 	count += 6;
 }
 
-void Renderer::Submit(const String& text, Font* font, const vec2& position) {
+void Renderer::Submit(const String& text, Font* font, const vec2& position, unsigned int color) {
 	float tid = SubmitTexture(font->GetTexture());
 
 	float xPos = position.x;
 	float yPos = position.y;
 
 	ftgl::texture_font_t* f = font->GetFont();
+
+	color |= 0xFF000000;
 
 	for (size_t i = 0; i < text.length; i++) {
 		char c = text[i];
@@ -134,12 +140,12 @@ void Renderer::Submit(const String& text, Font* font, const vec2& position) {
 
 		ftgl::texture_glyph_t* glyph = texture_font_get_glyph(f, c);
 
-		float x = xPos - glyph->offset_x * xUnitsPerPixel;
+		float x = xPos + glyph->offset_x * xUnitsPerPixel;
 		float y = yPos - glyph->offset_y * yUnitsPerPixel;
 
 		if (i != 0) {
 			float kerning = texture_glyph_get_kerning(glyph, text[i - 1]);
-		//	x += kerning * xUnitsPerPixel;
+			x += kerning * xUnitsPerPixel;
 		}
 
 		float bitmapWidth = (float)glyph->width * xUnitsPerPixel;
@@ -154,32 +160,36 @@ void Renderer::Submit(const String& text, Font* font, const vec2& position) {
 		buffer->position.y = y;
 		buffer->texCoord.x = u0;
 		buffer->texCoord.y = v0;
-		buffer->color = 0xFFFFFFFF;
+		buffer->color = color;
 		buffer->tid = tid;
+		buffer->text = 1.0f;
 		buffer++;
 
 		buffer->position.x = x + bitmapWidth;
 		buffer->position.y = y;
 		buffer->texCoord.x = u1;
 		buffer->texCoord.y = v0;
-		buffer->color = 0xFFFFFFFF;
+		buffer->color = color;
 		buffer->tid = tid;
+		buffer->text = 1.0f;
 		buffer++;
 
 		buffer->position.x = x + bitmapWidth;
 		buffer->position.y = y + bitmapHeight;
 		buffer->texCoord.x = u1;
 		buffer->texCoord.y = v1;
-		buffer->color = 0xFFFFFFFF;
+		buffer->color = color;
 		buffer->tid = tid;
+		buffer->text = 1.0f;
 		buffer++;
 
 		buffer->position.x = x;
 		buffer->position.y = y + bitmapHeight;
 		buffer->texCoord.x = u0;
 		buffer->texCoord.y = v1;
-		buffer->color = 0xFFFFFFFF;
+		buffer->color = color;
 		buffer->tid = tid;
+		buffer->text = 1.0f;
 		buffer++;
 
 		count += 6;

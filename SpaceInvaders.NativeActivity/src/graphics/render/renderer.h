@@ -21,6 +21,7 @@ struct Vertex {
 	vec2 texCoord;
 	unsigned int color;
 	float tid;
+	float text;
 };
 
 class Renderer {
@@ -48,7 +49,7 @@ public:
 
 	virtual void Begin() = 0;
 	void		 Submit(Entity* e);
-	void		 Submit(const String& text, Font* font, const vec2& position);
+	void		 Submit(const String& text, Font* font, const vec2& position, unsigned int color);
 	virtual void End() = 0;
 	virtual void Present() = 0;
 
@@ -68,6 +69,8 @@ public:
 	void End() override;
 	void Present() override;
 };
+
+
 
 class Renderer3 : public Renderer {
 private:
