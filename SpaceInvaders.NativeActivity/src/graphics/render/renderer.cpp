@@ -76,43 +76,43 @@ float Renderer::SubmitTexture(Texture2D* tex) {
 void Renderer::Submit(Entity* e) {
 	float tid = SubmitTexture(e->GetTexture());
 
-	const vec4& color = e->GetColor();
+	unsigned int color = e->GetColor();
 	const vec3& position = e->GetPosition();
 	const vec2& size = e->GetSize();
 	const vec2& scale = e->GetTextureScale();
 	const float& rotation = e->GetRotation();
 
-	unsigned int r = (unsigned int)(color.x * 255) & 0xFF;
+	/*unsigned int r = (unsigned int)(color.x * 255) & 0xFF;
 	unsigned int g = (unsigned int)(color.y * 255) & 0xFF;
 	unsigned int b = (unsigned int)(color.z * 255) & 0xFF;
-	unsigned int a = (unsigned int)(color.w * 255) & 0xFF;
+	unsigned int a = (unsigned int)(color.w * 255) & 0xFF;*/
 
-	unsigned int col = a << 24 | b << 16 | g << 8 | r;
+	//unsigned int col = a << 24 | b << 16 | g << 8 | r;
 
-	buffer->position = position + vec2(-0.5f, -0.5f).RotateZ(rotation) * size;
+	buffer->position = position + vec2(size.x * -0.5f, size.y * -0.5f).RotateZ(rotation);
 	buffer->texCoord = scale;
-	buffer->color = col;
+	buffer->color = color;
 	buffer->tid = tid;
 	buffer->text = 0.0f;
 	buffer++;
 
-	buffer->position = position + vec2(0.5f, -0.5f).RotateZ(rotation) * size;
+	buffer->position = position + vec2(size.x * 0.5f, size.y * -0.5f).RotateZ(rotation);
 	buffer->texCoord = vec2(1.0f - scale.x, scale.y);
-	buffer->color = col;
+	buffer->color = color;
 	buffer->tid = tid;
 	buffer->text = 0.0f;
 	buffer++;
 
-	buffer->position = position + vec2(0.5f, 0.5f).RotateZ(rotation) * size;
+	buffer->position = position + vec2(size.x * 0.5f, size.y * 0.5f).RotateZ(rotation);
 	buffer->texCoord = vec2(1.0f - scale.x, 1.0f - scale.y);
-	buffer->color = col;
+	buffer->color = color;
 	buffer->tid = tid;
 	buffer->text = 0.0f;
 	buffer++;
 
-	buffer->position = position + vec2(-0.5f, 0.5f).RotateZ(rotation) * size;
+	buffer->position = position + vec2(size.x * -0.5f, size.y * 0.5f).RotateZ(rotation);
 	buffer->texCoord = vec2(scale.x, 1.0f - scale.y);
-	buffer->color = col;
+	buffer->color = color;
 	buffer->tid = tid;
 	buffer->text = 0.0f;
 	buffer++;

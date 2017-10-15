@@ -5,7 +5,7 @@
 #include <game/entity/projectiles/projectile_default.h>
 
 Player::Player(vec3 position, GameManager* manager) : Ship(position, vec2(75, 75), SHIP_TYPE_PLAYER, manager) {
-	color = vec4(1, 1, 1, 1);
+	color = 0xFFFFFFFF;
 
 	weapon = new WeaponDefault(new ProjectileDefault(this, manager), manager);
 	texture = new Texture2D("textures/player.png");

@@ -21,7 +21,7 @@ protected:
 	vec2 size;
 	float rotation;
 
-	vec4 color;
+	unsigned int color;
 	vec2 scaleTexture;
 	Texture2D* texture;
 
@@ -43,7 +43,7 @@ public:
 	inline vec3& GetPosition() { return position; }
 	inline vec2& GetSize() { return size; }
 	inline float& GetRotation() { return rotation; }
-	inline vec4& GetColor() { return color; }
+	inline unsigned int GetColor() { return color; }
 	inline vec2 GetTextureScale() const { return scaleTexture; }
 	inline Texture2D* GetTexture() const { return texture; }
 

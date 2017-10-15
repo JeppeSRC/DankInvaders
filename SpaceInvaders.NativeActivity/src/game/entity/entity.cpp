@@ -2,7 +2,7 @@
 
 #include <game/gamemanager.h>
 
-Entity::Entity(vec3 position, vec2 size, ENTITY_TYPE type, GameManager* manager) : type(type), position(position), size(size), rotation(0), color(vec4(1, 1, 1, 1)), scaleTexture(vec2(0, 0)), texture(nullptr), manager(manager) { }
+Entity::Entity(vec3 position, vec2 size, ENTITY_TYPE type, GameManager* manager) : type(type), position(position), size(size), rotation(0), color(0xFFFFFFFF), scaleTexture(vec2(0, 0)), texture(nullptr), manager(manager) { }
 
 void Entity::Update(float delta) { }
 
