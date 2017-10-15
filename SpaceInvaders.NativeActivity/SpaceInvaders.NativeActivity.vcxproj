@@ -51,6 +51,7 @@
     <ClCompile Include="src\graphics\texture2d.cpp" />
     <ClCompile Include="src\graphics\buffer\vertexarray.cpp" />
     <ClCompile Include="src\graphics\buffer\vertexbuffer.cpp" />
+    <ClCompile Include="src\graphics\ui\menuitem.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\math\mat4.cpp" />
     <ClCompile Include="src\math\vec2.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="src\graphics\texture2d.h" />
     <ClInclude Include="src\graphics\buffer\vertexarray.h" />
     <ClInclude Include="src\graphics\buffer\vertexbuffer.h" />
+    <ClInclude Include="src\graphics\ui\menuitem.h" />
     <ClInclude Include="src\math\mat4.h" />
     <ClInclude Include="src\math\math.h" />
     <ClInclude Include="src\math\mathcommon.h" />

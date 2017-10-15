@@ -32,9 +32,9 @@
     <ClCompile Include="src\game\entity\weapon\weapon_default.cpp" />
     <ClCompile Include="src\game\entity\npc\aiship_default.cpp" />
     <ClCompile Include="src\graphics\font\font.cpp" />
-    <ClCompile Include="src\graphics\ui\uiitem.cpp" />
     <ClCompile Include="src\game\menu\menu.cpp" />
     <ClCompile Include="src\core\event.cpp" />
+    <ClCompile Include="src\graphics\ui\menuitem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\log.h" />
@@ -72,9 +72,9 @@
     <ClInclude Include="src\game\entity\weapon\weapon_default.h" />
     <ClInclude Include="src\game\entity\npc\aiship_default.h" />
     <ClInclude Include="src\graphics\font\font.h" />
-    <ClInclude Include="src\graphics\ui\uiitem.h" />
     <ClInclude Include="src\game\menu\menu.h" />
     <ClInclude Include="src\core\event.h" />
     <ClInclude Include="src\core\eventlistener.h" />
+    <ClInclude Include="src\graphics\ui\menuitem.h" />
   </ItemGroup>
 </Project>
