@@ -1,6 +1,7 @@
 #include <core/app.h>
 #include <core/log.h>
 #include <core/def.h>
+#include <core/event.h>
 #include <graphics/shader.h>
 #include <graphics/buffer/vertexbuffer.h>
 #include <graphics/buffer/indexbuffer.h>
@@ -69,12 +70,15 @@ int OnGameInput(AInputEvent* event) {
 		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_DOWN) {
 			v.x = AMotionEvent_getX(event, 0);
 			v.y = AMotionEvent_getY(event, 0);
+			EventDispatcher::OnPress(v.x, v.y);
 		} else if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_MOVE) {
 			v.x = AMotionEvent_getX(event, 0);
 			v.y = AMotionEvent_getY(event, 0);
+			EventDispatcher::OnMove(v.x, v.y);
 		} else if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_UP) {
 			v.x = -1.0f;
 			v.y = -1.0f;
+			EventDispatcher::OnRelease();
 		}
 
 		man->inputCoord = v;

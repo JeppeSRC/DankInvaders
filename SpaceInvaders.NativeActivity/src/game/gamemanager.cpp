@@ -54,7 +54,8 @@ void GameManager::Render() {
 	}
 
 	renderer->Submit("Dank Memes", font, vec2(50, 300), 0xFF00FF);
-
+	LOGI("Dank");
 	renderer->End();
+	LOGI("Dank2");
 	renderer->Present();
 }

@@ -70,8 +70,6 @@ public:
 	void Present() override;
 };
 
-
-
 class Renderer3 : public Renderer {
 private:
 	VertexArray* vao;

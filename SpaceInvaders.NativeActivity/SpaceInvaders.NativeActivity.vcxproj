@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\app.cpp" />
+    <ClCompile Include="src\core\event.cpp" />
     <ClCompile Include="src\game\entity\entity.cpp" />
     <ClCompile Include="src\game\entity\npc\aiship.cpp" />
     <ClCompile Include="src\game\entity\npc\aiship_default.cpp" />
@@ -39,6 +40,7 @@
     <ClCompile Include="src\game\entity\weapon\weapon_default.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\game\gamemanager.cpp" />
+    <ClCompile Include="src\game\menu\menu.cpp" />
     <ClCompile Include="src\graphics\animatedtexture.cpp" />
     <ClCompile Include="src\graphics\buffer\indexbuffer.cpp" />
     <ClCompile Include="src\graphics\font\font.cpp" />
@@ -60,6 +62,8 @@
     <ClCompile Include="src\util\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\event.h" />
+    <ClInclude Include="src\core\eventlistener.h" />
     <ClInclude Include="src\game\entity\npc\aiship_default.h" />
     <ClInclude Include="src\game\entity\pickup.h" />
     <ClInclude Include="src\game\entity\projectiles\projectile.h" />
@@ -75,6 +79,7 @@
     <ClInclude Include="src\game\entity\npc\aiship.h" />
     <ClInclude Include="src\game\entity\player.h" />
     <ClInclude Include="src\game\game.h" />
+    <ClInclude Include="src\game\menu\menu.h" />
     <ClInclude Include="src\graphics\animatedtexture.h" />
     <ClInclude Include="src\graphics\buffer\indexbuffer.h" />
     <ClInclude Include="src\graphics\font\font.h" />

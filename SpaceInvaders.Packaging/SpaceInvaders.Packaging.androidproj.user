@@ -13,6 +13,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <DebuggerFlavor>AndroidDebugger</DebuggerFlavor>
-    <AndroidDeviceID>emulator-####;S3_ARM</AndroidDeviceID>
+    <AndroidDeviceID>4df1558b39df9f49;m0xx</AndroidDeviceID>
   </PropertyGroup>
 </Project>
