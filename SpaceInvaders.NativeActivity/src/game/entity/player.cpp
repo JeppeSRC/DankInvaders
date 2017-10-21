@@ -19,7 +19,7 @@ void Player::Update(float delta) {
 	vec2& inputCoord = manager->inputCoord;
 
 	if (inputCoord.x >= 0) {
-		if ((unsigned int)inputCoord.x > NativeApp::app->surface_width >> 1) {
+		if (inputCoord.x > GAME_AREA_WIDTH / 2.0f) {
 			position.x += speed * delta;
 		}
 		else {

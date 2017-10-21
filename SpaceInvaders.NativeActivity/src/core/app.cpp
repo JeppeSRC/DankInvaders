@@ -150,6 +150,9 @@ void InitializeDisplay() {
 	eglQuerySurface(app->display, app->surface, EGL_WIDTH, &app->surface_width);
 	eglQuerySurface(app->display, app->surface, EGL_HEIGHT, &app->surface_height);
 
+	app->xUnitsPerPixel = GAME_AREA_WIDTH / NativeApp::app->surface_width;
+	app->yUnitsPerPixel = GAME_AREA_HEIGHT / NativeApp::app->surface_height;
+
 	glViewport(0, 0, app->surface_width, app->surface_height);
 	
 	LOGD("OpenGL Version: %s", glGetString(GL_VERSION));

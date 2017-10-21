@@ -157,3 +157,18 @@ bool vec4::operator!=(const vec4& v) const {
 	return !(x == v.x && y == v.y && z == v.z && w == v.w);
 }
 
+bool vec4::operator>(const vec4& v) const {
+	return x > v.x && y > v.y && z > v.z && w > v.w;
+}
+
+bool vec4::operator<(const vec4& v) const {
+	return x < v.x && y < v.y && z < v.z && w < v.w;
+}
+
+bool vec4::operator>=(const vec4& v) const {
+	return x >= v.x && y >= v.y && z >= v.z && w >= v.w;
+}
+
+bool vec4::operator<=(const vec4& v) const {
+	return x <= v.x && y <= v.y && z <= v.z && w <= v.w;
+}

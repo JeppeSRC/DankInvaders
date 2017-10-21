@@ -51,5 +51,10 @@ public:
 	bool operator==(const vec4& v) const;
 	bool operator!=(const vec4& v) const;
 
+	bool operator>(const vec4& v) const;
+	bool operator<(const vec4& v) const;
+	bool operator>=(const vec4& v) const;
+	bool operator<=(const vec4& v) const;
+
 	inline vec4 operator-() { return vec4(-x, -y, -z, -w); }
 };

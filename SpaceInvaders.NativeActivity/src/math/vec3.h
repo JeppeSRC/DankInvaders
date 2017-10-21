@@ -58,5 +58,11 @@ public:
 
 	bool operator==(const vec3& v) const;
 	bool operator!=(const vec3& v) const;
+
+	bool operator>(const vec3& v) const;
+	bool operator<(const vec3& v) const;
+	bool operator>=(const vec3& v) const;
+	bool operator<=(const vec3& v) const;
+
 	inline vec3 operator-() { return vec3(-x, -y, -z); }
 };

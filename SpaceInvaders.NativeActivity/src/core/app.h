@@ -53,6 +53,9 @@ inline void GLCallLog(const char* const func, const char* const file, int line) 
 #define GL(func) func
 #endif
 
+#define GAME_AREA_HEIGHT 1000.0f 
+#define GAME_AREA_WIDTH (GAME_AREA_HEIGHT * NativeApp::GetAspectRatio())
+
 typedef void(*CMD_CALLBACK)();
 typedef int(*INPUT_CALLBACK)(AInputEvent*);
 
@@ -80,6 +83,9 @@ public:
 
 	int surface_width;
 	int surface_height;
+
+	float xUnitsPerPixel;
+	float yUnitsPerPixel;
 
 	int msgRead;
 	int msgWrite;

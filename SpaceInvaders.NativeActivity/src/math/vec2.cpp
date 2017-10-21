@@ -168,3 +168,18 @@ bool vec2::operator!=(const vec2& v) const {
 	return !(x == v.x && y == v.y);
 }
 
+bool vec2::operator>(const vec2& v) const {
+	return x > v.x && y > v.y;
+}
+
+bool vec2::operator<(const vec2& v) const {
+	return x < v.x && y < v.y;
+}
+
+bool vec2::operator>=(const vec2& v) const {
+	return x >= v.x && y >= v.y;
+}
+
+bool vec2::operator<=(const vec2& v) const {
+	return x <= v.x && y <= v.y;
+}

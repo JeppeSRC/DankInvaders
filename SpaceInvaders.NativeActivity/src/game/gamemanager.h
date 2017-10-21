@@ -6,9 +6,6 @@
 #include <game/entity/player.h>
 #include <vector>
 
-#define GAME_AREA_HEIGHT 1000.0f 
-#define GAME_AREA_WIDTH (GAME_AREA_HEIGHT * NativeApp::GetAspectRatio())
-
 class GameManager {
 public:
 	Player* player;

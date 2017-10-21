@@ -40,9 +40,6 @@ Renderer::Renderer(unsigned int num_sprites) {
 
 	shader->SetMat4("projection", mat4::Orthographic(0, GAME_AREA_WIDTH, 0, GAME_AREA_HEIGHT, -1, 1).GetData());
 	//shader->SetMat4("projection", mat4::Identity().GetData());
-
-	xUnitsPerPixel = GAME_AREA_WIDTH / NativeApp::app->surface_width;
-	yUnitsPerPixel = GAME_AREA_HEIGHT / NativeApp::app->surface_height;
 }
 
 Renderer::~Renderer() {
@@ -71,6 +68,40 @@ float Renderer::SubmitTexture(Texture2D* tex) {
 	}
 
 	return -0.0f;
+}
+
+void Renderer::Submit(const vec3& position, const vec2& size, unsigned int color, Texture2D* texture) {
+	float tid = SubmitTexture(texture);
+
+	buffer->position = position + vec2(size.x * -0.5f, size.y * -0.5f);
+	buffer->texCoord = vec2(0, 0);
+	buffer->color = color;
+	buffer->tid = tid;
+	buffer->text = 0.0f;
+	buffer++;
+
+	buffer->position = position + vec2(size.x * 0.5f, size.y * -0.5f);
+	buffer->texCoord = vec2(1, 0);
+	buffer->color = color;
+	buffer->tid = tid;
+	buffer->text = 0.0f;
+	buffer++;
+
+	buffer->position = position + vec2(size.x * 0.5f, size.y * 0.5f);
+	buffer->texCoord = vec2(1, 1);
+	buffer->color = color;
+	buffer->tid = tid;
+	buffer->text = 0.0f;
+	buffer++;
+
+	buffer->position = position + vec2(size.x * -0.5f, size.y * 0.5f);
+	buffer->texCoord = vec2(0, 1);
+	buffer->color = color;
+	buffer->tid = tid;
+	buffer->text = 0.0f;
+	buffer++;
+
+	count += 6;
 }
 
 void Renderer::Submit(Entity* e) {
@@ -134,22 +165,22 @@ void Renderer::Submit(const String& text, Font* font, const vec2& position, unsi
 		char c = text[i];
 
 		if (c == ' ') {
-			xPos += font->GetSize() * xUnitsPerPixel * 0.25f;
+			xPos += font->GetSize() * NativeApp::app->xUnitsPerPixel * 0.25f;
 			continue;
 		}
 
 		ftgl::texture_glyph_t* glyph = texture_font_get_glyph(f, c);
 
-		float x = xPos + glyph->offset_x * xUnitsPerPixel;
-		float y = yPos - glyph->offset_y * yUnitsPerPixel;
+		float x = xPos + glyph->offset_x * NativeApp::app->xUnitsPerPixel;
+		float y = yPos - glyph->offset_y * NativeApp::app->yUnitsPerPixel;
 
 		if (i != 0) {
 			float kerning = texture_glyph_get_kerning(glyph, text[i - 1]);
-			x += kerning * xUnitsPerPixel;
+			x += kerning * NativeApp::app->xUnitsPerPixel;
 		}
 
-		float bitmapWidth = (float)glyph->width * xUnitsPerPixel;
-		float bitmapHeight = (float)glyph->height * yUnitsPerPixel;
+		float bitmapWidth = (float)glyph->width * NativeApp::app->xUnitsPerPixel;
+		float bitmapHeight = (float)glyph->height * NativeApp::app->yUnitsPerPixel;
 
 		float u0 = glyph->s0;
 		float v0 = glyph->t0;
@@ -194,7 +225,7 @@ void Renderer::Submit(const String& text, Font* font, const vec2& position, unsi
 
 		count += 6;
 
-		xPos += glyph->advance_x * xUnitsPerPixel;
+		xPos += glyph->advance_x * NativeApp::app->xUnitsPerPixel;
 	}
 
 }

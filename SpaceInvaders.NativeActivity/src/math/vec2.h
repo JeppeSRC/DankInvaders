@@ -49,5 +49,10 @@ public:
 	bool operator==(const vec2& v) const;
 	bool operator!=(const vec2& v) const;
 
+	bool operator>(const vec2& v) const;
+	bool operator<(const vec2& v) const;
+	bool operator>=(const vec2& v) const;
+	bool operator<=(const vec2& v) const;
+
 	inline vec2 operator-() { return vec2(-x, -y); }
 };

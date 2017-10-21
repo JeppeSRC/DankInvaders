@@ -68,12 +68,12 @@ int OnGameInput(AInputEvent* event) {
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
 		vec2 v(-1.0f, -1.0f);
 		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_DOWN) {
-			v.x = AMotionEvent_getX(event, 0);
-			v.y = AMotionEvent_getY(event, 0);
+			v.x = AMotionEvent_getX(event, 0) * app->xUnitsPerPixel;
+			v.y = AMotionEvent_getY(event, 0) * app->yUnitsPerPixel;;
 			EventDispatcher::OnPress(v.x, v.y);
 		} else if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_MOVE) {
-			v.x = AMotionEvent_getX(event, 0);
-			v.y = AMotionEvent_getY(event, 0);
+			v.x = AMotionEvent_getX(event, 0) * app->xUnitsPerPixel;
+			v.y = AMotionEvent_getY(event, 0) * app->yUnitsPerPixel;
 			EventDispatcher::OnMove(v.x, v.y);
 		} else if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_UP) {
 			v.x = -1.0f;
@@ -92,6 +92,7 @@ int OnGameInput(AInputEvent* event) {
 
 void game_main() {
 	NativeApp* app = NativeApp::app;
+
 	SetUPDisplay();
 
 	GameManager manager;

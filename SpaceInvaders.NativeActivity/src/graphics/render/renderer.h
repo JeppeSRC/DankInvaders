@@ -25,9 +25,6 @@ struct Vertex {
 };
 
 class Renderer {
-private:
-	float xUnitsPerPixel;
-	float yUnitsPerPixel;
 protected:
 	unsigned int numSprites;
 	unsigned short count;
@@ -48,6 +45,7 @@ public:
 	virtual ~Renderer();
 
 	virtual void Begin() = 0;
+	void		 Submit(const vec3& position, const vec2& size, unsigned int color, Texture2D* texure);
 	void		 Submit(Entity* e);
 	void		 Submit(const String& text, Font* font, const vec2& position, unsigned int color);
 	virtual void End() = 0;
