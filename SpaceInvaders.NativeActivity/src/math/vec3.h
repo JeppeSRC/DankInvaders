@@ -2,6 +2,7 @@
 #include "mathcommon.h"
 
 class vec2;
+class vec4;
 
 class vec3 {
 public:
@@ -12,8 +13,9 @@ public:
 
 public:
 	vec3();
-	vec3(const vec2& v);
+	vec3(const vec2& v, float z = 0);
 	vec3(float x, float y, float z);
+	vec3(const vec4& v);
 
 	vec3& Add(const vec3& v);
 	vec3& Add(float v);

@@ -1,11 +1,16 @@
 #include "vec4.h"
 #include "vec3.h"
+#include "vec2.h"
 #include <memory>
 
 
-vec4::vec4() : vec4(0, 0, 0, 0) {}
-vec4::vec4(const vec3& v) { x = v.x; y = v.y; z = v.z; w = 0; }
-vec4::vec4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
+vec4::vec4() : x(0), y(0), z(0), w(0) { }
+
+vec4::vec4(const vec2& v, float z, float w) : x(v.x), y(v.x), z(z), w(w) {}
+
+vec4::vec4(const vec3& v, float w) : x(v.x), y(v.y), z(v.z), w(w) { }
+
+vec4::vec4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) { }
 
 #if !(defined(__arm__) || defined(__aarch64__))
 

@@ -2,17 +2,19 @@
 #include "vec2.h"
 #include <core/log.h>
 #include <memory>
-
+#include "vec4.h"
 
 #pragma region vec3
 
 //vec3::vec3(__m128 xmm) : _xmm(xmm) { }
 
-vec3::vec3() { x = 0; y = 0; z = 0; }
+vec3::vec3() : x(0), y(0), z(0) { }
 
-vec3::vec3(const vec2& v) { x = v.x; y = v.y; z = 0; }
+vec3::vec3(const vec2& v, float z) : x(v.x), y(v.y), z(z) { }
 
-vec3::vec3(float x, float y, float z) { this->x = x; this->y = y; this->z = z; }
+vec3::vec3(float x, float y, float z) : x(x), y(y), z(z) {  }
+
+vec3::vec3(const vec4& v) : x(v.x), y(v.y), z(v.z) { }
 
 #if !(defined(__arm__) || defined(__aarch64__))
 

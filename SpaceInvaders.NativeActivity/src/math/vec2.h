@@ -1,6 +1,9 @@
 #pragma once
 #include "mathcommon.h"
 
+class vec3;
+class vec4;
+
 class vec2 {
 public:
 	float x;
@@ -10,6 +13,8 @@ public:
 	vec2();
 	//vec2(__m128 xmm);
 	vec2(float x, float y);
+	vec2(const vec3& v);
+	vec2(const vec4& v);
 
 	vec2& Add(const vec2& v);
 	vec2& Add(float v);

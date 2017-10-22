@@ -1,10 +1,16 @@
 #include "mathcommon.h"
 #include "vec2.h"
 #include <memory>
+#include "vec3.h"
+#include "vec4.h"
 
+vec2::vec2() : x(0), y(0) { }
 
-vec2::vec2() { x = 0; y = 0; }
-vec2::vec2(float x, float y) { this->x = x; this->y = y; }
+vec2::vec2(float x, float y) : x(x), y(y) {  }
+
+vec2::vec2(const vec3& v) : x(v.x), y(v.y) { }
+
+vec2::vec2(const vec4& v) : x(v.x), y(v.y) { }
 
 #if !(defined(__arm__) || defined(__aarch64__))
 
