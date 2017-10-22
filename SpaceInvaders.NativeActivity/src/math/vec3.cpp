@@ -15,7 +15,7 @@ vec3::vec3(const vec2& v, float z) : x(v.x), y(v.y), z(z) { }
 vec3::vec3(float x, float y, float z) : x(x), y(y), z(z) {  }
 
 vec3::vec3(const vec4& v) : x(v.x), y(v.y), z(v.z) { }
-
+/*
 #if !(defined(__arm__) || defined(__aarch64__))
 
 vec3& vec3::Add(const vec3& v) {
@@ -102,12 +102,25 @@ float vec3::Dot(const vec3& v) const {
 	return tmp[0] + tmp[1] + tmp[2];
 }
 
-#else
+#else*/
+
+vec3& vec3::Add(const vec4& v) {
+	x += v.x;
+	y += v.y;
+	z += v.z;
+	return *this;
+}
 
 vec3& vec3::Add(const vec3& v) {
 	x += v.x;
 	y += v.y;
 	z += v.z;
+	return *this;
+}
+
+vec3& vec3::Add(const vec2& v) {
+	x += v.x;
+	y += v.y;
 	return *this;
 }
 
@@ -118,10 +131,23 @@ vec3& vec3::Add(float v) {
 	return *this;
 }
 
+vec3& vec3::Subtract(const vec4& v) {
+	x -= v.x;
+	y -= v.y;
+	z -= v.z;
+	return *this;
+}
+
 vec3& vec3::Subtract(const vec3& v) {
 	x -= v.x;
 	y -= v.y;
 	z -= v.z;
+	return *this;
+}
+
+vec3& vec3::Subtract(const vec2& v) {
+	x -= v.x;
+	y -= v.y;
 	return *this;
 }
 
@@ -132,10 +158,23 @@ vec3& vec3::Subtract(float v) {
 	return *this;
 }
 
+vec3& vec3::Multiply(const vec4& v) {
+	x *= v.x;
+	y *= v.y;
+	z *= v.z;
+	return *this;
+}
+
 vec3& vec3::Multiply(const vec3& v) {
 	x *= v.x;
 	y *= v.y;
 	z *= v.z;
+	return *this;
+}
+
+vec3& vec3::Multiply(const vec2& v) {
+	x *= v.x;
+	y *= v.y;
 	return *this;
 }
 
@@ -146,10 +185,23 @@ vec3& vec3::Multiply(float v) {
 	return *this;
 }
 
+vec3& vec3::Divide(const vec4& v) {
+	x /= v.x;
+	y /= v.y;
+	z /= v.z;
+	return *this;
+}
+
 vec3& vec3::Divide(const vec3& v) {
 	x /= v.x;
 	y /= v.y;
 	z /= v.z;
+	return *this;
+}
+
+vec3& vec3::Divide(const vec2& v) {
+	x /= v.x;
+	y /= v.y;
 	return *this;
 }
 
@@ -238,7 +290,7 @@ float vec3::Dot(const vec3& v) const {
 */
 
 
-#endif
+//#endif
 
 vec3& vec3::Normalize() {
 	return Multiply(1.0f / LengthSqrt());

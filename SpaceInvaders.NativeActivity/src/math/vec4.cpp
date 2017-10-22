@@ -12,6 +12,7 @@ vec4::vec4(const vec3& v, float w) : x(v.x), y(v.y), z(v.z), w(w) { }
 
 vec4::vec4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) { }
 
+/*
 #if !(defined(__arm__) || defined(__aarch64__))
 
 vec4& vec4::Add(const vec4& v) {
@@ -74,13 +75,26 @@ vec4& vec4::Divide(float v) {
 	return *this;
 }
 
-#else 
+#else */
 
 vec4& vec4::Add(const vec4& v) {
 	x += v.x;
 	y += v.y;
 	z += v.z;
 	w += v.w;
+	return *this;
+}
+
+vec4& vec4::Add(const vec3& v) {
+	x += v.x;
+	y += v.y;
+	z += v.z;
+	return *this;
+}
+
+vec4& vec4::Add(const vec2& v) {
+	x += v.x;
+	y += v.y;
 	return *this;
 }
 
@@ -100,6 +114,19 @@ vec4& vec4::Subtract(const vec4& v) {
 	return *this;
 }
 
+vec4& vec4::Subtract(const vec3& v) {
+	x -= v.x;
+	y -= v.y;
+	z -= v.z;
+	return *this;
+}
+
+vec4& vec4::Subtract(const vec2& v) {
+	x -= v.x;
+	y -= v.y;
+	return *this;
+}
+
 vec4& vec4::Subtract(float v) {
 	x -= v;
 	y -= v;
@@ -113,6 +140,19 @@ vec4& vec4::Multiply(const vec4& v) {
 	y *= v.y;
 	z *= v.z;
 	w += v.w;
+	return *this;
+}
+
+vec4& vec4::Multiply(const vec3& v) {
+	x *= v.x;
+	y *= v.y;
+	z *= v.z;
+	return *this;
+}
+
+vec4& vec4::Multiply(const vec2& v) {
+	x *= v.x;
+	y *= v.y;
 	return *this;
 }
 
@@ -132,6 +172,19 @@ vec4& vec4::Divide(const vec4& v) {
 	return *this;
 }
 
+vec4& vec4::Divide(const vec3& v) {
+	x /= v.x;
+	y /= v.y;
+	z /= v.z;
+	return *this;
+}
+
+vec4& vec4::Divide(const vec2& v) {
+	x /= v.x;
+	y /= v.y;
+	return *this;
+}
+
 vec4& vec4::Divide(float v) {
 	x /= v;
 	y /= v;
@@ -140,7 +193,7 @@ vec4& vec4::Divide(float v) {
 	return *this;
 }
 
-#endif
+//#endif
 
 vec4& vec4::Normalize() {
 	return Multiply(1.0f / LengthSqrt());
