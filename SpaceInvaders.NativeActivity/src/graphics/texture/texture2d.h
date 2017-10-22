@@ -23,7 +23,7 @@ public:
 	Texture2D(ftgl::texture_atlas_t* atlas);
 	Texture2D(const char* const path);
 	Texture2D(const void* const data, unsigned int width, unsigned int height, unsigned int format, unsigned int type);
-	~Texture2D();
+	virtual ~Texture2D();
 
 	void Bind(unsigned int slot = 0) const;
 

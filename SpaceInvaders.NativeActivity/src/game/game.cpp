@@ -5,7 +5,8 @@
 #include <graphics/shader.h>
 #include <graphics/buffer/vertexbuffer.h>
 #include <graphics/buffer/indexbuffer.h>
-#include <graphics/texture2d.h>
+#include <graphics/texture/texture2d.h>
+#include <graphics/texture/framebuffer2d.h>
 #include <android/sensor.h>
 #include <unistd.h>
 #include <math/math.h>
@@ -102,7 +103,10 @@ void game_main() {
 	unsigned long long fps = 0;
 	unsigned long long lastTime = mikrotime();
 	unsigned long long lastTime2 = mikrotime();
-	eglSwapInterval(app->display, 1);
+	eglSwapInterval(app->display, 0);
+
+	Framebuffer2D fbo(2048,2048, GL_RGB, false);
+
 	while (app->status) {
 		ProcessInput();
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -111,9 +115,17 @@ void game_main() {
 
 		float delta = ((float)(now - lastTime)) / (float)1000000;
 		lastTime = now;
-		 
+
 		manager.Update(delta);
+
+		fbo.BindAsRenderTarget();
+		glClear(GL_COLOR_BUFFER_BIT);
+
 		manager.Render();
+
+		Framebuffer2D::Unbind();
+
+		fbo.DisplayFramebuffer();
 
 		eglSwapBuffers(app->display, app->surface);
 

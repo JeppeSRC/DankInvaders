@@ -41,7 +41,7 @@ NativeApp::NativeApp(ANativeActivity* activity) {
 		LOGF("Failed to get pipes!");
 		_exit(1);
 	}
-
+	
 	cmd = process_command;
 	input = process_input;
 	OnInput = nullptr;
@@ -75,6 +75,8 @@ void NativeApp::Start(void*(*startRoutine)(void*)) {
 		pthread_cond_wait(&cond, &mutex);
 	pthread_mutex_unlock(&mutex);
 }
+
+typedef void(*GAY)(unsigned int, unsigned int*);
 
 void InitializeDisplay() {
 	NativeApp* app = NativeApp::app;

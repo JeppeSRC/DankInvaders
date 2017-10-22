@@ -4,7 +4,7 @@
 #include FT_FREETYPE_H
 
 #include <util/string.h>
-#include <graphics/texture2d.h>
+#include <graphics/texture/texture2d.h>
 #include <util/map.h>
 #include <freetype-gl.h>
 #include <math/vec2.h>

@@ -2,7 +2,7 @@
 
 #include <core/app.h>
 #include <math/math.h>
-#include <graphics/texture2d.h>
+#include <graphics/texture/texture2d.h>
 #include <util/string.h>
 #include <graphics/render/renderer.h>
 

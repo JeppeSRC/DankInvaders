@@ -1,7 +1,7 @@
 #pragma once
 
 #include <math/math.h>
-#include <graphics/texture2d.h>
+#include <graphics/texture/texture2d.h>
 
 enum ENTITY_TYPE {
 	ENTITY_TYPE_UNKNOWN,
