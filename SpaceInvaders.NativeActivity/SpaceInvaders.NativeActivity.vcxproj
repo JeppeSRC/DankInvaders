@@ -42,6 +42,8 @@
     <ClCompile Include="src\game\gamemanager.cpp" />
     <ClCompile Include="src\game\menu\mainmenu.cpp" />
     <ClCompile Include="src\game\menu\menu.cpp" />
+    <ClCompile Include="src\graphics\posteffects\gaussianblur.cpp" />
+    <ClCompile Include="src\graphics\posteffects\posteffects.cpp" />
     <ClCompile Include="src\graphics\texture\animatedtexture.cpp" />
     <ClCompile Include="src\graphics\buffer\indexbuffer.cpp" />
     <ClCompile Include="src\graphics\font\font.cpp" />

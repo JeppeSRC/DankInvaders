@@ -3,7 +3,6 @@
 VertexBuffer::VertexBuffer(const void* data, unsigned int size) {
 	ASSERT(size == 0);
 	GL(glGenBuffers(1, &vbo));
-	GL(glGenBuffers(1, &vbo));
 	GL(glBindBuffer(GL_ARRAY_BUFFER, vbo));
 	
 	GL(glBufferData(GL_ARRAY_BUFFER, size, data, data ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW));

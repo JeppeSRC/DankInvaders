@@ -53,6 +53,22 @@ public:
 
 public:
 	static Renderer* CreateRenderer(unsigned int num_sprites);
+
+
+private:
+	static Shader* displayShader;
+	static VertexBuffer* displayVbo;
+	static IndexBuffer* displayIbo;
+
+	struct V {
+		vec3 position;
+		vec2 texCoord;
+	};
+
+	static V vertices[4];
+
+public:
+	static void DisplayTexture(Texture2D* texture);
 };
 
 class Renderer2 : public Renderer {

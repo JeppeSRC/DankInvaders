@@ -15,6 +15,7 @@
 #include <util/utils.h>
 #include <game/gamemanager.h>
 #include <ctime>
+#include <graphics/posteffects/posteffect.h>
 
 int OnGameInput(AInputEvent*);
 void game_main();
@@ -103,9 +104,11 @@ void game_main() {
 	unsigned long long fps = 0;
 	unsigned long long lastTime = mikrotime();
 	unsigned long long lastTime2 = mikrotime();
-	eglSwapInterval(app->display, 0);
+	eglSwapInterval(app->display, 1);
 
-	Framebuffer2D fbo(2048,2048, GL_RGB, false);
+	Framebuffer2D fbo(512, 512, GL_RGB, false);
+	Framebuffer2D fbo2(512, 512, GL_RGB, false);
+	PostEffectBlur blur;
 
 	while (app->status) {
 		ProcessInput();
@@ -125,7 +128,9 @@ void game_main() {
 
 		Framebuffer2D::Unbind();
 
-		fbo.DisplayFramebuffer();
+		blur.Render(&fbo2, &fbo);
+
+		Renderer::DisplayTexture(&fbo2);
 
 		eglSwapBuffers(app->display, app->surface);
 

@@ -4,6 +4,11 @@
 #include <game/gamemanager.h>
 #include <freetype-gl.h>
 
+Shader* Renderer::displayShader = nullptr;
+VertexBuffer* Renderer::displayVbo = nullptr;
+IndexBuffer* Renderer::displayIbo = nullptr;
+Renderer::V Renderer::vertices[4];
+
 Renderer::Renderer(unsigned int num_sprites) {
 	numSprites = num_sprites;
 
@@ -40,6 +45,54 @@ Renderer::Renderer(unsigned int num_sprites) {
 
 	shader->SetMat4("projection", mat4::Orthographic(0, GAME_AREA_WIDTH, 0, GAME_AREA_HEIGHT, -1, 1).GetData());
 	//shader->SetMat4("projection", mat4::Identity().GetData());
+
+	if (!displayShader) {
+		static const char* vertex =
+			"#version 100\n"
+
+			"attribute vec3 position;"
+			"attribute vec2 texCoords;"
+			"varying vec2 texCoord;"
+
+			"void main() {"
+			"texCoord = texCoords;"
+
+			"gl_Position = vec4(position, 1);"
+			"}"
+			"\n";
+
+
+		static const char* fragment =
+			"#version 100\n"
+			"precision mediump float;\n"
+			"\n"
+			"varying vec2 texCoord;\n"
+			"uniform sampler2D sampler;\n"
+			"void main() {\n"
+			"gl_FragColor = texture2D(sampler, texCoord);\n"
+			"}\n"
+			"\n";
+
+		displayShader = new Shader(vertex, fragment, true);
+
+		vertices[0].position = vec3(-1, -1, 0);
+		vertices[0].texCoord = vec2(0, 0);
+
+		vertices[1].position = vec3(1, -1, 0);
+		vertices[1].texCoord = vec2(1, 0);
+
+		vertices[2].position = vec3(1, 1, 0);
+		vertices[2].texCoord = vec2(1, 1);
+
+		vertices[3].position = vec3(-1, 1, 0);
+		vertices[3].texCoord = vec2(0, 1);
+
+		displayVbo = new VertexBuffer(vertices, sizeof(vertices));
+
+		unsigned char indices[]{ 0, 1, 2, 2, 3, 0 };
+
+		displayIbo = new IndexBuffer(indices, 6, GL_UNSIGNED_BYTE);
+	}
 }
 
 Renderer::~Renderer() {
@@ -239,4 +292,22 @@ Renderer* Renderer::CreateRenderer(unsigned int num_sprites) {
 	}
 
 	return nullptr;
+}
+
+void Renderer::DisplayTexture(Texture2D* texture) {
+	displayShader->Bind();
+
+	displayVbo->Bind();
+
+	GL(glEnableVertexAttribArray(0));
+	GL(glEnableVertexAttribArray(1));
+
+	GL(glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(V), 0));
+	GL(glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof(V), (const void*)12));
+
+	displayIbo->Bind();
+
+	texture->Bind();
+
+	GL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0));
 }

@@ -39,6 +39,8 @@
     <ClCompile Include="src\graphics\texture\texture2d.cpp" />
     <ClCompile Include="src\graphics\texture\animatedtexture.cpp" />
     <ClCompile Include="src\graphics\texture\framebuffer2d.cpp" />
+    <ClCompile Include="src\graphics\posteffects\posteffects.cpp" />
+    <ClCompile Include="src\graphics\posteffects\gaussianblur.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\log.h" />
