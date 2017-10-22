@@ -70,11 +70,11 @@ int OnGameInput(AInputEvent* event) {
 		if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_DOWN) {
 			v.x = AMotionEvent_getX(event, 0) * app->xUnitsPerPixel;
 			v.y = AMotionEvent_getY(event, 0) * app->yUnitsPerPixel;;
-			EventDispatcher::OnPress(v.x, v.y);
+			EventDispatcher::OnPress(v);
 		} else if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_MOVE) {
 			v.x = AMotionEvent_getX(event, 0) * app->xUnitsPerPixel;
 			v.y = AMotionEvent_getY(event, 0) * app->yUnitsPerPixel;
-			EventDispatcher::OnMove(v.x, v.y);
+			EventDispatcher::OnMove(v);
 		} else if (AMotionEvent_getAction(event) == AMOTION_EVENT_ACTION_UP) {
 			v.x = -1.0f;
 			v.y = -1.0f;

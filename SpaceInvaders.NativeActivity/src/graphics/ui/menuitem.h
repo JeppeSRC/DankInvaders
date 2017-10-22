@@ -16,13 +16,14 @@ protected:
 
 	String title;
 
-	MenuItem(const vec3& position);
+	MenuItem(const vec3& position, const vec2& size, const String& title);
 public:
 
 	virtual void Render(Renderer* renderer) = 0;
+	virtual void Update(float delta);
 
-	virtual bool OnPress(float x, float y);
-	virtual bool OnMove(float x, float y);
+	virtual bool OnPress(const vec2& pos);
+	virtual bool OnMove(const vec2& pos);
 	virtual bool OnRelease();
 
 	bool IsPointInside(const vec2& point) const;

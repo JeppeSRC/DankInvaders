@@ -5,6 +5,8 @@
 #include <math.h>
 #include <freetype-gl.h>
 
+Font* Font::currentFont = nullptr;
+
 Font::Font(const String& filename, float font_size) {
 	void* data = nullptr;
 	unsigned int size;
@@ -34,5 +36,38 @@ void Font::LoadFont(void* data, size_t size, float font_size) {
 	texture = new Texture2D(atlas);
 
 	this->size = font_size;
+	currentFont = this;
+}
+
+vec2 Font::GetFontMetrics(const String& text) const {
+
+	vec2 metrics;
+
+	for (size_t i = 0; i < text.length; i++) {
+		char c = text[i];
+		
+		if (c == ' ') {
+			metrics.x += size * NativeApp::app->xUnitsPerPixel * 0.25f;
+			continue;
+		}
+
+		ftgl::texture_glyph_t* glyph = texture_font_get_glyph(font, c);
+
+		if (glyph->height> metrics.y) metrics.y = glyph->height;
+
+		metrics.x += glyph->offset_x * NativeApp::app->xUnitsPerPixel;
+
+		if (i != 0) {
+			float kerning = texture_glyph_get_kerning(glyph, text[i-1]);
+			metrics.x += kerning * NativeApp::app->xUnitsPerPixel;
+		}
+
+		metrics.x += glyph->advance_x * NativeApp::app->xUnitsPerPixel;
+			
+	}
+
+	metrics.y *= NativeApp::app->yUnitsPerPixel;
+
+	return metrics;
 }
 

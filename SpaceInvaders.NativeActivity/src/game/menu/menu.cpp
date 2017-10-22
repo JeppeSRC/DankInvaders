@@ -1,11 +1,13 @@
 #include "menu.h"
 
-Menu::Menu(const String& name) : name(name) {
-	renderer = Renderer::CreateRenderer(64);
+Menu::Menu(const String& name) : name(name), pressedItem(nullptr), paused(false) {
+	renderer = Renderer::CreateRenderer(512);
+	EventDispatcher::AddListener(this);
 }
 
 Menu::~Menu() {
 	delete renderer;
+	EventDispatcher::RemoveListener(this);
 }
 
 void Menu::Render() {
@@ -20,39 +22,43 @@ void Menu::Render() {
 	renderer->Present();
 }
 
-void Menu::Update() {
-
-}
-
-bool Menu::OnPress(float x, float y) {
+void Menu::Update(float delta) {
 	size_t size = items.GetSize();
 
 	for (size_t i = 0; i < size; i++) {
-		MenuItem& item = *items[i];
+		items[i]->Update(delta);
+	}
+}
 
-		if (item.IsPointInside(vec2(x, y))) {
-			item.OnPress(x, y);
+bool Menu::OnPress(const vec2& pos) {
+	size_t size = items.GetSize();
+
+	for (size_t i = 0; i < size; i++) {
+		MenuItem* item = items[i];
+
+		if (item->IsPointInside(pos)) {
+			const vec2& size = item->GetSize();
+			vec2 tmp = vec2(item->GetPosition()) - size / 2.0f;
+			item->OnPress(pos - vec2(tmp));
+			pressedItem = item;
+			break;
 		}
 	}
 }
 
-bool Menu::OnMove(float x, float y) {
-	size_t size = items.GetSize();
-
-	for (size_t i = 0; i < size; i++) {
-		MenuItem& item = *items[i];
-
-		if (item.IsPointInside(vec2(x, y))) {
-			vec3 tmp = item.GetPosition() - item.GetSize() / 2.0f;
-			item.OnMove(x - tmp.x, y - tmp.y);
+bool Menu::OnMove(const vec2& pos) {
+	if (pressedItem != nullptr) {
+		if (pressedItem->IsPointInside(pos)) {
+			const vec2& size = pressedItem->GetSize();
+			vec2 tmp = vec2(pressedItem->GetPosition()) - size / 2.0f;
+			pressedItem->OnMove(pos - tmp);
 		}
 	}
 }
 
 bool Menu::OnRelease() {
-	size_t size = items.GetSize();
-
-	for (size_t i = 0; i < size; i++) {
-
+	if (pressedItem) {
+		pressedItem->OnRelease();
+		pressedItem = nullptr;
 	}
 }

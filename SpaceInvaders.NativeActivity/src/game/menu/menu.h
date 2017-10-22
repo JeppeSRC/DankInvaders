@@ -12,6 +12,7 @@ protected:
 	String name;
 
 	List<MenuItem*> items;
+	MenuItem* pressedItem;
 
 	bool paused;
 
@@ -19,11 +20,11 @@ protected:
 public:
 	virtual ~Menu();
 	
-	void Render();
-	void Update();
+	virtual void Render();
+	virtual void Update(float delta);
 
-	bool OnPress(float x, float y) override;
-	bool OnMove(float x, float y) override;
+	bool OnPress(const vec2& pos) override;
+	bool OnMove(const vec2& pos) override;
 	bool OnRelease() override;
 	
 	inline bool IsPaused() const { return paused; }

@@ -40,6 +40,7 @@
     <ClCompile Include="src\game\entity\weapon\weapon_default.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\game\gamemanager.cpp" />
+    <ClCompile Include="src\game\menu\mainmenu.cpp" />
     <ClCompile Include="src\game\menu\menu.cpp" />
     <ClCompile Include="src\graphics\animatedtexture.cpp" />
     <ClCompile Include="src\graphics\buffer\indexbuffer.cpp" />
@@ -51,7 +52,9 @@
     <ClCompile Include="src\graphics\texture2d.cpp" />
     <ClCompile Include="src\graphics\buffer\vertexarray.cpp" />
     <ClCompile Include="src\graphics\buffer\vertexbuffer.cpp" />
+    <ClCompile Include="src\graphics\ui\menubutton.cpp" />
     <ClCompile Include="src\graphics\ui\menuitem.cpp" />
+    <ClCompile Include="src\graphics\ui\menulabel.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\math\mat4.cpp" />
     <ClCompile Include="src\math\vec2.cpp" />
@@ -80,6 +83,7 @@
     <ClInclude Include="src\game\entity\npc\aiship.h" />
     <ClInclude Include="src\game\entity\player.h" />
     <ClInclude Include="src\game\game.h" />
+    <ClInclude Include="src\game\menu\mainmenu.h" />
     <ClInclude Include="src\game\menu\menu.h" />
     <ClInclude Include="src\graphics\animatedtexture.h" />
     <ClInclude Include="src\graphics\buffer\indexbuffer.h" />
@@ -89,7 +93,9 @@
     <ClInclude Include="src\graphics\texture2d.h" />
     <ClInclude Include="src\graphics\buffer\vertexarray.h" />
     <ClInclude Include="src\graphics\buffer\vertexbuffer.h" />
+    <ClInclude Include="src\graphics\ui\menubutton.h" />
     <ClInclude Include="src\graphics\ui\menuitem.h" />
+    <ClInclude Include="src\graphics\ui\menulabel.h" />
     <ClInclude Include="src\math\mat4.h" />
     <ClInclude Include="src\math\math.h" />
     <ClInclude Include="src\math\mathcommon.h" />

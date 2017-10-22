@@ -10,19 +10,19 @@ void EventDispatcher::RemoveListener(EventListener* listener) {
 	listeners.Remove(listener);
 }
 
-void EventDispatcher::OnPress(float x, float y) {
+void EventDispatcher::OnPress(vec2 pos) {
 	size_t size = listeners.GetSize();
 
 	for (size_t i = 0; i < size; i++) {
-		listeners[i]->OnPress(x, y);
+		listeners[i]->OnPress(pos);
 	}
 }
 
-void EventDispatcher::OnMove(float x, float y) {
+void EventDispatcher::OnMove(vec2 pos) {
 	size_t size = listeners.GetSize();
 
 	for (size_t i = 0; i < size; i++) {
-		listeners[i]->OnMove(x, y);
+		listeners[i]->OnMove(pos);
 	}
 }
 

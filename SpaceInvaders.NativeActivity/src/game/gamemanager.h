@@ -5,9 +5,13 @@
 #include <graphics/render/renderer.h>
 #include <game/entity/player.h>
 #include <vector>
+#include <game/menu/menu.h>
 
 class GameManager {
 public:
+	Menu* mainMenu;
+	Menu* gameMenu;
+	Menu* activeMenu;
 	Player* player;
 
 	List<Entity*> entities;
