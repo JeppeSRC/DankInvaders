@@ -199,10 +199,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\inter\$(Platform)\$(Configuration)\</IntDir>
+    <UseMultiToolTask>true</UseMultiToolTask>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\inter\$(Platform)\$(Configuration)\</IntDir>
+    <UseMultiToolTask>true</UseMultiToolTask>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
@@ -215,6 +217,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\inter\$(Platform)\$(Configuration)\</IntDir>
+    <UseMultiToolTask>true</UseMultiToolTask>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
@@ -228,7 +231,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
-      <EnableNeonCodegen>true</EnableNeonCodegen>
+      <EnableNeonCodegen>false</EnableNeonCodegen>
       <FloatABI>softfp</FloatABI>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>-march=armv7-a %(AdditionalOptions) -fpermissive</AdditionalOptions>
@@ -245,11 +248,12 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
-      <EnableNeonCodegen>true</EnableNeonCodegen>
+      <EnableNeonCodegen>false</EnableNeonCodegen>
       <FloatABI>
       </FloatABI>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>-march=armv8-a  %(AdditionalOptions) -fpermissive</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <LibraryDependencies>%(LibraryDependencies);GLESv3;GLESv2;EGL;GLESv1_CM;m;gcc;gcov</LibraryDependencies>
@@ -309,7 +313,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalIncludeDirectories>src;%(AdditionalIncludeDirectories);;$(SolutionDir)Dependencies\FreeType\include;;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++1y</CppLanguageStandard>
-      <EnableNeonCodegen>true</EnableNeonCodegen>
+      <EnableNeonCodegen>false</EnableNeonCodegen>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <AdditionalOptions> -fpermissive</AdditionalOptions>
       <Optimization>MinSize</Optimization>

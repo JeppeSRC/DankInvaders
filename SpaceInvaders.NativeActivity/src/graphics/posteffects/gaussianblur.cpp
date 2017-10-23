@@ -29,26 +29,34 @@ static const char* fragment = "#version 100\n"
 ""
 "void main() {\n"
 ""
-"	vec4 color = vec4(0);\n"
+"	vec4 color = vec4(0, 0, 0, 1);\n"
 "	"
-"   color += texture2D(sampler, texCoord + (vec2(-2, -2) * direction) / res) * 0.06136;\n"
-"   color += texture2D(sampler, texCoord + (vec2(-1, -1) * direction) / res) * 0.24477;\n"
-"   color += texture2D(sampler, texCoord + (vec2( 0,  0) * direction) / res) * 0.38774;\n"
-"   color += texture2D(sampler, texCoord + (vec2( 1,  1) * direction) / res) * 0.24477;\n"
-"   color += texture2D(sampler, texCoord + (vec2( 2,  2) * direction) / res) * 0.06136;\n"
-
-" gl_FragColor = vec4(1, 0, 1, 1);\n"
+"   color.xyz += texture2D(sampler, texCoord + (vec2(-4, -4) * direction) / res).xyz * 0.000229;\n"
+"   color.xyz += texture2D(sampler, texCoord + (vec2(-3, -3) * direction) / res).xyz * 0.005977;\n"
+"   color.xyz += texture2D(sampler, texCoord + (vec2(-2, -2) * direction) / res).xyz * 0.060598;\n"
+"   color.xyz += texture2D(sampler, texCoord + (vec2(-1, -1) * direction) / res).xyz * 0.241732;\n"
+"   color.xyz += texture2D(sampler, texCoord + (vec2( 0,  0) * direction) / res).xyz * 0.382928;\n"
+"   color.xyz += texture2D(sampler, texCoord + (vec2( 1,  1) * direction) / res).xyz * 0.241732;\n"
+"   color.xyz += texture2D(sampler, texCoord + (vec2( 2,  2) * direction) / res).xyz * 0.060598;\n"
+"   color.xyz += texture2D(sampler, texCoord + (vec2( 3,  3) * direction) / res).xyz * 0.005977;\n"
+"   color.xyz += texture2D(sampler, texCoord + (vec2( 4,  4) * direction) / res).xyz * 0.000229;\n"
+" "
+" gl_FragColor = color;\n"
 "}"
 "\n"
 "";
 
 
-PostEffectBlur::PostEffectBlur() : PostEffect(new Shader(vertex, fragment, true)) {
+PostEffectBlur::PostEffectBlur(float amount) : PostEffect(new Shader(vertex, fragment, true)), amount(1.0f - amount) {
+	tmp = new Framebuffer2D(NativeApp::app->surface_width, NativeApp::app->surface_height, GL_RGB, false);
+}
 
+PostEffectBlur::~PostEffectBlur() {
+	delete tmp;
 }
 
 void PostEffectBlur::Render(Framebuffer2D* target, Texture2D* texture) {
-	target->Bind();
+	tmp->BindAsRenderTarget();
 	glClear(GL_COLOR_BUFFER_BIT);
 	texture->Bind();
 
@@ -58,15 +66,24 @@ void PostEffectBlur::Render(Framebuffer2D* target, Texture2D* texture) {
 	GL(glEnableVertexAttribArray(1));
 
 	GL(glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Vertex), 0));
-	GL(glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof(Vertex), (const void*)12));
+	GL(glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof(Vertex), (const void*)8));
 
 	ibo->Bind();
 
 	shader->Bind();
 
-	shader->SetVec2("res", (float)texture->GetWidth(), (float)texture->GetHeight());
+	shader->SetVec2("res", (float)texture->GetWidth() * amount, (float)texture->GetHeight() * amount);
 	shader->SetVec2("direction", 1, 0);
 	
+
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
+
+	target->BindAsRenderTarget();
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	tmp->Bind();
+
+	shader->SetVec2("direction", 0, 1);
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
 

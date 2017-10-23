@@ -91,7 +91,7 @@ Renderer::Renderer(unsigned int num_sprites) {
 
 		unsigned char indices[]{ 0, 1, 2, 2, 3, 0 };
 
-		displayIbo = new IndexBuffer(indices, 6, GL_UNSIGNED_BYTE);
+		displayIbo = new IndexBuffer(indices, 6);
 	}
 }
 
@@ -310,4 +310,6 @@ void Renderer::DisplayTexture(Texture2D* texture) {
 	texture->Bind();
 
 	GL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0));
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }

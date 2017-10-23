@@ -27,10 +27,12 @@ public:
 
 class PostEffectBlur : public PostEffect {
 private:
+	Framebuffer2D* tmp;
 
+	float amount;
 public:
-	PostEffectBlur();
-
+	PostEffectBlur(float amount = 0.0f);
+	~PostEffectBlur();
 
 	void Render(Framebuffer2D* target, Texture2D* texture) override;
 };

@@ -4,20 +4,28 @@
 #include <graphics/buffer/vertexbuffer.h>
 #include <graphics/buffer/indexbuffer.h>
 
-Framebuffer2D::Framebuffer2D(unsigned int width, unsigned int height, unsigned int format, bool depthBuffer) : Texture2D(nullptr, width, height, format, GL_UNSIGNED_BYTE), fbo(0), dbo(0) {
+Framebuffer2D::Framebuffer2D(unsigned int width, unsigned int height, unsigned int format, bool depthBuffer) : Texture2D(nullptr, width, height, format, GL_UNSIGNED_BYTE), fbo(0), dbo(0), clear(0) {
 	GL(glGenFramebuffers(1, &fbo));
 	GL(glBindFramebuffer(GL_FRAMEBUFFER, fbo));
 	
 	GL(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureID, 0));
+
+	clear |= GL_COLOR_BUFFER_BIT;
 
 	if (depthBuffer) {
 		GL(glGenRenderbuffers(1, &dbo));
 		GL(glBindRenderbuffer(GL_RENDERBUFFER, dbo));
 		GL(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height));
 		GL(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, dbo));
+
+		clear |= GL_DEPTH_BUFFER_BIT;
 	}
 
+
+
 	GLenum shit = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+
+	GL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 
 	if (shit != GL_FRAMEBUFFER_COMPLETE) {
 		LOGF("Framebuffer not complete you nigga");

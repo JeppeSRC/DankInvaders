@@ -106,9 +106,9 @@ void game_main() {
 	unsigned long long lastTime2 = mikrotime();
 	eglSwapInterval(app->display, 1);
 
-	Framebuffer2D fbo(512, 512, GL_RGB, false);
-	Framebuffer2D fbo2(512, 512, GL_RGB, false);
-	PostEffectBlur blur;
+	Framebuffer2D fbo(1920, 1080, GL_RGB, false);
+	Framebuffer2D fbo2(1920, 1080, GL_RGB, false);
+	PostEffectBlur blur(0.6f);
 
 	while (app->status) {
 		ProcessInput();
@@ -122,15 +122,17 @@ void game_main() {
 		manager.Update(delta);
 
 		fbo.BindAsRenderTarget();
+		glClearColor(1, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
+		glClearColor(0, 0, 0, 1);
 
 		manager.Render();
 
 		Framebuffer2D::Unbind();
 
-		blur.Render(&fbo2, &fbo);
+	//	blur.Render(&fbo2, &fbo);
 
-		Renderer::DisplayTexture(&fbo2);
+		Renderer::DisplayTexture(&fbo);
 
 		eglSwapBuffers(app->display, app->surface);
 
